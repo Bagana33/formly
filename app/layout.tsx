@@ -6,12 +6,21 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import "./globals.css"
 
-import { Geist, Geist_Mono, Geist as V0_Font_Geist, Geist_Mono as V0_Font_Geist_Mono, Source_Serif_4 as V0_Font_Source_Serif_4 } from 'next/font/google'
+import { Inter, Playfair_Display } from 'next/font/google'
 
 // Initialize fonts
-const _geist = V0_Font_Geist({ subsets: ['latin'], weight: ["100","200","300","400","500","600","700","800","900"] })
-const _geistMono = V0_Font_Geist_Mono({ subsets: ['latin'], weight: ["100","200","300","400","500","600","700","800","900"] })
-const _sourceSerif_4 = V0_Font_Source_Serif_4({ subsets: ['latin'], weight: ["200","300","400","500","600","700","800","900"] })
+const inter = Inter({ 
+  subsets: ['latin'], 
+  weight: ["300","400","500","600"],
+  variable: '--font-inter'
+})
+
+const playfair = Playfair_Display({ 
+  subsets: ['latin'], 
+  weight: ["400","500","600","700"],
+  style: ["normal", "italic"],
+  variable: '--font-playfair'
+})
 
 export const metadata: Metadata = {
   title: {
@@ -52,8 +61,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="mn">
-      <body className="font-sans antialiased">
+    <html lang="mn" className="dark">
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+      </head>
+      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

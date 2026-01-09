@@ -4,55 +4,53 @@ import Link from "next/link"
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
 
-const navLinks = [
-  { href: "/", label: "Нүүр" },
-  { href: "/services", label: "Үйлчилгээ" },
-  { href: "/work", label: "Ажлууд" },
-  { href: "/pricing", label: "Үнэ" },
-  { href: "/process", label: "Процесс" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Холбоо барих" },
-]
-
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="text-xl font-bold text-secondary">
-            Formly
+    <nav className="fixed top-0 w-full z-50 bg-dark/60 backdrop-blur-xl border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded border border-primary flex items-center justify-center text-primary font-serif font-bold italic relative overflow-hidden group shadow-[0_0_15px_rgba(0,255,170,0.4)]">
+              <div className="absolute inset-0 bg-primary/20"></div>
+              F
+            </div>
+            <span className="text-xl font-serif font-medium tracking-wide text-white">Formly</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="hidden md:flex space-x-10 text-sm font-medium text-slate-300">
+            <Link href="/process" className="hover:text-primary transition-colors hover:shadow-[0_0_10px_rgba(0,255,170,0.5)] hover:shadow-primary/50">
+              Process
+            </Link>
+            <Link href="/work" className="hover:text-secondary transition-colors">
+              Websites
+            </Link>
+            <Link href="/faq" className="hover:text-accent transition-colors">
+              Resources
+            </Link>
+          </div>
 
-          <div className="hidden md:block">
+          <div className="flex items-center gap-6">
+            <Link href="/admin" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+              Log in
+            </Link>
             <Link
               href="https://m.me/formly"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-cta-foreground bg-cta rounded-lg hover:bg-cta/90 transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              className="group relative px-6 py-2.5 rounded-full overflow-hidden text-sm font-medium text-white shadow-lg shadow-primary/30 transition-all hover:shadow-primary/60 hover:scale-105"
             >
-              Messenger-ээр бичих
+              <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-100 group-hover:brightness-110 transition-all"></div>
+              <span className="relative z-10 font-bold tracking-wide text-black/80">Start Now</span>
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             type="button"
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground"
+            className="md:hidden p-2 text-slate-300 hover:text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Цэс хаах" : "Цэс нээх"}
           >
@@ -62,31 +60,30 @@ export function Header() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
+          <div className="md:hidden py-4 border-t border-white/5">
             <nav className="flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="px-2 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              <Link href="/process" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Process
+              </Link>
+              <Link href="/work" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-secondary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Websites
+              </Link>
+              <Link href="/faq" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Resources
+              </Link>
               <Link
                 href="https://m.me/formly"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-cta-foreground bg-cta rounded-lg hover:bg-cta/90 transition-colors"
+                className="mt-2 inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-primary rounded-full"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Messenger-ээр бичих
+                Start Now
               </Link>
             </nav>
           </div>
         )}
       </div>
-    </header>
+    </nav>
   )
 }

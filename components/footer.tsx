@@ -1,92 +1,114 @@
 import Link from "next/link"
-import { MessageCircle, Mail, ArrowRight } from "lucide-react"
 
 const quickLinks = [
-  { href: "/services", label: "Үйлчилгээ" },
-  { href: "/work", label: "Ажлууд" },
-  { href: "/pricing", label: "Үнэ" },
-  { href: "/process", label: "Процесс" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Холбоо барих" },
+  { href: "/process", label: "Process" },
+  { href: "/work", label: "Websites" },
+  { href: "/pricing", label: "Navigation" },
+  { href: "/contact", label: "Career" },
+]
+
+const pricingLinks = [
+  { href: "/pricing", label: "Stations" },
+  { href: "/work", label: "Blogs" },
+  { href: "/pricing", label: "Discount" },
+  { href: "/contact", label: "Get demo" },
+]
+
+const aboutLinks = [
+  { href: "/contact", label: "Social" },
+  { href: "/contact", label: "Contact" },
 ]
 
 export function Footer() {
   return (
-    <footer className="bg-primary text-primary-foreground">
-      <div className="border-b border-primary-foreground/10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
-          <p className="text-lg font-medium text-primary-foreground/90">3 хоногт захиалга авчирдаг веб сайт</p>
-          <Link
-            href="https://m.me/formly"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-cta mt-4 inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-primary bg-cta rounded-lg shadow-lg"
-          >
-            <MessageCircle className="h-4 w-4" />
-            Messenger-ээр бичих
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-dark pt-16 pb-8 border-t border-white/5 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand */}
-          <div>
-            <Link href="/" className="text-xl font-bold text-secondary">
-              Formly
-            </Link>
-            <p className="mt-2 text-sm text-primary-foreground/70">
-              Монголын жижиг, дунд бизнесүүдэд зориулсан мэргэжлийн вэб сайт.
+          <div className="col-span-2 lg:col-span-2">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 rounded border border-primary/50 flex items-center justify-center text-primary font-serif font-bold italic shadow-[0_0_10px_rgba(0,255,170,0.3)]">
+                F
+              </div>
+              <span className="text-xl font-serif text-white">Formly</span>
+            </div>
+            <p className="text-sm text-slate-500 max-w-xs mb-8 font-light">
+              Empowering ambitious brands with rapid, high-quality digital solutions.
             </p>
-            {/* Trust micro-copy */}
-            <p className="mt-3 text-xs text-primary-foreground/50">Системтэй UX · Ил тод үнэ</p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-sm font-semibold text-primary-foreground mb-4">Холбоосууд</h3>
-            <nav className="flex flex-col gap-2">
-              {quickLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-sm font-semibold text-primary-foreground mb-4">Холбоо барих</h3>
-            <div className="flex flex-col gap-3">
-              <Link
-                href="https://m.me/formly"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-primary-foreground/70 hover:text-cta transition-colors"
+            <div className="flex gap-4">
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary hover:bg-primary/20 transition-all"
               >
-                <MessageCircle className="h-4 w-4" />
-                Messenger
-              </Link>
-              <Link
-                href="mailto:hello@formly.mn"
-                className="inline-flex items-center gap-2 text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                <i className="fab fa-youtube"></i>
+              </a>
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-secondary hover:bg-secondary/20 transition-all"
               >
-                <Mail className="h-4 w-4" />
-                hello@formly.mn
-              </Link>
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-accent hover:bg-accent/20 transition-all"
+              >
+                <i className="fab fa-instagram"></i>
+              </a>
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary hover:bg-primary/20 transition-all"
+              >
+                <i className="fab fa-telegram"></i>
+              </a>
             </div>
           </div>
+
+          {/* Navigation */}
+          <div>
+            <h4 className="text-white font-serif mb-6">Navigation</h4>
+            <ul className="space-y-3 text-sm font-light text-slate-400">
+              {quickLinks.map((link, index) => (
+                <li key={`nav-${index}-${link.href}`}>
+                  <Link href={link.href} className="hover:text-primary hover:translate-x-1 transition-all inline-block">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Pricing */}
+          <div>
+            <h4 className="text-white font-serif mb-6">Pricing</h4>
+            <ul className="space-y-3 text-sm font-light text-slate-400">
+              {pricingLinks.map((link, index) => (
+                <li key={`pricing-${index}-${link.href}`}>
+                  <Link href={link.href} className="hover:text-secondary hover:translate-x-1 transition-all inline-block">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* About */}
+          <div>
+            <h4 className="text-white font-serif mb-6">About</h4>
+            <ul className="space-y-3 text-sm font-light text-slate-400">
+              {aboutLinks.map((link, index) => (
+                <li key={`about-${index}-${link.href}`}>
+                  <Link href={link.href} className="hover:text-accent hover:translate-x-1 transition-all inline-block">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-primary-foreground/20">
-          <p className="text-center text-sm text-primary-foreground/70">
-            © {new Date().getFullYear()} Formly. Бүх эрх хуулиар хамгаалагдсан.
-          </p>
+        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-600 font-light">
+          <p>Formly Home - Vibrant Aurora v6</p>
+          <p>© 2023 Formly. All rights reserved.</p>
         </div>
       </div>
     </footer>

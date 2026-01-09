@@ -1,477 +1,322 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Section } from "@/components/section"
-import { Badge } from "@/components/badge"
 import { workProjects } from "@/lib/work-data"
-import {
-  GraduationCap,
-  Heart,
-  Wrench,
-  Users,
-  XCircle,
-  CheckCircle,
-  ArrowRight,
-  MessageCircle,
-  Clock,
-  Smartphone,
-  TrendingUp,
-  Check,
-  LayoutDashboard,
-  Wand2,
-  ShieldCheck,
-} from "lucide-react"
-import { HeroGradient } from "@/components/hero-gradient"
+import { ArrowRight, MessageCircle, MessageSquare, Lightbulb, Calendar, Building2, Palette, Rocket, Check, ChevronLeft, ChevronRight } from "lucide-react"
 
-const industries = [
-  { icon: GraduationCap, label: "Сургалтын төв" },
-  { icon: Heart, label: "Эмнэлэг / Гоо сайхан" },
-  { icon: Wrench, label: "Үйлчилгээ" },
-  { icon: Users, label: "Зуучлал" },
-]
+// Helper functions for category colors and labels
+const getCategoryColor = (category: string) => {
+  const colorMap: Record<string, string> = {
+    "Сургалтын төв": "text-[#00f0ff]",
+    "Эмнэлэг / гоо сайхан": "text-[#0aff60]",
+    "Үйлчилгээ": "text-[#ff6b00]",
+    "Зуучлал": "text-[#b026ff]",
+  }
+  return colorMap[category] || "text-white"
+}
 
-const problems = [
-  "Facebook page-д найддаг тул лавлагаа алга болдог",
-  "Үнийн мэдээлэл, санал хүсэлт тарамдсан",
-  "Мобайл дээр уншихад хэцүү, UX эмх цэгцгүй",
-  "Итгэл төрүүлэх хангалттай баримт байхгүй",
-]
-
-const solutions = [
-  "Бүтэц нь хэрэглэгчийг шууд захиалга хүртэл чиглүүлнэ",
-  "Messenger + Form-оор нэг товчоор холбогдоно",
-  "Брэндтэй нийцсэн, итгэл төрүүлэх UI",
-  "Mobile-first, хурдтай кодчилол",
-]
-
-const serviceSystem = [
-  {
-    title: "UX бүтэц",
-    description: "Үйлчилгээний урсгалыг 3 алхмаар ойлгомжтой болгоно",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "Брэндтэй нийцсэн UI",
-    description: "Өнгө, фонт, copy-г танай бизнест тааруулж кодолно",
-    icon: Wand2,
-  },
-  {
-    title: "Messenger + Form холболт",
-    description: "Холбогдох сувгийг нэг товчоор ил тод үзүүлнэ",
-    icon: MessageCircle,
-  },
-  {
-    title: "Хурд + SEO",
-    description: "Mobile-first код, HTTPS, analytics суурилуулалт",
-    icon: ShieldCheck,
-  },
-]
-
-const plans = [
-  {
-    name: "Starter",
-    price: "450,000₮",
-    features: ["1–3 хуудас", "Messenger + Form", "Mobile-first UX", "Дотооддоо засах заавар"],
-    popular: true,
-  },
-  {
-    name: "Growth",
-    price: "750,000₮",
-    features: ["6–8 хуудас", "Work / FAQ / Process", "UX бичиглэл", "14 хоногийн дэмжлэг"],
-  },
-  {
-    name: "Care",
-    price: "120,000₮ / сар",
-    features: ["Сар бүрийн арчилгаа", "Контент шинэчлэл", "Жижиг хөгжүүлэлт", "Сар бүрийн тайлан"],
-  },
-]
-
-const timeline = [
-  { day: "1", title: "Бүтэц + баталгаажуулалт", description: "15 минутын уулзалт, UX flow, wireframe батлах" },
-  { day: "2", title: "Дизайн + холболт", description: "Mobile-first UI, Messenger + Form, контент суулгах" },
-  { day: "3", title: "Тест + нээлт", description: "Олон төхөөрөмжийн тест, домэйн/SSL, зааварчилгаа" },
-]
-
-const assurances = ["Нууц төлбөр байхгүй", "Дараа нь өргөтгөнө", "Албадсан багц байхгүй"]
+const getCategoryLabel = (category: string) => {
+  const labelMap: Record<string, string> = {
+    "Сургалтын төв": "EDUCATION",
+    "Эмнэлэг / гоо сайхан": "HEALTHCARE",
+    "Үйлчилгээ": "SERVICE",
+    "Зуучлал": "RECRUITMENT",
+  }
+  return labelMap[category] || "PROJECT"
+}
 
 export default function HomePage() {
+  const featuredProjects = workProjects.slice(0, 3)
+
   return (
     <>
-      <Section className="pt-16 md:pt-24">
-        <div className="pattern relative overflow-hidden rounded-3xl border border-border/80 bg-card/90 shadow-xl backdrop-blur">
-          <HeroGradient className="pointer-events-none" />
-          <div className="beam" />
-          <div className="glow green left-8 top-6" />
-          <div className="glow orange right-10 bottom-8" />
-          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cta via-secondary to-primary opacity-70" />
-          <div className="relative grid lg:grid-cols-12 gap-10 p-8 md:p-12 items-center">
-            <div className="lg:col-span-7 space-y-5">
-              <p className="eyebrow animate-fade-up">Formly · 3 хоногт · 2025</p>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-balance animate-fade-up">
-                3 хоногт захиалга авчирдаг
-                <br />
-                веб сайт
-              </h1>
-              <p className="text-lg text-muted-foreground text-pretty animate-fade-up delay-100">
-                Монголын үйлчилгээний бизнесүүдэд зориулсан, mobile-first, Messenger-ээр холбогддог веб шийдэл.
-              </p>
+      {/* Grain overlay and Aurora backgrounds */}
+      <div className="grain-overlay"></div>
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="aurora-bg"></div>
+        <div className="aurora-bg-2"></div>
+      </div>
 
-              <div className="flex flex-wrap items-center gap-2 animate-fade-up delay-150">
-                <span className="pill">
-                  <ShieldCheck className="h-4 w-4 text-secondary" />
-                  ЖДБ-д зориулав
-                </span>
-                <span className="pill">
-                  <MessageCircle className="h-4 w-4 text-secondary" />
-                  Messenger + Form
-                </span>
-                <span className="pill">
-                  <Smartphone className="h-4 w-4 text-secondary" />
-                  Mobile-first
-                </span>
+      {/* Hero Section */}
+      <section className="pt-36 pb-24 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl md:text-8xl font-serif font-medium tracking-tight text-white mb-8 leading-tight drop-shadow-lg">
+            Digital Presence <br />
+            <span className="italic text-slate-300 font-light">Redefined by</span>{" "}
+            <span className="text-gradient-aurora-vibrant font-semibold">Aurora.</span>
+          </h1>
+          <p className="mt-8 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
+            Elevate your brand with a high-performance website delivered in 72 hours. Sustainable growth meets{" "}
+            <span className="text-primary font-normal">high-energy design</span>.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* Concierge Support Card */}
+            <div className="glass-card group relative rounded-2xl p-8 flex flex-col items-start text-left overflow-hidden border-t border-white/10">
+              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                <MessageSquare className="w-36 h-36 text-primary drop-shadow-[0_0_10px_rgba(0,255,170,0.5)]" />
               </div>
-
-              <div className="flex flex-col sm:flex-row items-center sm:items-start justify-start gap-4 animate-fade-up delay-200">
+              <div className="z-10 relative">
+                <h3 className="text-2xl font-serif text-white mb-2 group-hover:text-primary transition-colors">
+                  Concierge Support
+                </h3>
+                <p className="text-slate-400 mb-8 font-light text-sm">Direct line to your dedicated design team.</p>
                 <Link
                   href="https://m.me/formly"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-cta w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-cta-foreground bg-cta rounded-lg shadow-lg"
+                  className="flex items-center gap-3 text-white group-hover:text-primary transition-colors text-sm font-bold tracking-wide uppercase"
                 >
-                  <MessageCircle className="h-5 w-5" />
-                  Messenger-ээр бичих
-                  <ArrowRight className="h-4 w-4" />
+                  <span>Start Chat</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
+              </div>
+            </div>
+
+            {/* Strategic Audit Card */}
+            <div className="glass-card group relative rounded-2xl p-8 flex flex-col items-start text-left overflow-hidden border-t border-white/10">
+              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                <Lightbulb className="w-36 h-36 text-secondary drop-shadow-[0_0_10px_rgba(0,98,255,0.5)]" />
+              </div>
+              <div className="z-10 relative">
+                <div className="flex items-center justify-between w-full mb-2">
+                  <h3 className="text-2xl font-serif text-white group-hover:text-secondary transition-colors">
+                    Strategic Audit
+                  </h3>
+                  <span className="flex h-3 w-3 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-secondary shadow-[0_0_10px_rgba(0,98,255,1)]"></span>
+                  </span>
+                </div>
+                <p className="text-slate-400 mb-8 font-light text-sm">Expert consultation for your digital strategy.</p>
                 <Link
                   href="/contact"
-                  className="btn-secondary-outline w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-medium text-foreground border-2 border-border rounded-lg hover:border-secondary hover:text-secondary transition-all"
+                  className="flex items-center gap-3 text-white group-hover:text-secondary transition-colors text-sm font-bold tracking-wide uppercase"
                 >
-                  Үнэгүй зөвлөгөө авах
+                  <span>Book Consultation</span>
+                  <Calendar className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <p className="text-sm text-muted-foreground animate-fade-up delay-250">Жижиг бизнесийг ойлгодог</p>
+      {/* 3-Day Protocol Section */}
+      <section className="py-24 bg-surface/30 border-y border-white/5 backdrop-blur-sm relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-serif text-center mb-20 text-white">The 3-Day Protocol</h2>
+          <div className="grid md:grid-cols-3 gap-12 relative">
+            <div className="hidden md:block absolute top-12 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent z-0 shadow-[0_0_10px_rgba(0,255,170,0.5)]"></div>
+
+            {/* Architecture */}
+            <div className="relative z-10 flex flex-col items-center text-center group">
+              <div className="w-24 h-24 rounded-full bg-surface-light border border-primary/30 shadow-[0_0_20px_rgba(0,255,170,0.15)] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-primary group-hover:shadow-[0_0_30px_rgba(0,255,170,0.4)]">
+                <Building2 className="w-10 h-10 text-primary icon-glow" />
+              </div>
+              <h3 className="text-xl font-serif text-white mb-3">Architecture</h3>
+              <p className="text-sm text-slate-400 max-w-xs font-light leading-relaxed">
+                Defining the sitemap and core structural layout for optimal flow.
+              </p>
             </div>
 
-            <div className="lg:col-span-5 space-y-4 animate-fade-up delay-200 relative">
-              <div className="surface p-6 rounded-2xl shadow-xl">
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-foreground">
-                    <Clock className="h-4 w-4 text-secondary" />
-                    3 хоногт бэлэн
-                  </span>
-                  <Badge variant="secondary" className="text-xs px-3 py-1">
-                    Mobile-first
-                  </Badge>
-                </div>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  Wireframe батлагдсан цагаас хугацаа тоолно. Холболтуудыг нээлтийн өмнө тестлэнэ.
-                </p>
-                <div className="mt-4 grid grid-cols-2 gap-3">
-                  <div className="rounded-lg bg-muted/60 px-3 py-2 text-xs text-foreground flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-secondary" />
-                    Messenger + Form
+            {/* Visual Synthesis */}
+            <div className="relative z-10 flex flex-col items-center text-center group">
+              <div className="w-24 h-24 rounded-full bg-surface-light border border-secondary/30 shadow-[0_0_20px_rgba(0,98,255,0.15)] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-secondary group-hover:shadow-[0_0_30px_rgba(0,98,255,0.4)]">
+                <Palette className="w-10 h-10 text-secondary icon-glow" />
+              </div>
+              <h3 className="text-xl font-serif text-white mb-3">Visual Synthesis</h3>
+              <p className="text-sm text-slate-400 max-w-xs font-light leading-relaxed">
+                Crafting high-fidelity visuals and integrating content seamlessly.
+              </p>
+            </div>
+
+            {/* Deployment */}
+            <div className="relative z-10 flex flex-col items-center text-center group">
+              <div className="w-24 h-24 rounded-full bg-surface-light border border-accent/30 shadow-[0_0_20px_rgba(0,206,209,0.15)] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-accent group-hover:shadow-[0_0_30px_rgba(0,206,209,0.4)]">
+                <Rocket className="w-10 h-10 text-accent icon-glow" />
+              </div>
+              <h3 className="text-xl font-serif text-white mb-3">Deployment</h3>
+              <p className="text-sm text-slate-400 max-w-xs font-light leading-relaxed">
+                Rigorous quality assurance followed by immediate live deployment.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Curated Portfolio Section */}
+      <section className="py-24 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-end mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif text-white">Curated Portfolio</h2>
+            <div className="hidden md:flex gap-2">
+              <button className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all">
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all">
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {featuredProjects.map((project, index) => {
+              const categoryColor = getCategoryColor(project.category)
+              const categoryLabel = getCategoryLabel(project.category)
+
+              return (
+                <Link
+                  key={project.slug}
+                  href={`/work/${project.slug}`}
+                  className="group relative flex flex-col gap-4 cursor-pointer"
+                >
+                  <div className="relative w-full aspect-[16/10] bg-surface-dark rounded-2xl overflow-hidden border border-white/10 hover:shadow-[0_0_25px_rgba(0,255,170,0.4)] hover:border-primary/60 transition-all duration-500">
+                    {/* Image */}
+                    <div className="absolute inset-0">
+                      <Image
+                        src={project.image || "/placeholder.svg"}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    {/* Overlay Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                    {/* Floating Tags */}
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-bold ${categoryColor} uppercase tracking-wider backdrop-blur-md bg-black/30 border border-white/10`}
+                      >
+                        {categoryLabel}
+                      </span>
+                      <span className="px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider backdrop-blur-md bg-black/30 border border-white/10">
+                        UX/UI
+                      </span>
+                    </div>
                   </div>
-                  <div className="rounded-lg bg-muted/60 px-3 py-2 text-xs text-foreground flex items-center gap-2">
-                    <ShieldCheck className="h-4 w-4 text-secondary" />
-                    HTTPS + Analytics
+                  <div className="flex items-end justify-between px-2">
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-primary transition-colors">
+                        {project.title}
+                      </h3>
+                      <p className="text-white/50 text-sm">{project.description}</p>
+                    </div>
+                    <div className="size-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all">
+                      <ArrowRight className="w-5 h-5 text-white rotate-[-45deg] group-hover:rotate-0 transition-transform duration-300" />
+                    </div>
                   </div>
-                </div>
-                <div className="mt-4 flex items-center gap-2 text-sm font-medium text-secondary">
-                  <ArrowRight className="h-4 w-4" />
-                  Тайван, эрсдэлгүй гүйцэтгэл
-                </div>
-              </div>
-
-              <div className="surface p-5 rounded-2xl shadow-xl translate-x-4">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="pill">
-                    <MessageCircle className="h-4 w-4 text-secondary" />
-                    Messenger first
-                  </div>
-                  <span className="text-xs font-semibold text-muted-foreground">24/7</span>
-                </div>
-                <p className="text-sm text-muted-foreground">Нэг товчоор шууд холбогдох урсгал</p>
-                <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-foreground">
-                  <div className="rounded-lg bg-muted/60 px-3 py-2">Контент суулгах</div>
-                  <div className="rounded-lg bg-muted/60 px-3 py-2">Дуудлагагүй зөвлөгөө</div>
-                </div>
-              </div>
-            </div>
+                </Link>
+              )
+            })}
           </div>
         </div>
-      </Section>
+      </section>
 
-      <Section className="bg-muted/50">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">3 хоногт яаж бэлэн болох вэ?</h2>
-          <p className="mt-3 text-muted-foreground">Алхам бүр тодорхой, эрсдэлгүй</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {timeline.map((step, index) => (
-            <div key={step.day} className="relative p-6 rounded-2xl surface text-center">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-secondary text-secondary-foreground font-bold text-lg mb-4 shadow-sm">
-                {step.day}
-              </div>
-              <h3 className="text-lg font-semibold text-foreground">{step.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>
-              {index < timeline.length - 1 && (
-                <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2">
-                  <ArrowRight className="h-6 w-6 text-secondary" />
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        <p className="mt-8 text-center text-sm text-muted-foreground">
-          Wireframe батлагдсан цагаас хугацаа тоолно · Хугацаанд эрсдэлгүй төлөвлөсөн
-        </p>
-      </Section>
-
-      {/* Industries Section */}
-      <Section>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">Хэнд зориулав?</h2>
-          <p className="mt-4 text-muted-foreground">Эдгээр салбарын бизнесүүдэд тохирсон вэб сайт хийнэ</p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {industries.map((industry) => (
-            <div
-              key={industry.label}
-              className="flex flex-col items-center p-6 rounded-xl surface"
-            >
-              <industry.icon className="h-10 w-10 text-secondary mb-3" />
-              <span className="text-sm font-medium text-foreground text-center">{industry.label}</span>
-            </div>
-          ))}
-        </div>
-        <p className="mt-8 text-center text-sm text-muted-foreground">
-          Салбар бүрийн логикт тохируулсан мэдээллийн дараалал
-        </p>
-      </Section>
-
-      {/* Problem vs Solution */}
-      <Section className="bg-muted/50">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">Асуудал ба шийдэл</h2>
-          <p className="mt-3 text-muted-foreground">UX-ийг системчилж, захиалга руу чиглүүлнэ</p>
-        </div>
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-          <div className="p-6 md:p-8 rounded-2xl border border-destructive/15 bg-destructive/5">
-            <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
-              <XCircle className="h-6 w-6 text-destructive" />
-              Асуудал
-            </h3>
-            <ul className="space-y-4">
-              {problems.map((problem) => (
-                <li key={problem} className="flex items-start gap-3 text-muted-foreground">
-                  <span className="mt-1.5 h-2 w-2 rounded-full bg-destructive shrink-0" />
-                  {problem}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="p-6 md:p-8 rounded-2xl surface">
-            <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
-              <CheckCircle className="h-6 w-6 text-secondary" />
-              Formly шийдэл
-            </h3>
-            <ul className="space-y-4">
-              {solutions.map((solution) => (
-                <li key={solution} className="flex items-start gap-3 text-muted-foreground">
-                  <span className="mt-1.5 h-2 w-2 rounded-full bg-secondary shrink-0" />
-                  {solution}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </Section>
-
-      {/* Services Overview */}
-      <Section>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">Formly систем</h2>
-          <p className="mt-4 text-muted-foreground">Бэлэн загвар ашиглахгүй, захиалга руу чиглэсэн UX-ийг системчилнэ</p>
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {serviceSystem.map((service) => (
-            <div
-              key={service.title}
-              className="p-6 rounded-xl surface flex flex-col gap-3 items-start"
-            >
-              <service.icon className="h-6 w-6 text-secondary" />
-              <h3 className="text-lg font-semibold text-foreground">{service.title}</h3>
-              <p className="text-muted-foreground text-sm">{service.description}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-8 text-center">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 text-secondary hover:text-secondary/80 font-medium transition-colors group"
-          >
-            Дэлгэрэнгүй үзэх
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-      </Section>
-
-      {/* Work Preview */}
-      <Section className="bg-muted/50 pattern">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">Хийсэн ажил / Demo</h2>
-          <p className="mt-4 text-muted-foreground">Demo жишээ — танай бизнест яг ийм бүтэц хийгдэнэ</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {workProjects.slice(0, 3).map((project) => (
-            <Link
-              key={project.slug}
-              href={`/work/${project.slug}`}
-              className="group block overflow-hidden rounded-xl border border-border bg-card hover:border-secondary/50 transition-all hover:shadow-lg"
-            >
-              <div className="aspect-video relative overflow-hidden bg-muted">
-                <Image
-                  src={project.image || "/placeholder.svg"}
-                  alt={project.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-primary/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-primary-foreground p-4">
-                  <div className="space-y-2 text-sm">
-                    <p className="flex items-center gap-2">
-                      <Clock className="h-4 w-4" />3 хоногт
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <MessageCircle className="h-4 w-4" />
-                      Form + Messenger
-                    </p>
-                  </div>
-                  <span className="mt-4 inline-flex items-center gap-1 px-4 py-2 bg-cta text-cta-foreground rounded-lg font-medium text-sm">
-                    Ийм сайт хийлгэх
-                    <ArrowRight className="h-4 w-4" />
-                  </span>
-                </div>
-              </div>
-              <div className="p-4">
-                <Badge variant="secondary" className="mb-2">
-                  {project.category}
-                </Badge>
-                <h3 className="font-semibold text-foreground group-hover:text-secondary transition-colors">
-                  {project.title}
-                </h3>
-                <p className="mt-1 text-sm text-muted-foreground">{project.description}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-        <div className="mt-8 text-center">
-          <Link
-            href="/work"
-            className="inline-flex items-center gap-2 text-secondary hover:text-secondary/80 font-medium transition-colors group"
-          >
-            Бүх ажлуудыг үзэх
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-      </Section>
-
-      <Section className="pattern">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">Үнэ</h2>
-          <p className="mt-4 text-muted-foreground">Үнэ 450,000₮-с эхэлнэ · Сонголтод дарамт үгүй</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`relative p-6 rounded-xl ${
-                plan.popular ? "border-cta ring-2 ring-cta/20 surface" : "surface"
-              }`}
-            >
-              {plan.popular && (
-                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-cta text-cta-foreground">
-                  Хамгийн их сонгогддог
-                </Badge>
-              )}
-              <h3 className="text-xl font-semibold text-foreground">{plan.name}</h3>
-              <p className="mt-2 text-3xl font-bold text-cta">{plan.price}</p>
-              <ul className="mt-6 space-y-3">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-secondary shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-muted-foreground">
-          {assurances.map((item) => (
-            <span key={item} className="flex items-center gap-1.5">
-              <Check className="h-4 w-4 text-secondary" />
-              {item}
-            </span>
-          ))}
-        </div>
-        <div className="mt-6 text-center">
-          <Link
-            href="/pricing"
-            className="inline-flex items-center gap-2 text-secondary hover:text-secondary/80 font-medium transition-colors group"
-          >
-            Дэлгэрэнгүй харах
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-      </Section>
-
-      {/* Trust Band */}
-      <Section className="bg-muted/50 py-12">
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Clock className="h-5 w-5 text-secondary" />
-            <span className="text-sm font-medium">3 хоногт бэлэн</span>
-          </div>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Smartphone className="h-5 w-5 text-secondary" />
-            <span className="text-sm font-medium">Mobile-first</span>
-          </div>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <TrendingUp className="h-5 w-5 text-secondary" />
-            <span className="text-sm font-medium">Дараа нь өргөтгөнө</span>
-          </div>
-        </div>
-      </Section>
-
-      {/* Final CTA */}
-      <Section className="bg-primary text-primary-foreground">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold">Эндээс эхэлнэ</h2>
-          <p className="mt-4 text-primary-foreground/80 text-pretty">
-            Өнөөдөр эхлүүлээд, 3 хоногийн дараа мэргэжлийн вэб сайттай болоорой. Нэг удаа хийгээд орхихгүй — арчилгаа,
-            өсөлтөд хамт байна.
+      {/* Membership/Pricing Section */}
+      <section className="py-24 bg-surface/30 border-t border-white/5 relative overflow-hidden z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h2 className="text-3xl md:text-4xl font-serif text-center mb-6 text-white">Membership</h2>
+          <p className="text-center text-slate-400 font-light mb-16 max-w-lg mx-auto">
+            Transparent pricing for sustainable digital growth. Pause or cancel anytime.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="https://m.me/formly"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-cta w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-primary bg-cta rounded-lg shadow-lg"
-            >
-              <MessageCircle className="h-5 w-5" />
-              Messenger-ээр бичих
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/contact"
-              className="btn-secondary-outline w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-medium text-primary-foreground border-2 border-primary-foreground/30 rounded-lg hover:bg-primary-foreground/10 transition-all"
-            >
-              Үнэгүй зөвлөгөө авах
-            </Link>
+
+          <div className="grid md:grid-cols-3 gap-8 items-start">
+            {/* Starter Plan */}
+            <div className="glass-card neon-border-blue rounded-xl p-8 flex flex-col h-full bg-surface-light/50">
+              <h3 className="text-lg font-serif italic text-secondary mb-4">Starter</h3>
+              <div className="flex items-baseline gap-1 mb-8">
+                <span className="text-3xl font-bold text-white">450k</span>
+                <span className="text-sm text-slate-500">₮</span>
+              </div>
+              <ul className="space-y-4 mb-8 text-sm text-slate-400 font-light flex-1">
+                <li className="flex items-center gap-3">
+                  <Check className="w-4 h-4 text-secondary" />
+                  Single Landing Page
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-4 h-4 text-secondary" />
+                  Mobile Responsive
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-4 h-4 text-secondary" />
+                  1 Month Support
+                </li>
+              </ul>
+              <button className="w-full py-3 rounded border border-secondary/50 text-slate-200 text-sm tracking-wide hover:bg-secondary hover:text-white transition-all shadow-[0_0_10px_rgba(0,98,255,0.1)] hover:shadow-[0_0_15px_rgba(0,98,255,0.5)]">
+                Select Plan
+              </button>
+            </div>
+
+            {/* Growth Plan - Popular */}
+            <div className="glass-card neon-border rounded-xl p-8 flex flex-col relative overflow-hidden bg-surface-light/80 transform md:-translate-y-4">
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary to-secondary"></div>
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-lg font-serif italic text-primary">Growth</h3>
+                <span className="text-[10px] font-bold tracking-wider uppercase bg-primary text-black px-2 py-1 rounded shadow-[0_0_10px_rgba(0,255,170,0.5)]">
+                  Popular
+                </span>
+              </div>
+              <div className="flex items-baseline gap-1 mb-8">
+                <span className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary filter drop-shadow-[0_0_5px_rgba(0,255,170,0.4)]">
+                  750k
+                </span>
+                <span className="text-sm text-slate-500">₮</span>
+              </div>
+              <ul className="space-y-4 mb-8 text-sm text-slate-300 font-light flex-1">
+                <li className="flex items-center gap-3">
+                  <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
+                  Up to 5 Pages
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
+                  SEO Optimization
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
+                  Messenger Bot Integration
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
+                  3 Months Premium Support
+                </li>
+              </ul>
+              <Link
+                href="/pricing"
+                className="w-full py-3 rounded bg-gradient-to-r from-primary to-secondary text-black font-bold text-sm tracking-wide shadow-lg shadow-primary/30 hover:shadow-primary/60 transition-all hover:-translate-y-1 text-center"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            {/* Maintenance Plan */}
+            <div className="glass-card neon-border-blue rounded-xl p-8 flex flex-col h-full bg-surface-light/50">
+              <h3 className="text-lg font-serif italic text-accent mb-4">Maintenance</h3>
+              <div className="flex items-baseline gap-1 mb-8">
+                <span className="text-3xl font-bold text-white">120k</span>
+                <span className="text-sm text-slate-500">₮ / mo</span>
+              </div>
+              <ul className="space-y-4 mb-8 text-sm text-slate-400 font-light flex-1">
+                <li className="flex items-center gap-3">
+                  <Check className="w-4 h-4 text-accent" />
+                  Monthly Updates
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-4 h-4 text-accent" />
+                  Content Changes
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-4 h-4 text-accent" />
+                  Server Maintenance
+                </li>
+              </ul>
+              <button className="w-full py-3 rounded border border-accent/50 text-slate-200 text-sm tracking-wide hover:bg-accent hover:text-black transition-all shadow-[0_0_10px_rgba(0,206,209,0.1)] hover:shadow-[0_0_15px_rgba(0,206,209,0.5)]">
+                Select Plan
+              </button>
+            </div>
           </div>
         </div>
-      </Section>
+      </section>
     </>
   )
 }
