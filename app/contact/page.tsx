@@ -39,7 +39,7 @@ export default function ContactPage() {
             <div className="mt-6 p-4 bg-muted/50 rounded-lg text-sm text-muted-foreground">
               <p>Илгээсний дараа шууд холбогдоно</p>
               <p>Заавал утсаар ярих албагүй</p>
-              <p>Дарамтлахгүй, зөвлөгөө өгч чиглүүлнэ</p>
+              <p>Зөвлөгөө өгч чиглүүлнэ</p>
             </div>
 
             <div className="mt-8">
@@ -97,7 +97,7 @@ export default function ContactPage() {
         <div className="max-w-xl mx-auto">
           <h2 className="text-2xl font-bold text-foreground text-center mb-2">Эсвэл форм бөглөх</h2>
           <p className="text-center text-sm text-muted-foreground mb-8">
-            Заавал утсаар ярих албагүй · Илгээсний дараа шууд холбогдоно · Дарамтлахгүй
+            Заавал утсаар ярих албагүй · Илгээсний дараа шууд холбогдоно
           </p>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
