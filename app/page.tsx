@@ -1,8 +1,11 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import { Section } from "@/components/section"
 import { workProjects } from "@/lib/work-data"
 import { ArrowRight, MessageCircle, MessageSquare, Lightbulb, Calendar, Building2, Palette, Rocket, Check, ChevronLeft, ChevronRight } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
 
 // Helper functions for category colors and labels
 const getCategoryColor = (category: string) => {
@@ -26,7 +29,58 @@ const getCategoryLabel = (category: string) => {
 }
 
 export default function HomePage() {
-  const featuredProjects = workProjects.slice(0, 3)
+  const allProjects = workProjects
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [isPaused, setIsPaused] = useState(false)
+  const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  const scrollProjects = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current
+      const scrollAmount = 400 // Scroll amount in pixels
+      const scrollDirection = direction === 'left' ? -scrollAmount : scrollAmount
+      container.scrollBy({
+        left: scrollDirection,
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    if (autoScrollIntervalRef.current) {
+      clearInterval(autoScrollIntervalRef.current)
+    }
+
+    if (!isPaused && scrollContainerRef.current) {
+      autoScrollIntervalRef.current = setInterval(() => {
+        if (scrollContainerRef.current) {
+          const container = scrollContainerRef.current
+          const maxScroll = container.scrollWidth - container.clientWidth
+          
+          // If reached the end, scroll back to the beginning
+          if (container.scrollLeft >= maxScroll - 10) {
+            container.scrollTo({
+              left: 0,
+              behavior: 'smooth'
+            })
+          } else {
+            const scrollAmount = 400
+            container.scrollBy({
+              left: scrollAmount,
+              behavior: 'smooth'
+            })
+          }
+        }
+      }, 3000) // Scroll every 3 seconds
+    }
+
+    return () => {
+      if (autoScrollIntervalRef.current) {
+        clearInterval(autoScrollIntervalRef.current)
+      }
+    }
+  }, [isPaused])
 
   return (
     <>
@@ -104,43 +158,156 @@ export default function HomePage() {
 
       {/* 3-Day Protocol Section */}
       <section className="py-24 bg-surface/30 border-y border-white/5 backdrop-blur-sm relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-serif text-center mb-20 text-white">3 Хоногийн Протокол</h2>
-          <div className="grid md:grid-cols-3 gap-12 relative">
-            <div className="hidden md:block absolute top-12 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent z-0 shadow-[0_0_10px_rgba(0,255,170,0.5)]"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Header Section */}
+          <div className="text-center mb-24">
+            <span className="inline-block py-1 px-4 rounded-full bg-[#10b981]/10 text-[#10b981] font-bold text-sm tracking-widest uppercase mb-4 border border-[#10b981]/20">
+              Process
+            </span>
+            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#10b981] via-white to-blue-400">
+              3 Хоногийн Протокол
+            </h2>
+            <p className="max-w-2xl mx-auto text-lg text-slate-400 font-medium">
+              Бид таны төслийг ердөө 72 цагийн дотор санаанаас бодит бүтээл болгон хувиргана. Шинэ үеийн хурд, чанарын төгс хослол.
+            </p>
+          </div>
 
-            {/* Architecture */}
-            <div className="relative z-10 flex flex-col items-center text-center group">
-              <div className="w-24 h-24 rounded-full bg-surface-light border border-primary/30 shadow-[0_0_20px_rgba(0,255,170,0.15)] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-primary group-hover:shadow-[0_0_30px_rgba(0,255,170,0.4)]">
-                <Building2 className="w-10 h-10 text-primary icon-glow" />
+          {/* Neon Path - Connecting Line (Desktop Only) */}
+          <div 
+            className="hidden lg:block absolute top-1/2 left-[10%] right-[10%] h-[2px] z-0 -translate-y-1/2 max-w-6xl mx-auto"
+            style={{ 
+              background: 'linear-gradient(90deg, transparent, #10b981, #3b82f6, transparent)',
+              boxShadow: '0 0 20px rgba(16,185,129,0.5), 0 0 40px rgba(59,130,246,0.3)'
+            }}
+          ></div>
+
+          {/* Process Steps Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+            {/* Day 01 - Strategy */}
+            <div className="flex flex-col items-center">
+              {/* Icon Container */}
+              <div
+                className="icon-container glass-card icon-glow-emerald floating relative w-[100px] h-[100px] flex items-center justify-center rounded-3xl mb-8 transition-all duration-400 hover:-translate-y-2"
+                style={{ 
+                  animationDelay: "0s",
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
+                  boxShadow: 'inset 0 0 20px rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                }}
+              >
+                <Building2 className="text-5xl text-[#10b981]" />
               </div>
-              <h3 className="text-xl font-serif text-white mb-3">Бүтэц</h3>
-              <p className="text-sm text-slate-400 max-w-xs font-light leading-relaxed">
-                Сайтын газрын зураг болон гол бүтцийг зөв урсгалд зориулж тодорхойлох.
-              </p>
+
+              {/* Glass Card */}
+              <div 
+                className="glass-card p-8 rounded-[2.5rem] text-center w-full transition-all duration-400"
+                style={{
+                  background: 'rgba(15, 23, 42, 0.3)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                }}
+              >
+                <h3 className="text-2xl font-bold mb-4 text-white">Бүтэц</h3>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  Сайтын газрын зураг болон гол бүтцийг зөв урсгалд зориулж тодорхойлох. Хэрэглэгчийн замыг хамгийн оновчтойгоор төлөвлөнө.
+                </p>
+                <div className="flex items-center justify-center space-x-2 text-[#10b981] font-bold text-sm">
+                  <span>ӨДӨР 01</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#10b981]"></div>
+                  <span>STRATEGY</span>
+                </div>
+              </div>
             </div>
 
-            {/* Visual Synthesis */}
-            <div className="relative z-10 flex flex-col items-center text-center group">
-              <div className="w-24 h-24 rounded-full bg-surface-light border border-secondary/30 shadow-[0_0_20px_rgba(0,98,255,0.15)] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-secondary group-hover:shadow-[0_0_30px_rgba(0,98,255,0.4)]">
-                <Palette className="w-10 h-10 text-secondary icon-glow" />
+            {/* Day 02 - Design */}
+            <div className="flex flex-col items-center">
+              {/* Icon Container */}
+              <div
+                className="icon-container glass-card icon-glow-azure floating relative w-[100px] h-[100px] flex items-center justify-center rounded-3xl mb-8 transition-all duration-400 hover:-translate-y-2"
+                style={{ 
+                  animationDelay: "0.5s",
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
+                  boxShadow: 'inset 0 0 20px rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                }}
+              >
+                <Palette className="text-5xl text-blue-400" />
               </div>
-              <h3 className="text-xl font-serif text-white mb-3">Харагдах Бүтэц</h3>
-              <p className="text-sm text-slate-400 max-w-xs font-light leading-relaxed">
-                Өндөр чанартай дүрслэл хийж, контентыг саадгүй нэгтгэх.
-              </p>
+
+              {/* Glass Card */}
+              <div 
+                className="glass-card p-8 rounded-[2.5rem] text-center w-full transition-all duration-400"
+                style={{
+                  background: 'rgba(15, 23, 42, 0.3)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                }}
+              >
+                <h3 className="text-2xl font-bold mb-4 text-white">Харагдах Бүтэц</h3>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  Өндөр чанартай дүрслэл хийж, контентыг саадгүй нэгтгэх. Таны брэндийн үнэ цэнийг илтгэх орчин үеийн дизайн шийдлүүд.
+                </p>
+                <div className="flex items-center justify-center space-x-2 text-blue-400 font-bold text-sm">
+                  <span>ӨДӨР 02</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                  <span>DESIGN</span>
+                </div>
+              </div>
             </div>
 
-            {/* Deployment */}
-            <div className="relative z-10 flex flex-col items-center text-center group">
-              <div className="w-24 h-24 rounded-full bg-surface-light border border-accent/30 shadow-[0_0_20px_rgba(0,206,209,0.15)] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-accent group-hover:shadow-[0_0_30px_rgba(0,206,209,0.4)]">
-                <Rocket className="w-10 h-10 text-accent icon-glow" />
+            {/* Day 03 - Deploy */}
+            <div className="flex flex-col items-center">
+              {/* Icon Container */}
+              <div
+                className="icon-container glass-card icon-glow-emerald floating relative w-[100px] h-[100px] flex items-center justify-center rounded-3xl mb-8 transition-all duration-400 hover:-translate-y-2"
+                style={{ 
+                  animationDelay: "1s",
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
+                  boxShadow: 'inset 0 0 20px rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                }}
+              >
+                <Rocket className="text-5xl text-[#10b981]" />
               </div>
-              <h3 className="text-xl font-serif text-white mb-3">Нээлт</h3>
-              <p className="text-sm text-slate-400 max-w-xs font-light leading-relaxed">
-                Нарийвчилсан чанарын баталгаажуулалт, дараа нь шууд амьд нээлт.
-              </p>
+
+              {/* Glass Card */}
+              <div 
+                className="glass-card p-8 rounded-[2.5rem] text-center w-full transition-all duration-400"
+                style={{
+                  background: 'rgba(15, 23, 42, 0.3)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                }}
+              >
+                <h3 className="text-2xl font-bold mb-4 text-white">Нээлт</h3>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  Нарийвчилсан чанарын баталгаажуулалт, дараа нь шууд амьд нээлт. Техникийн бүрэн гүйцэтгэлийг ханган зах зээлд нэвтрүүлнэ.
+                </p>
+                <div className="flex items-center justify-center space-x-2 text-[#10b981] font-bold text-sm">
+                  <span>ӨДӨР 03</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#10b981]"></div>
+                  <span>DEPLOY</span>
+                </div>
+              </div>
             </div>
+          </div>
+
+          {/* CTA Button */}
+          <div className="mt-24 text-center relative z-10">
+            <Link
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-10 py-5 bg-gradient-to-r from-[#10b981] to-blue-600 rounded-full font-bold text-lg text-white hover:scale-105 transition-all shadow-xl shadow-[#10b981]/20 active:scale-95"
+            >
+              Төсөл эхлүүлэх
+            </Link>
           </div>
         </div>
       </section>
@@ -150,18 +317,37 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-end mb-16">
             <h2 className="text-3xl md:text-4xl font-serif text-white">Сонгосон Портфолио</h2>
-            <div className="hidden md:flex gap-2">
-              <button className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all">
+            <div className="flex gap-2">
+              <button 
+                onClick={() => scrollProjects('left')}
+                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all active:scale-95"
+                aria-label="Зүүн тийш гүйлгэх"
+              >
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <button className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all">
+              <button 
+                onClick={() => scrollProjects('right')}
+                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all active:scale-95"
+                aria-label="Баруун тийш гүйлгэх"
+              >
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {featuredProjects.map((project, index) => {
+          {/* Scrollable Container */}
+          <div 
+            ref={scrollContainerRef}
+            className="flex gap-6 md:gap-8 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory scroll-smooth"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={() => setIsPaused(true)}
+            onTouchEnd={() => {
+              // Resume after a delay when touch ends
+              setTimeout(() => setIsPaused(false), 3000)
+            }}
+          >
+            {allProjects.map((project, index) => {
               const categoryColor = getCategoryColor(project.category)
               const categoryLabel = getCategoryLabel(project.category)
 
@@ -169,9 +355,9 @@ export default function HomePage() {
                 <Link
                   key={project.slug}
                   href={`/work/${project.slug}`}
-                  className="group relative flex flex-col gap-4 cursor-pointer"
+                  className="group relative flex flex-col gap-4 cursor-pointer min-w-[300px] sm:min-w-[350px] md:min-w-[400px] snap-start shrink-0"
                 >
-                  <div className="relative w-full aspect-[16/10] bg-surface-dark rounded-2xl overflow-hidden border border-white/10 hover:shadow-[0_0_25px_rgba(0,255,170,0.4)] hover:border-primary/60 transition-all duration-500">
+                  <div className="relative w-full aspect-[16/10] bg-[#161b26] rounded-2xl overflow-hidden border border-white/10 hover:shadow-[0_0_25px_rgba(0,255,170,0.4)] hover:border-primary/60 transition-all duration-500">
                     {/* Image */}
                     <div className="absolute inset-0">
                       <Image
@@ -213,106 +399,152 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Membership/Pricing Section */}
+      {/* Flexible Plans & Client Chatter Section */}
       <section className="py-24 bg-surface/30 border-t border-white/5 relative overflow-hidden z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <h2 className="text-3xl md:text-4xl font-serif text-center mb-6 text-white">Гишүүнчлэл</h2>
-          <p className="text-center text-slate-400 font-light mb-16 max-w-lg mx-auto">
-            Тогтвортой дижитал өсөлтөд зориулсан ил тод үнэ. Хүссэн үедээ зогсоож, цуцлах боломжтой.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-8 items-start">
-            {/* Starter Plan */}
-            <div className="glass-card neon-border-blue rounded-xl p-8 flex flex-col h-full bg-surface-light/50">
-              <h3 className="text-lg font-serif italic text-secondary mb-4">Эхлэл</h3>
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-3xl font-bold text-white">450к</span>
-                <span className="text-sm text-slate-500">₮</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Flexible Plans - Left Side (7 columns) */}
+            <div className="lg:col-span-7 glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden border-[3px] border-[#161b26]/50 bg-[#161b26]/80">
+              {/* Background Decoration */}
+              <div className="absolute top-0 right-0 p-32 bg-primary/20 blur-[100px] rounded-full pointer-events-none"></div>
+              
+              {/* Header */}
+              <div className="mb-10 relative z-10">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Уян хатан үйлчилгээний багцууд</h2>
+                <p className="text-gray-400 text-sm md:text-base">Таны бизнесийн цар хүрээ, зорилгод тохирсон дижитал шийдлүүд.</p>
               </div>
-              <ul className="space-y-4 mb-8 text-sm text-slate-400 font-light flex-1">
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-secondary" />
-                  Нэг буух хуудас
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-secondary" />
-                  Мобайл дэмжлэг
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-secondary" />
-                  1 сарын дэмжлэг
-                </li>
-              </ul>
-              <button className="w-full py-3 rounded border border-secondary/50 text-slate-200 text-sm tracking-wide hover:bg-secondary hover:text-white transition-all shadow-[0_0_10px_rgba(0,98,255,0.1)] hover:shadow-[0_0_15px_rgba(0,98,255,0.5)]">
-                Багц сонгох
-              </button>
+
+              {/* Plans Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
+                {/* Багц 1 - Эхлэл */}
+                <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-secondary transition-colors cursor-pointer relative overflow-hidden">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="px-3 py-1 rounded bg-white/10 text-xs font-bold uppercase text-white">Эхлэл</span>
+                    <span className="material-symbols-outlined text-white group-hover:text-secondary transition-colors text-xl">rocket_launch</span>
+                  </div>
+                  <p className="text-4xl font-bold mb-1 text-white">
+                    450,000 ₮
+                  </p>
+                  <p className="text-sm text-gray-400 mb-4">
+                    нэг удаагийн
+                  </p>
+                  <div className="mb-6">
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Тохиромжтой:</p>
+                    <p className="text-sm text-gray-400 leading-relaxed mb-4">
+                      Жижиг бизнес, гарааны төсөл, хувийн үйлчилгээ
+                    </p>
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Агуулга:</p>
+                  </div>
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-start gap-3 text-sm text-gray-300">
+                      <span className="material-symbols-outlined text-[#10b981] text-base leading-none mt-0.5 shrink-0">check</span>
+                      <span>Бүрэн вэб хуудас (үндсэн бүтэц)</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300">
+                      <span className="material-symbols-outlined text-[#10b981] text-base leading-none mt-0.5 shrink-0">check</span>
+                      <span>Суурь SEO тохиргоо</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300">
+                      <span className="material-symbols-outlined text-[#10b981] text-base leading-none mt-0.5 shrink-0">check</span>
+                      <span>3 үндсэн засвар, сайжруулалт</span>
+                    </li>
+                  </ul>
+                  <button className="w-full py-3 rounded-lg border border-white/20 text-sm font-bold text-white hover:bg-white hover:text-black transition-colors">
+                    Багц сонгох
+                  </button>
+                </div>
+
+                {/* Багц 2 - Байгууллага */}
+                <div className="rounded-2xl border-2 border-secondary bg-secondary/10 p-6 relative overflow-hidden cursor-pointer group hover:bg-secondary/15 transition-all">
+                  {/* Pulse Animation */}
+                  <div className="absolute top-3 right-3">
+                    <span className="flex h-3 w-3 relative">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
+                    </span>
+                  </div>
+                  
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="px-3 py-1 rounded bg-secondary text-white text-xs font-bold uppercase">Байгууллага</span>
+                  </div>
+                  <p className="text-4xl font-bold mb-1 text-white">
+                    750,000 ₮
+                  </p>
+                  <p className="text-sm text-gray-400 mb-4">
+                    -өөс эхэлнэ
+                  </p>
+                  <div className="mb-6">
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Тохиромжтой:</p>
+                    <p className="text-sm text-gray-400 leading-relaxed mb-4">
+                      Өсөлтөд чиглэсэн компани, байгууллага
+                    </p>
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Агуулга:</p>
+                  </div>
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-start gap-3 text-sm text-white">
+                      <span className="material-symbols-outlined text-secondary text-base leading-none mt-0.5 shrink-0">check</span>
+                      <span>Бүрэн хэмжээний вэб апп / платформ</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-sm text-white">
+                      <span className="material-symbols-outlined text-secondary text-base leading-none mt-0.5 shrink-0">check</span>
+                      <span>Дэвшилтэт брэнд стратеги</span>
+                    </li>
+                    <li className="flex items-start gap-3 text-sm text-white">
+                      <span className="material-symbols-outlined text-secondary text-base leading-none mt-0.5 shrink-0">check</span>
+                      <span>Хязгааргүй дэмжлэг, зөвлөмж</span>
+                    </li>
+                  </ul>
+                  <Link
+                    href="https://m.me/formly"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 rounded-lg bg-secondary text-white text-sm font-bold shadow-[0_0_20px_-5px_rgba(0,98,255,0.3)] hover:bg-blue-700 transition-colors text-center inline-block"
+                  >
+                    Ярилцлага эхлүүлэх
+                  </Link>
+                </div>
+              </div>
             </div>
 
-            {/* Growth Plan - Popular */}
-            <div className="glass-card neon-border rounded-xl p-8 flex flex-col relative overflow-hidden bg-surface-light/80 transform md:-translate-y-4">
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary to-secondary"></div>
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-lg font-serif italic text-primary">Өсөлт</h3>
-                <span className="text-[10px] font-bold tracking-wider uppercase bg-primary text-black px-2 py-1 rounded shadow-[0_0_10px_rgba(0,255,170,0.5)]">
-                  Хамгийн сонгогддог
-                </span>
+            {/* Client Chatter - Right Side (5 columns) */}
+            <div className="lg:col-span-5 glass-card rounded-3xl p-8 flex flex-col bg-gradient-to-b from-[#161b26] to-[#0f1219] border-[3px] border-[#161b26]/50">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="size-10 rounded-full bg-[#10b981] flex items-center justify-center text-black">
+                  <MessageCircle className="w-5 h-5" />
+                </div>
+                <h3 className="text-xl font-bold text-white">Харилцагчдын сэтгэгдэл</h3>
               </div>
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary filter drop-shadow-[0_0_5px_rgba(0,255,170,0.4)]">
-                  750к
-                </span>
-                <span className="text-sm text-slate-500">₮</span>
+              <div className="flex flex-col gap-6 flex-1 justify-center">
+                {/* Message 1 - Б.Энхтөр */}
+                <div className="flex gap-4 items-end">
+                  <div className="size-10 rounded-full bg-gray-700 shrink-0 flex items-center justify-center text-white text-xs font-bold">
+                    БЭ
+                  </div>
+                  <div className="bg-[#1f2532] p-4 rounded-2xl rounded-bl-none border border-white/5 max-w-[85%]">
+                    <p className="text-sm text-gray-300 leading-relaxed">"Formly баг манай веб сайтын бүтэц, хэрэглэгчийн урсгалыг цогцоор нь сайжруулж өгсөн. Шинэчлэл хийснээс хойш богино хугацаанд захиалга болон хандалтын чанар мэдэгдэхүйц өссөн."</p>
+                    <p className="text-xs text-gray-500 mt-2 font-bold">— Б.Энхтөр, Технологи хариуцсан захирал</p>
+                  </div>
+                </div>
+                
+                {/* Message 2 - Formly багийн хариулт */}
+                <div className="flex gap-4 items-end flex-row-reverse">
+                  <div className="size-10 rounded-full bg-secondary flex items-center justify-center shrink-0 text-xs font-bold text-white">FM</div>
+                  <div className="bg-secondary p-4 rounded-2xl rounded-br-none text-white max-w-[85%] shadow-[0_0_20px_-5px_rgba(0,98,255,0.3)]">
+                    <p className="text-sm leading-relaxed italic">"Бид дизайн шийдлийг зөвхөн харагдац бус, бодит хэрэглээ, бизнесийн зорилготой уялдуулж хэрэгжүүлдэг."</p>
+                  </div>
+                </div>
+                
+                {/* Message 3 - М.Түвшин */}
+                <div className="flex gap-4 items-end">
+                  <div className="size-10 rounded-full bg-gray-700 shrink-0 flex items-center justify-center text-white text-xs font-bold">
+                    МТ
+                  </div>
+                  <div className="bg-[#1f2532] p-4 rounded-2xl rounded-bl-none border border-white/5 max-w-[85%]">
+                    <p className="text-sm text-gray-300 leading-relaxed">"Formly-ийн санал болгосон интерфэйсийн шийдэл нь ойлгомжтой, цэгцтэй, хэрэглэгчдэд итгэл төрүүлэхүйц байсан. Манай бүтээгдэхүүний чанарыг илүү тодорхой харуулж чадсан."</p>
+                    <p className="text-xs text-gray-500 mt-2 font-bold">— М.Түвшин, Үүсгэн байгуулагч</p>
+                  </div>
+                </div>
               </div>
-              <ul className="space-y-4 mb-8 text-sm text-slate-300 font-light flex-1">
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
-                  5 хүртэл хуудас
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
-                  SEO оновчлолт
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
-                  Messenger Bot холболт
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
-                  3 сарын Премиум дэмжлэг
-                </li>
-              </ul>
-              <Link
-                href="/pricing"
-                className="w-full py-3 rounded bg-gradient-to-r from-primary to-secondary text-black font-bold text-sm tracking-wide shadow-lg shadow-primary/30 hover:shadow-primary/60 transition-all hover:-translate-y-1 text-center"
-              >
-                Эхлүүлэх
-              </Link>
-            </div>
-
-            {/* Maintenance Plan */}
-            <div className="glass-card neon-border-blue rounded-xl p-8 flex flex-col h-full bg-surface-light/50">
-              <h3 className="text-lg font-serif italic text-accent mb-4">Арчилгаа</h3>
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-3xl font-bold text-white">120к</span>
-                <span className="text-sm text-slate-500">₮ / сар</span>
-              </div>
-              <ul className="space-y-4 mb-8 text-sm text-slate-400 font-light flex-1">
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-accent" />
-                  Сарын шинэчлэлтүүд
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-accent" />
-                  Контентын өөрчлөлт
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-accent" />
-                  Серверийн арчилгаа
-                </li>
-              </ul>
-              <button className="w-full py-3 rounded border border-accent/50 text-slate-200 text-sm tracking-wide hover:bg-accent hover:text-black transition-all shadow-[0_0_10px_rgba(0,206,209,0.1)] hover:shadow-[0_0_15px_rgba(0,206,209,0.5)]">
-                Багц сонгох
-              </button>
             </div>
           </div>
         </div>

@@ -169,7 +169,7 @@ export default function WorkPage() {
             Манай баг хязгаарыг тэлж, анхаарал татахуйц дижитал туршлагууд бүтээхэд бэлэн байна. Ярилцлагаа эхлүүлье.
           </p>
           <Link
-            href="https://m.me/formly"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"
             target="_blank"
             rel="noopener noreferrer"
             className="relative group mt-4 overflow-hidden rounded-full work-primary-bg px-10 py-4 text-base font-bold text-white transition-all hover:scale-105 hover:work-primary-glow-lg"
