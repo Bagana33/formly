@@ -31,7 +31,7 @@ export function Header() {
               Үнэ
             </Link>
             <Link href="/faq" className="hover:text-accent transition-colors">
-              Нөөц
+              Асуултууд
             </Link>
           </div>
 
@@ -75,7 +75,7 @@ export function Header() {
                 Үнэ
               </Link>
               <Link href="/faq" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                Нөөц
+                Асуултууд
               </Link>
               <Link
                 href="https://m.me/961702760355484"
