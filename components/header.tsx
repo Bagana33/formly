@@ -27,6 +27,9 @@ export function Header() {
             <Link href="/work" className="hover:text-secondary transition-colors">
               Ажлууд
             </Link>
+            <Link href="/pricing" className="hover:text-primary transition-colors">
+              Үнэ
+            </Link>
             <Link href="/faq" className="hover:text-accent transition-colors">
               Нөөц
             </Link>
@@ -67,6 +70,9 @@ export function Header() {
               </Link>
               <Link href="/work" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-secondary transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 Ажлууд
+              </Link>
+              <Link href="/pricing" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Үнэ
               </Link>
               <Link href="/faq" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 Нөөц

@@ -1,10 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { MessageCircle, ArrowRight, ChevronDown, Zap, HelpCircle } from "lucide-react"
+import React, { useState } from "react"
+import { MessageCircle, ArrowRight, ChevronDown, Zap, HelpCircle, CheckCircle } from "lucide-react"
 
-const faqs = [
+const faqs: Array<{ question: string; answer: string | React.ReactNode }> = [
   {
     question: "Domain байхгүй бол яах вэ?",
     answer:
@@ -29,6 +29,55 @@ const faqs = [
     question: "Сар бүр арчилгаа заавал авах уу?",
     answer:
       "Үгүй, Care багц нь сонголт. Хэрэв та өөрөө жижиг засвар хийж чадах бол арчилгаа авахгүй байж болно. Гэхдээ тогтмол контент шинэчлэлт, засвар хэрэгтэй бол Care багц хэрэгтэй.",
+  },
+  {
+    question: "120,000₮-ийн багцад яг юу ордог вэ?",
+    answer: (
+      <div className="space-y-4">
+        <div className="flex items-start gap-3">
+          <CheckCircle className="h-5 w-5 text-[#00f0ff] shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-white mb-1">Өдөр тутмын хяналт</p>
+            <p className="text-gray-300">Сайт асч байна уу, форм ажиллаж байна уу гэдгийг тогтмол шалгана</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-3">
+          <CheckCircle className="h-5 w-5 text-[#00f0ff] shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-white mb-1">Техникийн засвар, жижиг өөрчлөлт</p>
+            <p className="text-gray-300">Алдаа засах. Текст, товч, холбоосын засвар</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-3">
+          <CheckCircle className="h-5 w-5 text-[#00f0ff] shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-white mb-1">Формын найдвартай ажиллагаа</p>
+            <p className="text-gray-300">Хэрэглэгчийн илгээсэн мэдээлэл алдагдахгүй. Форм ажиллахгүй болсон тохиолдолд шуурхай засвар</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-3">
+          <CheckCircle className="h-5 w-5 text-[#00f0ff] shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-white mb-1">Аюулгүй байдал</p>
+            <p className="text-gray-300">Энгийн халдлага, спам-аас хамгаалах. Сайт эвдрэх эрсдэлийг багасгана</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-3">
+          <CheckCircle className="h-5 w-5 text-[#00f0ff] shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-white mb-1">Гүйцэтгэл ба хурд</p>
+            <p className="text-gray-300">Удаашрал, доголдол илэрвэл шалгаж сайжруулна</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-3">
+          <CheckCircle className="h-5 w-5 text-[#00f0ff] shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-white mb-1">Зөвлөгөө, дэмжлэг</p>
+            <p className="text-gray-300">&quot;Яаж сайжруулах вэ?&quot; гэдэг дээр бодит зөвлөгөө өгнө</p>
+          </div>
+        </div>
+      </div>
+    ),
   },
 ]
 
@@ -90,7 +139,9 @@ export default function FAQPage() {
                   </button>
                   {isOpen && (
                     <div className="px-6 pb-6 pt-0 animate-in slide-in-from-top-2 duration-300">
-                      <p className="text-gray-300 leading-relaxed border-t border-white/10 pt-4">{faq.answer}</p>
+                      <div className="text-gray-300 leading-relaxed border-t border-white/10 pt-4">
+                        {typeof faq.answer === 'string' ? <p>{faq.answer}</p> : faq.answer}
+                      </div>
                     </div>
                   )}
                 </div>
