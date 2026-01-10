@@ -116,7 +116,7 @@ export default function AdminPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <p className="eyebrow">Admin Dashboard</p>
-                <h1 className="text-3xl md:text-4xl font-bold text-foreground">Контент удирдах</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-foreground">Контент удирдах</h1>
                 <p className="text-sm text-muted-foreground mt-2">LocalStorage-д хадгална · JSON-оор export хийж болно</p>
               </div>
               <div className="flex flex-wrap gap-2">

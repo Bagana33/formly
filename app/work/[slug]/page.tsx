@@ -50,7 +50,7 @@ export default async function WorkDetailPage({ params }: Props) {
           <Badge variant="secondary" className="mb-4">
             {project.category}
           </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">{project.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">{project.title}</h1>
           <p className="mt-4 text-lg text-muted-foreground">{project.description}</p>
           <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2">

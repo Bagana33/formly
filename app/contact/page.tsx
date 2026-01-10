@@ -30,7 +30,7 @@ export default function ContactPage() {
             <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-secondary/10 flex items-center justify-center">
               <CheckCircle className="h-8 w-8 text-secondary" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground">Амжилттай илгээлээ</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground">Амжилттай илгээлээ</h1>
             <p className="mt-4 text-muted-foreground">
               Сайн байна уу, Formly-д хандсанд баярлалаа. Бид таны хүсэлтийг хүлээн авлаа. 24 цагийн дотор холбогдоно.
             </p>
@@ -67,7 +67,7 @@ export default function ContactPage() {
       <Section className="pt-20">
         <div className="text-center max-w-3xl mx-auto">
           <p className="eyebrow">Холбогдох</p>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">Албадлагагүй зөвлөгөө</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">Албадлагагүй зөвлөгөө</h1>
           <p className="mt-6 text-lg text-muted-foreground text-pretty">Messenger-ээр шууд бичих эсвэл богино форм бөглөнө.</p>
         </div>
       </Section>

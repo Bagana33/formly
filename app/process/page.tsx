@@ -56,7 +56,7 @@ export default function ProcessPage() {
             <span className="w-2 h-2 rounded-full bg-[#00ff9d] animate-pulse"></span>
             <span className="text-[#00ff9d] text-xs font-bold uppercase tracking-widest">Formly Спринт</span>
           </div>
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white mb-8 leading-[0.9]">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white mb-8 leading-[0.9]">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400">
               Тэгээс Амьд руу
             </span>

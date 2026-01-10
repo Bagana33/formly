@@ -70,7 +70,7 @@ export default function ServicesPage() {
       <Section className="pt-20">
         <div className="text-center max-w-3xl mx-auto">
           <p className="eyebrow">Formly үйлчилгээ</p>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">3 хоногт захиалга авчирдаг систем</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">3 хоногт захиалга авчирдаг систем</h1>
           <p className="mt-6 text-lg text-muted-foreground text-pretty">
             Зөв UX бүтэц, брэндтэй нийцсэн UI, Messenger + Form холболтыг нэг багцад шийднэ.
           </p>

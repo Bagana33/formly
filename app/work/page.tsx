@@ -65,7 +65,7 @@ export default function WorkPage() {
       <main className="relative z-10 pt-32 pb-20 px-6 md:px-10 flex flex-col items-center">
         {/* Page Header */}
         <div className="max-w-7xl w-full flex flex-col items-center text-center mb-16">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] mb-6 bg-gradient-to-b from-white via-white to-white/50 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9] mb-6 bg-gradient-to-b from-white via-white to-white/50 bg-clip-text text-transparent">
             ДИЖИТАЛ ТУРШЛАГУУД <br /> БҮТЭЭХ
           </h1>
           <p className="text-white/60 text-lg md:text-xl max-w-2xl font-light">

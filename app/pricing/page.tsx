@@ -43,7 +43,7 @@ export default function PricingPage() {
       <Section className="pt-20">
         <div className="text-center max-w-3xl mx-auto">
           <p className="eyebrow">Үнэ ба сонголт</p>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">3 багц, дарамтгүй сонголт</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">3 багц, дарамтгүй сонголт</h1>
           <p className="mt-6 text-lg text-muted-foreground text-pretty">Үнэ 450,000₮-с эхэлнэ. Starter багц хамгийн их сонгогддог.</p>
         </div>
       </Section>

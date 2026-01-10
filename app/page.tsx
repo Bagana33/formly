@@ -40,7 +40,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="pt-36 pb-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-8xl font-serif font-medium tracking-tight text-white mb-8 leading-tight drop-shadow-lg">
+          <h1 className="text-4xl md:text-7xl font-serif font-medium tracking-tight text-white mb-8 leading-tight drop-shadow-lg">
             Дижитал Оролцоо <br />
             <span className="italic text-slate-300 font-light">Дахин тодорхойлсон</span>{" "}
             <span className="text-gradient-aurora-vibrant font-semibold">Aurora.</span>
