@@ -6,33 +6,33 @@ import { ArrowRight, ArrowDown, CheckCircle2, Rocket, Zap, FileText, Code, Searc
 const steps = [
   {
     day: "01",
-    dayLabel: "Day One",
-    title: "The Blueprint",
-    subtitle: "Intake & Strategy",
-    description: "We digest your brand vision instantly. You fill out our smart questionnaire, and we lock in the strategy. No endless meetings, just pure direction.",
-    tasks: ["Brand Asset Collection", "Competitor Analysis", "Site Architecture Approval"],
+    dayLabel: "Эхний өдөр",
+    title: "Төлөвлөгөө",
+    subtitle: "Асуулт & Стратеги",
+    description: "Бид таны брэндийн алсын харааг шууд ойлгодог. Та манай ухаалаг асуулга бөглөнө, бид стратегийг тогтооно. Төгсгөлгүй уулзалтгүй, зөвхөн цэвэр чиглэл.",
+    tasks: ["Брэндийн актив цуглуулах", "Өрсөлдөгчийн шинжилгээ", "Сайтын бүтцийн баталгаажуулалт"],
     color: "primary",
     icon: FileText,
   },
   {
     day: "02",
-    dayLabel: "Day Two",
-    title: "The Engine",
-    subtitle: "Design & Build",
-    description: "Design and code merge in a 24-hour sprint. Our designers and developers work in parallel streams to bring the visual identity to life with clean, performant code.",
+    dayLabel: "Хоёр дахь өдөр",
+    title: "Хөдөлгүүр",
+    subtitle: "Дизайн & Бүтээх",
+    description: "Дизайн болон код 24 цагийн спринтэд нэгддэг. Манай дизайнер болон хөгжүүлэгчид зэрэгцэн ажиллаж, харагдах өвөрмөц байдлыг цэвэр, гүйцэтгэлтэй кодоор амьдруулна.",
     tech: ["React", "Tailwind", "Figma", "Motion"],
     color: "secondary",
     icon: Code,
   },
   {
     day: "03",
-    dayLabel: "Day Three",
-    title: "Liftoff",
-    subtitle: "QA & Launch",
-    description: "Final polish. We connect your domain, set up analytics, and hand over the keys. Your site goes live to the world, fully optimized and ready to convert.",
+    dayLabel: "Гурав дахь өдөр",
+    title: "Хөөрөлт",
+    subtitle: "QA & Нээлт",
+    description: "Эцсийн сайжруулалт. Бид таны домэйнийг холбож, аналитик тохируулж, түлхүүрүүдийг хүлээлгэн өгнө. Таны сайт дэлхийгээр амьд байдалтай болж, бүрэн оновчтой болж, хувиргалтад бэлэн болно.",
     metrics: [
-      { icon: Gauge, label: "100/100 Speed", color: "text-green-400" },
-      { icon: Search, label: "SEO Ready", color: "text-blue-400" },
+      { icon: Gauge, label: "100/100 Хурд", color: "text-green-400" },
+      { icon: Search, label: "SEO Бэлэн", color: "text-blue-400" },
     ],
     color: "white",
     icon: Rocket,
@@ -54,37 +54,35 @@ export default function ProcessPage() {
         <div className="text-center max-w-5xl mx-auto relative">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6">
             <span className="w-2 h-2 rounded-full bg-[#00ff9d] animate-pulse"></span>
-            <span className="text-[#00ff9d] text-xs font-bold uppercase tracking-widest">The Formly Sprint</span>
+            <span className="text-[#00ff9d] text-xs font-bold uppercase tracking-widest">Formly Спринт</span>
           </div>
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white mb-8 leading-[0.9]">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400">
-              Zero to Live
+              Тэгээс Амьд руу
             </span>
             <span className="block relative inline-block">
-              in{" "}
+              {" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0dccf2] to-[#00ff9d] drop-shadow-[0_0_20px_rgba(13,204,242,0.5)]">
-                72 Hours
+                72 Цагийн дотор
               </span>
             </span>
           </h1>
           <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed mb-10">
-            High-velocity web development for modern brands.
-            <br className="hidden md:block" />
-            3 Days. No Fluff. Pure Performance.
+            Орчин үеийн брэндүүдэд зориулсан өндөр хурдтай веб хөгжүүлэлт.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
               href="#process"
               className="h-14 px-8 rounded-full bg-white text-black font-bold text-lg hover:bg-gray-200 transition-colors flex items-center gap-2 group"
             >
-              See How It Works
+              Хэрхэн ажилладагийг харах
               <ArrowDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
             </a>
             <Link
               href="/work"
               className="h-14 px-8 rounded-full border border-white/20 text-white font-medium text-lg hover:bg-white/10 transition-colors backdrop-blur-sm"
             >
-              View Portfolio
+              Портфолио харах
             </Link>
           </div>
         </div>
@@ -126,7 +124,7 @@ export default function ProcessPage() {
                       <div className="h-1 w-full bg-slate-700 rounded"></div>
                     </div>
                     <div className="absolute -right-4 top-10 bg-[#0dccf2] text-black text-xs font-bold px-3 py-1 rounded shadow-lg">
-                      Input Received
+                      Оролт Хүлээн Авсан
                     </div>
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 pointer-events-none"></div>
@@ -140,15 +138,14 @@ export default function ProcessPage() {
                 <span className="flex items-center justify-center w-12 h-12 rounded-full border border-[#0dccf2] text-[#0dccf2] font-bold text-xl bg-[#0dccf2]/10 backdrop-blur-md">
                   01
                 </span>
-                <h2 className="text-[#0dccf2] font-bold tracking-widest uppercase text-sm">Day One</h2>
+                <h2 className="text-[#0dccf2] font-bold tracking-widest uppercase text-sm">Эхний өдөр</h2>
               </div>
               <h3 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                The Blueprint <br />
-                <span className="text-gray-500">Intake & Strategy</span>
+                Төлөвлөгөө <br />
+                <span className="text-gray-500">Асуулт & Стратеги</span>
               </h3>
               <p className="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-lg mb-8">
-                We digest your brand vision instantly. You fill out our smart questionnaire, and we lock in the
-                strategy. No endless meetings, just pure direction.
+                Бид таны брэндийн алсын харааг шууд ойлгодог. Та манай ухаалаг асуулга бөглөнө, бид стратегийг тогтооно. Төгсгөлгүй уулзалтгүй, зөвхөн цэвэр чиглэл.
               </p>
               <ul className="space-y-3 mb-8">
                 {steps[0].tasks.map((task) => (
@@ -159,7 +156,7 @@ export default function ProcessPage() {
                 ))}
               </ul>
               <button className="text-white border-b border-[#0dccf2] pb-1 hover:text-[#0dccf2] transition-colors flex items-center gap-2">
-                Learn about intake <ArrowRight className="w-4 h-4" />
+                Асуултын талаар дэлгэрэнгүй <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -175,18 +172,17 @@ export default function ProcessPage() {
             {/* Text Side (Left) */}
             <div className="w-full md:w-1/2 order-1">
               <div className="flex items-center gap-4 mb-4 md:flex-row-reverse md:justify-end">
-                <h2 className="text-[#00ff9d] font-bold tracking-widest uppercase text-sm">Day Two</h2>
+                <h2 className="text-[#00ff9d] font-bold tracking-widest uppercase text-sm">Хоёр дахь өдөр</h2>
                 <span className="flex items-center justify-center w-12 h-12 rounded-full border border-[#00ff9d] text-[#00ff9d] font-bold text-xl bg-[#00ff9d]/10 backdrop-blur-md">
                   02
                 </span>
               </div>
               <h3 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight md:text-right">
-                The Engine <br />
-                <span className="text-gray-500">Design & Build</span>
+                Хөдөлгүүр <br />
+                <span className="text-gray-500">Дизайн & Бүтээх</span>
               </h3>
               <p className="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-lg mb-8 md:ml-auto md:text-right">
-                Design and code merge in a 24-hour sprint. Our designers and developers work in parallel streams to
-                bring the visual identity to life with clean, performant code.
+                Дизайн болон код 24 цагийн спринтэд нэгддэг. Манай дизайнер болон хөгжүүлэгчид зэрэгцэн ажиллаж, харагдах өвөрмөц байдлыг цэвэр, гүйцэтгэлтэй кодоор амьдруулна.
               </p>
               <div className="flex flex-wrap gap-2 md:justify-end mb-8">
                 {steps[1].tech?.map((tech) => (
@@ -266,7 +262,7 @@ export default function ProcessPage() {
                       ></div>
                     </div>
                     <div className="mt-6 px-6 py-2 bg-gradient-to-r from-[#0dccf2] to-[#00ff9d] rounded text-black font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(13,204,242,0.6)]">
-                      System Live
+                      Систем Амьд
                     </div>
                   </div>
                 </div>
@@ -278,15 +274,14 @@ export default function ProcessPage() {
                 <span className="flex items-center justify-center w-12 h-12 rounded-full border border-white text-white font-bold text-xl bg-white/10 backdrop-blur-md">
                   03
                 </span>
-                <h2 className="text-white font-bold tracking-widest uppercase text-sm">Day Three</h2>
+                <h2 className="text-white font-bold tracking-widest uppercase text-sm">Гурав дахь өдөр</h2>
               </div>
               <h3 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                Liftoff <br />
-                <span className="text-gray-500">QA & Launch</span>
+                Хөөрөлт <br />
+                <span className="text-gray-500">QA & Нээлт</span>
               </h3>
               <p className="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-lg mb-8">
-                Final polish. We connect your domain, set up analytics, and hand over the keys. Your site goes live to
-                the world, fully optimized and ready to convert.
+                Эцсийн сайжруулалт. Бид таны домэйнийг холбож, аналитик тохируулж, түлхүүрүүдийг хүлээлгэн өгнө. Таны сайт дэлхийгээр амьд байдалтай болж, бүрэн оновчтой болж, хувиргалтад бэлэн болно.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {steps[2].metrics?.map((metric, idx) => (
@@ -308,13 +303,13 @@ export default function ProcessPage() {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight">
-            Ready to break the <br />
+            Хурдны хязгаарыг зогсоох <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff9d] to-[#0dccf2] animate-pulse">
-              speed limit?
+              бэлэн үү?
             </span>
           </h2>
           <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
-            Stop waiting months for a website. Get a premium, high-performance build in just 72 hours.
+            Сар хоног хүлээхээ боль. Зөвхөн 72 цагийн дотор премиум, өндөр гүйцэтгэлтэй бүтээгдэхүүн ав.
           </p>
           <Link
             href="https://m.me/formly"
@@ -324,7 +319,7 @@ export default function ProcessPage() {
           >
             <div className="absolute transition-all duration-200 rounded-full -inset-1 bg-gradient-to-r from-[#0dccf2] to-[#00ff9d] blur-lg opacity-70 group-hover:opacity-100 group-hover:-inset-2"></div>
             <div className="relative inline-flex items-center justify-center px-12 py-6 text-lg font-bold text-[#020617] transition-all duration-200 bg-white rounded-full">
-              Start Your 3-Day Sprint
+              3 Өдрийн Спринт эхлүүлэх
               <Zap className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </div>
           </Link>

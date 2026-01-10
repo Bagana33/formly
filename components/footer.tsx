@@ -1,22 +1,22 @@
 import Link from "next/link"
 
 const quickLinks = [
-  { href: "/process", label: "Process" },
-  { href: "/work", label: "Websites" },
-  { href: "/pricing", label: "Navigation" },
-  { href: "/contact", label: "Career" },
+  { href: "/process", label: "Процесс" },
+  { href: "/work", label: "Ажлууд" },
+  { href: "/pricing", label: "Холбоос" },
+  { href: "/contact", label: "Ажлын байр" },
 ]
 
 const pricingLinks = [
-  { href: "/pricing", label: "Stations" },
-  { href: "/work", label: "Blogs" },
-  { href: "/pricing", label: "Discount" },
-  { href: "/contact", label: "Get demo" },
+  { href: "/pricing", label: "Багцууд" },
+  { href: "/work", label: "Блог" },
+  { href: "/pricing", label: "Хөнгөлөлт" },
+  { href: "/contact", label: "Демо авах" },
 ]
 
 const aboutLinks = [
-  { href: "/contact", label: "Social" },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact", label: "Нийгмийн сүлжээ" },
+  { href: "/contact", label: "Холбоо барих" },
 ]
 
 export function Footer() {
@@ -33,7 +33,7 @@ export function Footer() {
               <span className="text-xl font-serif text-white">Formly</span>
             </div>
             <p className="text-sm text-slate-500 max-w-xs mb-8 font-light">
-              Empowering ambitious brands with rapid, high-quality digital solutions.
+              Амбицтай брэндүүдэд хурдан, өндөр чанартай дижитал шийдлүүд өгдөг.
             </p>
             <div className="flex gap-4">
               <a
@@ -65,7 +65,7 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="text-white font-serif mb-6">Navigation</h4>
+            <h4 className="text-white font-serif mb-6">Холбоос</h4>
             <ul className="space-y-3 text-sm font-light text-slate-400">
               {quickLinks.map((link, index) => (
                 <li key={`nav-${index}-${link.href}`}>
@@ -79,7 +79,7 @@ export function Footer() {
 
           {/* Pricing */}
           <div>
-            <h4 className="text-white font-serif mb-6">Pricing</h4>
+            <h4 className="text-white font-serif mb-6">Үнэ</h4>
             <ul className="space-y-3 text-sm font-light text-slate-400">
               {pricingLinks.map((link, index) => (
                 <li key={`pricing-${index}-${link.href}`}>
@@ -93,7 +93,7 @@ export function Footer() {
 
           {/* About */}
           <div>
-            <h4 className="text-white font-serif mb-6">About</h4>
+            <h4 className="text-white font-serif mb-6">Бидний тухай</h4>
             <ul className="space-y-3 text-sm font-light text-slate-400">
               {aboutLinks.map((link, index) => (
                 <li key={`about-${index}-${link.href}`}>
@@ -107,8 +107,8 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-600 font-light">
-          <p>Formly Home - Vibrant Aurora v6</p>
-          <p>© 2023 Formly. All rights reserved.</p>
+          <p>Formly - Vibrant Aurora v6</p>
+          <p>© 2023 Formly. Бүх эрх хуулиар хамгаалагдсан.</p>
         </div>
       </div>
     </footer>

@@ -7,11 +7,11 @@ import { ArrowRight, ExternalLink, ChevronDown } from "lucide-react"
 import { useState } from "react"
 
 const categories = [
-  { id: "all", label: "All Work" },
-  { id: "education", label: "Education" },
-  { id: "healthcare", label: "Healthcare" },
-  { id: "service", label: "Services" },
-  { id: "recruitment", label: "Recruitment" },
+  { id: "all", label: "Бүгд" },
+  { id: "education", label: "Сургалтын төв" },
+  { id: "healthcare", label: "Эмнэлэг / Гоо сайхан" },
+  { id: "service", label: "Үйлчилгээ" },
+  { id: "recruitment", label: "Зуучлал" },
 ]
 
 const categoryMap: Record<string, string> = {
@@ -41,12 +41,12 @@ export default function WorkPage() {
 
   const getCategoryLabel = (category: string) => {
     const labelMap: Record<string, string> = {
-      "Сургалтын төв": "EDUCATION",
-      "Эмнэлэг / гоо сайхан": "HEALTHCARE",
-      "Үйлчилгээ": "SERVICE",
-      "Зуучлал": "RECRUITMENT",
+      "Сургалтын төв": "СУРГАЛТЫН ТӨВ",
+      "Эмнэлэг / гоо сайхан": "ЭМНЭЛЭГ / ГОО САЙХАН",
+      "Үйлчилгээ": "ҮЙЛЧИЛГЭЭ",
+      "Зуучлал": "ЗУУЧЛАЛ",
     }
-    return labelMap[category] || "PROJECT"
+    return labelMap[category] || "ТӨСӨЛ"
   }
 
   return (
@@ -66,10 +66,10 @@ export default function WorkPage() {
         {/* Page Header */}
         <div className="max-w-7xl w-full flex flex-col items-center text-center mb-16">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] mb-6 bg-gradient-to-b from-white via-white to-white/50 bg-clip-text text-transparent">
-            CRAFTING DIGITAL <br /> EXPERIENCES
+            ДИЖИТАЛ ТУРШЛАГУУД <br /> БҮТЭЭХ
           </h1>
           <p className="text-white/60 text-lg md:text-xl max-w-2xl font-light">
-            We build loud, proud, and cutting-edge digital products for the world's most ambitious brands.
+            Бид дэлхийн хамгийн амбицтай брэндүүдэд чанга, бахархалтай, орчин үеийн дижитал бүтээгдэхүүн хийж байна.
           </p>
         </div>
 
@@ -150,7 +150,7 @@ export default function WorkPage() {
           <div className="mt-20 flex justify-center">
             <button className="group flex items-center gap-3 px-8 py-3 rounded-full border border-white/10 hover:work-primary-border/50 bg-white/5 hover:bg-white/10 transition-all">
               <span className="text-sm font-bold text-white group-hover:work-primary transition-colors">
-                Load More Projects
+                Илүү их төсөл харах
               </span>
               <ChevronDown className="w-5 h-5 text-white/50 group-hover:translate-y-1 transition-transform" />
             </button>
@@ -163,11 +163,10 @@ export default function WorkPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0d59f2]/10"></div>
         <div className="relative max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
-            Ready to build something <span className="work-primary">loud?</span>
+            Чанга дуугаргах зүйл бүтээхэд <span className="work-primary">бэлэн үү?</span>
           </h2>
           <p className="text-white/60 text-lg md:text-xl max-w-2xl">
-            Our team is ready to push boundaries and create digital experiences that demand attention. Let's start the
-            conversation.
+            Манай баг хязгаарыг тэлж, анхаарал татахуйц дижитал туршлагууд бүтээхэд бэлэн байна. Ярилцлагаа эхлүүлье.
           </p>
           <Link
             href="https://m.me/formly"
@@ -177,7 +176,7 @@ export default function WorkPage() {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
             <span className="relative flex items-center gap-2">
-              Start Your Project
+              Төсөл эхлүүлэх
               <ExternalLink className="w-5 h-5" />
             </span>
           </Link>

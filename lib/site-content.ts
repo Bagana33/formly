@@ -25,11 +25,36 @@ export type ServiceItem = {
   description: string
 }
 
+export type HomepageCard = {
+  title: string
+  description: string
+  buttonText: string
+  buttonHref: string
+}
+
+export type ProtocolCard = {
+  title: string
+  description: string
+}
+
 export type SiteContent = {
   hero: {
     eyebrow: string
     headline: string
     subhead: string
+    description: string
+  }
+  heroCards: HomepageCard[]
+  protocolSection: {
+    title: string
+    cards: ProtocolCard[]
+  }
+  portfolioSection: {
+    title: string
+  }
+  membershipSection: {
+    title: string
+    description: string
   }
   proofs: string[]
   industries: string[]
@@ -49,6 +74,45 @@ export function getDefaultContent(): SiteContent {
       eyebrow: "Formly · 3 хоногт · 2025",
       headline: "3 хоногт захиалга авчирдаг веб сайт",
       subhead: "Монголын үйлчилгээний бизнесүүдэд зориулсан, mobile-first, Messenger-ээр холбогддог веб шийдэл.",
+      description: "72 цагийн дотор хүргэх өндөр гүйцэтгэлтэй веб сайтаар танай брэндийг өсгөнө. Тогтвортой өсөлт энергээр дүүрэн дизайн-тай уулзана.",
+    },
+    heroCards: [
+      {
+        title: "Тусламж Үйлчилгээ",
+        description: "Таны тусгай дизайн багтай шууд холбогдох.",
+        buttonText: "Чат эхлүүлэх",
+        buttonHref: "https://m.me/formly",
+      },
+      {
+        title: "Стратегийн Шинжилгээ",
+        description: "Таны дижитал стратегид мэргэжлийн зөвлөгөө.",
+        buttonText: "Зөвлөлдөх цаг захиалах",
+        buttonHref: "/contact",
+      },
+    ],
+    protocolSection: {
+      title: "3 Хоногийн Протокол",
+      cards: [
+        {
+          title: "Бүтэц",
+          description: "Сайтын газрын зураг болон гол бүтцийг зөв урсгалд зориулж тодорхойлох.",
+        },
+        {
+          title: "Харагдах Бүтэц",
+          description: "Өндөр чанартай дүрслэл хийж, контентыг саадгүй нэгтгэх.",
+        },
+        {
+          title: "Нээлт",
+          description: "Нарийвчилсан чанарын баталгаажуулалт, дараа нь шууд амьд нээлт.",
+        },
+      ],
+    },
+    portfolioSection: {
+      title: "Сонгосон Портфолио",
+    },
+    membershipSection: {
+      title: "Гишүүнчлэл",
+      description: "Тогтвортой дижитал өсөлтөд зориулсан ил тод үнэ. Хүссэн үедээ зогсоож, цуцлах боломжтой.",
     },
     proofs: ["ЖДБ-д зориулав", "Messenger + Form", "Mobile-first"],
     industries: ["Сургалтын төв", "Эмнэлэг / Гоо сайхан", "Үйлчилгээ", "Зуучлал"],

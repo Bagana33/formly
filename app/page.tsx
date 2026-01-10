@@ -17,12 +17,12 @@ const getCategoryColor = (category: string) => {
 
 const getCategoryLabel = (category: string) => {
   const labelMap: Record<string, string> = {
-    "Сургалтын төв": "EDUCATION",
-    "Эмнэлэг / гоо сайхан": "HEALTHCARE",
-    "Үйлчилгээ": "SERVICE",
-    "Зуучлал": "RECRUITMENT",
+    "Сургалтын төв": "СУРГАЛТЫН ТӨВ",
+    "Эмнэлэг / гоо сайхан": "ЭМНЭЛЭГ / ГОО САЙХАН",
+    "Үйлчилгээ": "ҮЙЛЧИЛГЭЭ",
+    "Зуучлал": "ЗУУЧЛАЛ",
   }
-  return labelMap[category] || "PROJECT"
+  return labelMap[category] || "ТӨСӨЛ"
 }
 
 export default function HomePage() {
@@ -41,13 +41,13 @@ export default function HomePage() {
       <section className="pt-36 pb-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl md:text-8xl font-serif font-medium tracking-tight text-white mb-8 leading-tight drop-shadow-lg">
-            Digital Presence <br />
-            <span className="italic text-slate-300 font-light">Redefined by</span>{" "}
+            Дижитал Оролцоо <br />
+            <span className="italic text-slate-300 font-light">Дахин тодорхойлсон</span>{" "}
             <span className="text-gradient-aurora-vibrant font-semibold">Aurora.</span>
           </h1>
           <p className="mt-8 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
-            Elevate your brand with a high-performance website delivered in 72 hours. Sustainable growth meets{" "}
-            <span className="text-primary font-normal">high-energy design</span>.
+            72 цагийн дотор хүргэх өндөр гүйцэтгэлтэй веб сайтаар танай брэндийг өсгөнө. Тогтвортой өсөлт{" "}
+            <span className="text-primary font-normal">энергээр дүүрэн дизайн</span>-тай уулзана.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -58,16 +58,16 @@ export default function HomePage() {
               </div>
               <div className="z-10 relative">
                 <h3 className="text-2xl font-serif text-white mb-2 group-hover:text-primary transition-colors">
-                  Concierge Support
+                  Тусламж Үйлчилгээ
                 </h3>
-                <p className="text-slate-400 mb-8 font-light text-sm">Direct line to your dedicated design team.</p>
+                <p className="text-slate-400 mb-8 font-light text-sm">Таны тусгай дизайн багтай шууд холбогдох.</p>
                 <Link
                   href="https://m.me/formly"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-white group-hover:text-primary transition-colors text-sm font-bold tracking-wide uppercase"
                 >
-                  <span>Start Chat</span>
+                  <span>Чат эхлүүлэх</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
@@ -81,19 +81,19 @@ export default function HomePage() {
               <div className="z-10 relative">
                 <div className="flex items-center justify-between w-full mb-2">
                   <h3 className="text-2xl font-serif text-white group-hover:text-secondary transition-colors">
-                    Strategic Audit
+                    Стратегийн Шинжилгээ
                   </h3>
                   <span className="flex h-3 w-3 relative">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-secondary shadow-[0_0_10px_rgba(0,98,255,1)]"></span>
                   </span>
                 </div>
-                <p className="text-slate-400 mb-8 font-light text-sm">Expert consultation for your digital strategy.</p>
+                <p className="text-slate-400 mb-8 font-light text-sm">Таны дижитал стратегид мэргэжлийн зөвлөгөө.</p>
                 <Link
                   href="/contact"
                   className="flex items-center gap-3 text-white group-hover:text-secondary transition-colors text-sm font-bold tracking-wide uppercase"
                 >
-                  <span>Book Consultation</span>
+                  <span>Зөвлөлдөх цаг захиалах</span>
                   <Calendar className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
@@ -105,7 +105,7 @@ export default function HomePage() {
       {/* 3-Day Protocol Section */}
       <section className="py-24 bg-surface/30 border-y border-white/5 backdrop-blur-sm relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-serif text-center mb-20 text-white">The 3-Day Protocol</h2>
+            <h2 className="text-3xl md:text-4xl font-serif text-center mb-20 text-white">3 Хоногийн Протокол</h2>
           <div className="grid md:grid-cols-3 gap-12 relative">
             <div className="hidden md:block absolute top-12 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent z-0 shadow-[0_0_10px_rgba(0,255,170,0.5)]"></div>
 
@@ -114,9 +114,9 @@ export default function HomePage() {
               <div className="w-24 h-24 rounded-full bg-surface-light border border-primary/30 shadow-[0_0_20px_rgba(0,255,170,0.15)] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-primary group-hover:shadow-[0_0_30px_rgba(0,255,170,0.4)]">
                 <Building2 className="w-10 h-10 text-primary icon-glow" />
               </div>
-              <h3 className="text-xl font-serif text-white mb-3">Architecture</h3>
+              <h3 className="text-xl font-serif text-white mb-3">Бүтэц</h3>
               <p className="text-sm text-slate-400 max-w-xs font-light leading-relaxed">
-                Defining the sitemap and core structural layout for optimal flow.
+                Сайтын газрын зураг болон гол бүтцийг зөв урсгалд зориулж тодорхойлох.
               </p>
             </div>
 
@@ -125,9 +125,9 @@ export default function HomePage() {
               <div className="w-24 h-24 rounded-full bg-surface-light border border-secondary/30 shadow-[0_0_20px_rgba(0,98,255,0.15)] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-secondary group-hover:shadow-[0_0_30px_rgba(0,98,255,0.4)]">
                 <Palette className="w-10 h-10 text-secondary icon-glow" />
               </div>
-              <h3 className="text-xl font-serif text-white mb-3">Visual Synthesis</h3>
+              <h3 className="text-xl font-serif text-white mb-3">Харагдах Бүтэц</h3>
               <p className="text-sm text-slate-400 max-w-xs font-light leading-relaxed">
-                Crafting high-fidelity visuals and integrating content seamlessly.
+                Өндөр чанартай дүрслэл хийж, контентыг саадгүй нэгтгэх.
               </p>
             </div>
 
@@ -136,9 +136,9 @@ export default function HomePage() {
               <div className="w-24 h-24 rounded-full bg-surface-light border border-accent/30 shadow-[0_0_20px_rgba(0,206,209,0.15)] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-accent group-hover:shadow-[0_0_30px_rgba(0,206,209,0.4)]">
                 <Rocket className="w-10 h-10 text-accent icon-glow" />
               </div>
-              <h3 className="text-xl font-serif text-white mb-3">Deployment</h3>
+              <h3 className="text-xl font-serif text-white mb-3">Нээлт</h3>
               <p className="text-sm text-slate-400 max-w-xs font-light leading-relaxed">
-                Rigorous quality assurance followed by immediate live deployment.
+                Нарийвчилсан чанарын баталгаажуулалт, дараа нь шууд амьд нээлт.
               </p>
             </div>
           </div>
@@ -149,7 +149,7 @@ export default function HomePage() {
       <section className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-end mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif text-white">Curated Portfolio</h2>
+            <h2 className="text-3xl md:text-4xl font-serif text-white">Сонгосон Портфолио</h2>
             <div className="hidden md:flex gap-2">
               <button className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all">
                 <ChevronLeft className="w-5 h-5" />
@@ -216,35 +216,35 @@ export default function HomePage() {
       {/* Membership/Pricing Section */}
       <section className="py-24 bg-surface/30 border-t border-white/5 relative overflow-hidden z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-3xl md:text-4xl font-serif text-center mb-6 text-white">Membership</h2>
+            <h2 className="text-3xl md:text-4xl font-serif text-center mb-6 text-white">Гишүүнчлэл</h2>
           <p className="text-center text-slate-400 font-light mb-16 max-w-lg mx-auto">
-            Transparent pricing for sustainable digital growth. Pause or cancel anytime.
+            Тогтвортой дижитал өсөлтөд зориулсан ил тод үнэ. Хүссэн үедээ зогсоож, цуцлах боломжтой.
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 items-start">
             {/* Starter Plan */}
             <div className="glass-card neon-border-blue rounded-xl p-8 flex flex-col h-full bg-surface-light/50">
-              <h3 className="text-lg font-serif italic text-secondary mb-4">Starter</h3>
+              <h3 className="text-lg font-serif italic text-secondary mb-4">Эхлэл</h3>
               <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-3xl font-bold text-white">450k</span>
+                <span className="text-3xl font-bold text-white">450к</span>
                 <span className="text-sm text-slate-500">₮</span>
               </div>
               <ul className="space-y-4 mb-8 text-sm text-slate-400 font-light flex-1">
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-secondary" />
-                  Single Landing Page
+                  Нэг буух хуудас
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-secondary" />
-                  Mobile Responsive
+                  Мобайл дэмжлэг
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-secondary" />
-                  1 Month Support
+                  1 сарын дэмжлэг
                 </li>
               </ul>
               <button className="w-full py-3 rounded border border-secondary/50 text-slate-200 text-sm tracking-wide hover:bg-secondary hover:text-white transition-all shadow-[0_0_10px_rgba(0,98,255,0.1)] hover:shadow-[0_0_15px_rgba(0,98,255,0.5)]">
-                Select Plan
+                Багц сонгох
               </button>
             </div>
 
@@ -252,66 +252,66 @@ export default function HomePage() {
             <div className="glass-card neon-border rounded-xl p-8 flex flex-col relative overflow-hidden bg-surface-light/80 transform md:-translate-y-4">
               <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary to-secondary"></div>
               <div className="flex justify-between items-start mb-4">
-                <h3 className="text-lg font-serif italic text-primary">Growth</h3>
+                <h3 className="text-lg font-serif italic text-primary">Өсөлт</h3>
                 <span className="text-[10px] font-bold tracking-wider uppercase bg-primary text-black px-2 py-1 rounded shadow-[0_0_10px_rgba(0,255,170,0.5)]">
-                  Popular
+                  Хамгийн сонгогддог
                 </span>
               </div>
               <div className="flex items-baseline gap-1 mb-8">
                 <span className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary filter drop-shadow-[0_0_5px_rgba(0,255,170,0.4)]">
-                  750k
+                  750к
                 </span>
                 <span className="text-sm text-slate-500">₮</span>
               </div>
               <ul className="space-y-4 mb-8 text-sm text-slate-300 font-light flex-1">
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
-                  Up to 5 Pages
+                  5 хүртэл хуудас
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
-                  SEO Optimization
+                  SEO оновчлолт
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
-                  Messenger Bot Integration
+                  Messenger Bot холболт
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-primary rounded-full shadow-[0_0_5px_rgba(0,255,170,0.8)]" />
-                  3 Months Premium Support
+                  3 сарын Премиум дэмжлэг
                 </li>
               </ul>
               <Link
                 href="/pricing"
                 className="w-full py-3 rounded bg-gradient-to-r from-primary to-secondary text-black font-bold text-sm tracking-wide shadow-lg shadow-primary/30 hover:shadow-primary/60 transition-all hover:-translate-y-1 text-center"
               >
-                Get Started
+                Эхлүүлэх
               </Link>
             </div>
 
             {/* Maintenance Plan */}
             <div className="glass-card neon-border-blue rounded-xl p-8 flex flex-col h-full bg-surface-light/50">
-              <h3 className="text-lg font-serif italic text-accent mb-4">Maintenance</h3>
+              <h3 className="text-lg font-serif italic text-accent mb-4">Арчилгаа</h3>
               <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-3xl font-bold text-white">120k</span>
-                <span className="text-sm text-slate-500">₮ / mo</span>
+                <span className="text-3xl font-bold text-white">120к</span>
+                <span className="text-sm text-slate-500">₮ / сар</span>
               </div>
               <ul className="space-y-4 mb-8 text-sm text-slate-400 font-light flex-1">
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-accent" />
-                  Monthly Updates
+                  Сарын шинэчлэлтүүд
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-accent" />
-                  Content Changes
+                  Контентын өөрчлөлт
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-accent" />
-                  Server Maintenance
+                  Серверийн арчилгаа
                 </li>
               </ul>
               <button className="w-full py-3 rounded border border-accent/50 text-slate-200 text-sm tracking-wide hover:bg-accent hover:text-black transition-all shadow-[0_0_10px_rgba(0,206,209,0.1)] hover:shadow-[0_0_15px_rgba(0,206,209,0.5)]">
-                Select Plan
+                Багц сонгох
               </button>
             </div>
           </div>
