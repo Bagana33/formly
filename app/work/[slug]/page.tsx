@@ -137,7 +137,7 @@ export default async function WorkDetailPage({ params }: Props) {
           <p className="mt-4 text-primary-foreground/80">Танай бизнест яг ийм бүтэц, дизайнаар вэб сайт хийлгэнэ үү.</p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="https://m.me/formly"
+              href="https://m.me/961702760355484"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-cta w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-primary bg-cta rounded-lg shadow-lg"

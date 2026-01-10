@@ -81,7 +81,7 @@ export function getDefaultContent(): SiteContent {
         title: "Тусламж Үйлчилгээ",
         description: "Таны тусгай дизайн багтай шууд холбогдох.",
         buttonText: "Чат эхлүүлэх",
-        buttonHref: "https://m.me/formly",
+        buttonHref: "https://m.me/961702760355484",
       },
       {
         title: "Стратегийн Шинжилгээ",

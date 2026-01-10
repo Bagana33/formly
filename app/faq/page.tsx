@@ -117,7 +117,7 @@ export default function FAQPage() {
                   </p>
                 </div>
                 <Link
-                  href="https://m.me/formly"
+                  href="https://m.me/961702760355484"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full group/btn relative flex items-center justify-center gap-2 bg-[#0d59f2] hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-[0_4px_20px_rgba(13,89,242,0.3)] hover:shadow-[0_4px_25px_rgba(13,89,242,0.5)] overflow-hidden"

@@ -116,7 +116,7 @@ export default function HomePage() {
                 </h3>
                 <p className="text-slate-400 mb-8 font-light text-sm">Таны тусгай дизайн багтай шууд холбогдох.</p>
                 <Link
-                  href="https://m.me/formly"
+                  href="https://m.me/961702760355484"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-white group-hover:text-primary transition-colors text-sm font-bold tracking-wide uppercase"
@@ -495,7 +495,7 @@ export default function HomePage() {
                     </li>
                   </ul>
                   <Link
-                    href="https://m.me/formly"
+                    href="https://m.me/961702760355484"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-3 rounded-lg bg-secondary text-white text-sm font-bold shadow-[0_0_20px_-5px_rgba(0,98,255,0.3)] hover:bg-blue-700 transition-colors text-center inline-block"

@@ -45,7 +45,7 @@ export default function ContactPage() {
             <div className="mt-8">
               <p className="text-sm text-muted-foreground mb-4">Илүү хурдан хариулт авахыг хүсвэл:</p>
               <Link
-                href="https://m.me/formly"
+                href="https://m.me/961702760355484"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-cta inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold text-cta-foreground bg-cta rounded-lg shadow-lg"
@@ -79,7 +79,7 @@ export default function ContactPage() {
             <h2 className="text-2xl font-bold text-foreground">Messenger-ээр бичих</h2>
             <p className="mt-2 text-muted-foreground">Хамгийн хурдан хариулт авах арга · Утас асуухгүй</p>
             <Link
-              href="https://m.me/formly"
+              href="https://m.me/961702760355484"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-cta mt-6 w-full inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-cta-foreground bg-cta rounded-lg shadow-lg"
