@@ -40,7 +40,7 @@ export function Header() {
               Нэвтрэх
             </Link>
             <Link
-              href="https://m.me/961702760355484"
+              href={process.env.NEXT_PUBLIC_GOOGLE_FORMS_LINK || "https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"}
               target="_blank"
               rel="noopener noreferrer"
               className="group relative px-6 py-2.5 rounded-full overflow-hidden text-sm font-medium text-white shadow-lg shadow-primary/30 transition-all hover:shadow-primary/60 hover:scale-105"
@@ -78,7 +78,7 @@ export function Header() {
                 Асуултууд
               </Link>
               <Link
-                href="https://m.me/961702760355484"
+                href={process.env.NEXT_PUBLIC_GOOGLE_FORMS_LINK || "https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-primary rounded-full"
