@@ -33,6 +33,12 @@ export default function HomePage() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
   const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  
+  // Typewriting animation state
+  const texts = ["Тогтвортой", "Хурдан", "Итгэл төрүүлнэ"]
+  const [currentTextIndex, setCurrentTextIndex] = useState(0)
+  const [displayedText, setDisplayedText] = useState("")
+  const [isTyping, setIsTyping] = useState(true)
 
   const scrollProjects = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -45,6 +51,42 @@ export default function HomePage() {
       })
     }
   }
+
+  // Typewriting animation effect
+  useEffect(() => {
+    let typingTimeout: NodeJS.Timeout
+    const currentText = texts[currentTextIndex]
+
+    if (isTyping) {
+      // Typing phase
+      if (displayedText.length < currentText.length) {
+        typingTimeout = setTimeout(() => {
+          setDisplayedText(currentText.slice(0, displayedText.length + 1))
+        }, 50) // Faster typing speed (50ms per character)
+      } else {
+        // Finished typing, wait before deleting
+        typingTimeout = setTimeout(() => {
+          setIsTyping(false)
+        }, 1500) // Wait 1.5 seconds before starting to delete
+      }
+    } else {
+      // Deleting phase
+      if (displayedText.length > 0) {
+        typingTimeout = setTimeout(() => {
+          setDisplayedText(displayedText.slice(0, -1))
+        }, 30) // Faster deleting speed (30ms per character)
+      } else {
+        // Finished deleting, move to next text
+        const nextIndex = (currentTextIndex + 1) % texts.length
+        setCurrentTextIndex(nextIndex)
+        setIsTyping(true)
+      }
+    }
+
+    return () => {
+      if (typingTimeout) clearTimeout(typingTimeout)
+    }
+  }, [displayedText, isTyping, currentTextIndex, texts])
 
   // Auto-scroll functionality
   useEffect(() => {
@@ -95,13 +137,18 @@ export default function HomePage() {
       <section className="pt-36 pb-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-7xl font-serif font-medium tracking-tight text-white mb-8 leading-tight drop-shadow-lg">
-            Дижитал Оролцоо <br />
-            <span className="italic text-slate-300 font-light">Дахин тодорхойлсон</span>{" "}
-            <span className="text-gradient-aurora-vibrant font-semibold">Aurora.</span>
+            <div>
+              <span className="text-gradient-aurora-vibrant font-semibold">Танай сайт</span>
+            </div>
+            <div>
+              <span className="italic text-slate-300 font-light">
+                {displayedText}
+                <span className="inline-block w-0.5 h-[1em] bg-slate-300 ml-1 animate-[blink_1s_infinite]"></span>
+              </span>
+            </div>
           </h1>
           <p className="mt-8 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
-            72 цагийн дотор хүргэх өндөр гүйцэтгэлтэй веб сайтаар танай брэндийг өсгөнө. Тогтвортой өсөлт{" "}
-            <span className="text-primary font-normal">энергээр дүүрэн дизайн</span>-тай уулзана.
+            Хэрэглэгчдэд ээлтэй сайт бүтээхэд <span style={{ color: '#0fa' }}>Formly</span> туслана.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -313,8 +360,10 @@ export default function HomePage() {
       </section>
 
       {/* Curated Portfolio Section */}
-      <section className="py-24 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 relative z-10 overflow-hidden">
+        {/* Flowing water animation overlay */}
+        <div className="absolute inset-0 flowing-water pointer-events-none opacity-30"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex justify-between items-end mb-16">
             <h2 className="text-3xl md:text-4xl font-serif text-white">Сонгосон Портфолио</h2>
             <div className="flex gap-2">

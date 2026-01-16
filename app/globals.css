@@ -492,6 +492,40 @@
     animation: floating 3s ease-in-out infinite;
   }
 
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes flowing-gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .flowing-water {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 255, 170, 0.1) 0%,
+      rgba(0, 240, 255, 0.2) 25%,
+      rgba(0, 255, 170, 0.1) 50%,
+      rgba(0, 240, 255, 0.2) 75%,
+      rgba(0, 255, 170, 0.1) 100%
+    );
+    background-size: 200% 100%;
+    animation: flowing-gradient 4s ease-in-out infinite;
+  }
+
   .icon-glow-emerald {
     box-shadow: 0 0 30px rgba(16, 185, 129, 0.4), inset 0 0 15px rgba(16, 185, 129, 0.2);
   }
