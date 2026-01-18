@@ -32,7 +32,7 @@ export function Header() {
             </Link>
             <Link href="/faq" className="hover:text-accent transition-colors">
               Асуултууд
-            </Link>
+              </Link>
           </div>
 
           <div className="flex items-center gap-6">
@@ -76,7 +76,7 @@ export function Header() {
               </Link>
               <Link href="/faq" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 Асуултууд
-              </Link>
+                </Link>
               <Link
                 href={process.env.NEXT_PUBLIC_GOOGLE_FORMS_LINK || "https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"}
                 target="_blank"

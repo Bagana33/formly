@@ -76,7 +76,7 @@ export default function WorkPage() {
         {/* Filter System */}
         <div className="w-full max-w-7xl mb-12">
           <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-            {categories.map((category) => (
+          {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
@@ -88,7 +88,7 @@ export default function WorkPage() {
               >
                 {category.label}
               </button>
-            ))}
+          ))}
           </div>
         </div>
 
@@ -100,18 +100,18 @@ export default function WorkPage() {
             const categoryLabel = getCategoryLabel(project.category)
 
             return (
-              <Link
-                key={project.slug}
-                href={`/work/${project.slug}`}
+            <Link
+              key={project.slug}
+              href={`/work/${project.slug}`}
                 className={`group relative flex flex-col gap-4 cursor-pointer ${isLarge ? "" : index % 2 === 1 ? "mt-0 md:mt-16" : ""}`}
-              >
+            >
                 <div className="relative w-full aspect-[16/10] bg-surface-dark rounded-2xl overflow-hidden border border-white/10 hover:work-primary-glow hover:work-primary-border/60 transition-all duration-500">
                   {/* Image */}
                   <div className="absolute inset-0">
-                    <Image
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      fill
+                <Image
+                  src={project.image || "/placeholder.svg"}
+                  alt={project.title}
+                  fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
@@ -126,21 +126,21 @@ export default function WorkPage() {
                     </span>
                     <span className="px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider backdrop-blur-md bg-black/30 border border-white/10">
                       UX/UI
-                    </span>
-                  </div>
+                  </span>
                 </div>
+              </div>
                 <div className="flex items-end justify-between px-2">
                   <div>
                     <h3 className="text-2xl font-bold text-white mb-1 group-hover:work-primary transition-colors">
-                      {project.title}
-                    </h3>
+                  {project.title}
+                </h3>
                     <p className="text-white/50 text-sm">{project.description}</p>
                   </div>
                   <div className="size-10 rounded-full border border-white/20 flex items-center justify-center group-hover:work-primary-bg group-hover:work-primary-border transition-all">
                     <ArrowRight className="w-5 h-5 text-white rotate-[-45deg] group-hover:rotate-0 transition-transform duration-300" />
-                  </div>
                 </div>
-              </Link>
+              </div>
+            </Link>
             )
           })}
         </div>
@@ -168,10 +168,10 @@ export default function WorkPage() {
           <p className="text-white/60 text-lg md:text-xl max-w-2xl">
             Манай баг хязгаарыг тэлж, анхаарал татахуйц дижитал туршлагууд бүтээхэд бэлэн байна. Ярилцлагаа эхлүүлье.
           </p>
-          <Link
+            <Link
             href="https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"
-            target="_blank"
-            rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
             className="relative group mt-4 overflow-hidden rounded-full work-primary-bg px-10 py-4 text-base font-bold text-white transition-all hover:scale-105 hover:work-primary-glow-lg"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
@@ -179,7 +179,7 @@ export default function WorkPage() {
               Төсөл эхлүүлэх
               <ExternalLink className="w-5 h-5" />
             </span>
-          </Link>
+            </Link>
         </div>
       </section>
     </>

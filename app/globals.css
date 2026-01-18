@@ -526,6 +526,100 @@
     animation: flowing-gradient 4s ease-in-out infinite;
   }
 
+  /* Orbit Animation Styles */
+  .orbit-perspective {
+    perspective: 2000px;
+    position: absolute;
+    height: 100%;
+    width: 500px;
+    top: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .orbit-left {
+    left: -100px;
+  }
+
+  .orbit-right {
+    right: -100px;
+  }
+
+  .orbit-wheel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: rotate-wheel 60s linear infinite;
+    top: 0;
+    left: 0;
+  }
+
+  .orbit-wheel-reverse {
+    animation: rotate-wheel-reverse 75s linear infinite;
+  }
+
+  @keyframes rotate-wheel {
+    from {
+      transform: rotateX(0deg);
+    }
+    to {
+      transform: rotateX(360deg);
+    }
+  }
+
+  @keyframes rotate-wheel-reverse {
+    from {
+      transform: rotateX(360deg);
+    }
+    to {
+      transform: rotateX(0deg);
+    }
+  }
+
+  .orbit-card {
+    position: absolute;
+    width: 280px;
+    height: 180px;
+    left: 50%;
+    top: 50%;
+    margin-left: -140px;
+    margin-top: -90px;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 30px rgba(0, 255, 170, 0.1);
+    transition: filter 0.5s ease, border-color 0.5s ease;
+  }
+
+  .orbit-card:hover {
+    border-color: rgba(0, 255, 170, 0.6);
+    filter: brightness(1.3);
+  }
+
+  .orbit-card > * {
+    position: absolute;
+    inset: 4px;
+    border-radius: calc(1rem - 4px);
+  }
+
+  .orbit-c-1 { transform: rotateX(0deg) translateZ(550px); }
+  .orbit-c-2 { transform: rotateX(30deg) translateZ(550px); }
+  .orbit-c-3 { transform: rotateX(60deg) translateZ(550px); }
+  .orbit-c-4 { transform: rotateX(90deg) translateZ(550px); }
+  .orbit-c-5 { transform: rotateX(120deg) translateZ(550px); }
+  .orbit-c-6 { transform: rotateX(150deg) translateZ(550px); }
+  .orbit-c-7 { transform: rotateX(180deg) translateZ(550px); }
+  .orbit-c-8 { transform: rotateX(210deg) translateZ(550px); }
+  .orbit-c-9 { transform: rotateX(240deg) translateZ(550px); }
+  .orbit-c-10 { transform: rotateX(270deg) translateZ(550px); }
+  .orbit-c-11 { transform: rotateX(300deg) translateZ(550px); }
+  .orbit-c-12 { transform: rotateX(330deg) translateZ(550px); }
+
+
   .icon-glow-emerald {
     box-shadow: 0 0 30px rgba(16, 185, 129, 0.4), inset 0 0 15px rgba(16, 185, 129, 0.2);
   }

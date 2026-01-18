@@ -301,10 +301,10 @@ export default function AdminPage() {
                             >
                               <Trash className="h-3.5 w-3.5" />
                             </button>
-                          </div>
-                          <div className="space-y-2">
+                  </div>
+                  <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Гарчиг</label>
-                            <input
+                    <input
                               value={card.title}
                               onChange={(e) =>
                                 setContent({
@@ -394,41 +394,41 @@ export default function AdminPage() {
                       {content.proofs.map((item, idx) => (
                         <div key={idx} className="group relative rounded-lg border border-border/70 bg-background/50 p-3 hover:border-primary/50 transition-all">
                           <div className="flex items-start gap-2">
-                            <input
-                              value={item}
-                              onChange={(e) =>
-                                setContent({ ...content, proofs: updateArrayItem(content.proofs, idx, e.target.value) as string[] })
-                              }
+                          <input
+                            value={item}
+                            onChange={(e) =>
+                              setContent({ ...content, proofs: updateArrayItem(content.proofs, idx, e.target.value) as string[] })
+                            }
                               className="flex-1 rounded-md border-0 bg-transparent px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50 focus:bg-background transition-all"
                               placeholder="Нотолгоо текст..."
                               maxLength={50}
-                            />
-                            <button
-                              onClick={() => setContent({ ...content, proofs: removeAt(content.proofs, idx) })}
+                          />
+                          <button
+                            onClick={() => setContent({ ...content, proofs: removeAt(content.proofs, idx) })}
                               className="p-1.5 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors opacity-0 group-hover:opacity-100"
-                              aria-label="remove proof"
+                            aria-label="remove proof"
                               title="Устгах"
-                            >
+                          >
                               <Trash className="h-3.5 w-3.5" />
-                            </button>
-                          </div>
+                          </button>
+                        </div>
                           <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
                             <span>{item.length}/50</span>
                             <span className="text-border">•</span>
                             <span>#{idx + 1}</span>
-                          </div>
-                        </div>
+                    </div>
+                  </div>
                       ))}
                       {content.proofs.length === 0 && (
                         <div className="col-span-full text-center py-8 text-sm text-muted-foreground border border-dashed border-border/50 rounded-lg">
                           Нотолгоо байхгүй байна. "Нэмэх" товчийг дараад нэмнэ үү.
-                        </div>
-                      )}
+                </div>
+              )}
                     </div>
                   </div>
 
                   {/* Protocol Section */}
-                  <div className="surface rounded-2xl p-6 space-y-4">
+                <div className="surface rounded-2xl p-6 space-y-4">
                     <div className="flex items-center justify-between border-b border-border/50 pb-3">
                       <div>
                         <h2 className="text-xl font-semibold text-foreground">3 Хоногийн Протокол</h2>
@@ -452,9 +452,9 @@ export default function AdminPage() {
                       />
                     </div>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between">
                         <p className="text-sm font-medium text-foreground">Протокол картууд</p>
-                        <button
+                    <button
                           onClick={() => setContent({ 
                             ...content, 
                             protocolSection: { 
@@ -464,11 +464,11 @@ export default function AdminPage() {
                             } 
                           })}
                           className="inline-flex items-center gap-1.5 rounded-lg border border-secondary bg-secondary/10 px-3 py-1.5 text-sm font-medium text-secondary hover:bg-secondary/20 transition-colors"
-                        >
-                          <Plus className="h-4 w-4" />
-                          Нэмэх
-                        </button>
-                      </div>
+                    >
+                      <Plus className="h-4 w-4" />
+                      Нэмэх
+                    </button>
+                  </div>
                       <div className="grid gap-3 md:grid-cols-3">
                         {(content.protocolSection?.cards || []).map((card, idx) => (
                           <div key={idx} className="group relative rounded-lg border border-border/70 bg-background/50 p-3 space-y-2 hover:border-primary/50 transition-all">
@@ -633,14 +633,14 @@ export default function AdminPage() {
                         </div>
                         <div className="space-y-2">
                           <label className="text-xs font-medium text-foreground">Гарчиг</label>
-                          <input
-                            value={service.title}
-                            onChange={(e) =>
-                              setContent({
-                                ...content,
+                        <input
+                          value={service.title}
+                          onChange={(e) =>
+                            setContent({
+                              ...content,
                                 serviceSystem: updateArrayItem(content.serviceSystem, idx, { ...service, title: e.target.value }),
-                              })
-                            }
+                            })
+                          }
                             className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                             placeholder="Жишээ: UX бүтэц"
                             maxLength={60}
@@ -651,19 +651,19 @@ export default function AdminPage() {
                         </div>
                         <div className="space-y-2">
                           <label className="text-xs font-medium text-foreground">Тайлбар</label>
-                          <textarea
-                            value={service.description}
-                            onChange={(e) =>
-                              setContent({
-                                ...content,
+                        <textarea
+                          value={service.description}
+                          onChange={(e) =>
+                            setContent({
+                              ...content,
                                 serviceSystem: updateArrayItem(content.serviceSystem, idx, { ...service, description: e.target.value }),
-                              })
-                            }
+                            })
+                          }
                             className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-y min-h-[80px]"
                             placeholder="Жишээ: Үйлчилгээний урсгалыг 3 алхмаар ойлгомжтой болгоно"
                             rows={3}
                             maxLength={200}
-                          />
+                        />
                           <div className="flex items-center gap-2 text-xs text-muted-foreground">
                             <span>{service.description.length}/200</span>
                           </div>
@@ -715,11 +715,11 @@ export default function AdminPage() {
                         <div className="grid md:grid-cols-2 gap-4">
                           <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Төслийн нэр</label>
-                            <input
-                              value={item.title}
-                              onChange={(e) =>
+                          <input
+                            value={item.title}
+                            onChange={(e) =>
                                 setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, title: e.target.value }) })
-                              }
+                            }
                               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                               placeholder="Жишээ: Монголын Эмнэлэг"
                               maxLength={80}
@@ -730,11 +730,11 @@ export default function AdminPage() {
                           </div>
                           <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Slug (URL)</label>
-                            <input
-                              value={item.slug}
-                              onChange={(e) =>
+                          <input
+                            value={item.slug}
+                            onChange={(e) =>
                                 setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, slug: e.target.value }) })
-                              }
+                            }
                               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                               placeholder="Жишээ: mongolyn-emneleg"
                               maxLength={60}
@@ -744,10 +744,10 @@ export default function AdminPage() {
                           <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Категори</label>
                             <select
-                              value={item.category}
-                              onChange={(e) =>
+                            value={item.category}
+                            onChange={(e) =>
                                 setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, category: e.target.value as WorkProject["category"] }) })
-                              }
+                            }
                               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                             >
                               <option value="Сургалтын төв">Сургалтын төв</option>
@@ -758,37 +758,37 @@ export default function AdminPage() {
                           </div>
                           <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Хугацаа</label>
-                            <input
-                              value={item.duration}
-                              onChange={(e) =>
+                          <input
+                            value={item.duration}
+                            onChange={(e) =>
                                 setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, duration: e.target.value }) })
-                              }
+                            }
                               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                               placeholder="Жишээ: 3 хоног"
                               maxLength={30}
-                            />
+                          />
                           </div>
                           <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Салбар</label>
-                            <input
-                              value={item.industry}
-                              onChange={(e) =>
+                          <input
+                            value={item.industry}
+                            onChange={(e) =>
                                 setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, industry: e.target.value }) })
-                              }
+                            }
                               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                               placeholder="Жишээ: Эрүүл мэнд"
                               maxLength={50}
-                            />
+                          />
                           </div>
                         </div>
                         <div className="space-y-2">
                           <label className="text-xs font-medium text-foreground">Зураг</label>
                           <div className="flex gap-2">
-                            <input
-                              value={item.image}
-                              onChange={(e) =>
+                          <input
+                            value={item.image}
+                            onChange={(e) =>
                                 setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, image: e.target.value }) })
-                              }
+                            }
                               className="flex-1 rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                               placeholder="Зураг URL эсвэл local файл оруулах"
                             />
@@ -824,17 +824,17 @@ export default function AdminPage() {
                           <div className="flex items-center justify-between">
                             <label className="text-xs font-medium text-foreground">Төслийн тайлбар</label>
                             <span className="text-xs text-muted-foreground">{item.description.length}/200</span>
-                          </div>
-                          <textarea
-                            value={item.description}
-                            onChange={(e) =>
+                        </div>
+                        <textarea
+                          value={item.description}
+                          onChange={(e) =>
                               setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, description: e.target.value }) })
-                            }
+                          }
                             className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-y min-h-[80px]"
                             rows={3}
                             placeholder="Жишээ: Монголын Эмнэлгийн вэб сайт. Хэрэглэгчдэд мэдээлэл өгөх, захиалга авах зорилготой."
                             maxLength={200}
-                          />
+                        />
                         </div>
                         <div className="grid md:grid-cols-2 gap-4">
                           <div className="space-y-2">
@@ -842,11 +842,11 @@ export default function AdminPage() {
                               <label className="text-xs font-medium text-foreground">Зорилго</label>
                               <span className="text-xs text-muted-foreground">{item.goal?.length || 0}/150</span>
                             </div>
-                            <textarea
+                          <textarea
                               value={item.goal || ""}
-                              onChange={(e) =>
+                            onChange={(e) =>
                                 setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, goal: e.target.value }) })
-                              }
+                            }
                               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-y min-h-[80px]"
                               rows={3}
                               placeholder="Жишээ: Хэрэглэгчдэд мэдээлэл өгөх, захиалга авах..."
@@ -858,11 +858,11 @@ export default function AdminPage() {
                               <label className="text-xs font-medium text-foreground">Шийдэл</label>
                               <span className="text-xs text-muted-foreground">{item.solution?.length || 0}/150</span>
                             </div>
-                            <textarea
+                          <textarea
                               value={item.solution || ""}
-                              onChange={(e) =>
+                            onChange={(e) =>
                                 setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, solution: e.target.value }) })
-                              }
+                            }
                               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-y min-h-[80px]"
                               rows={3}
                               placeholder="Жишээ: Messenger + Form холболт, мобайл дэмжлэг, хурдан ачаалалт..."
@@ -952,7 +952,7 @@ export default function AdminPage() {
                 <div className="surface rounded-2xl p-6 space-y-6">
                   <div className="flex items-center justify-between border-b border-border/50 pb-3">
                     <div>
-                      <h2 className="text-xl font-semibold text-foreground">Багц / Үнэ</h2>
+                    <h2 className="text-xl font-semibold text-foreground">Багц / Үнэ</h2>
                       <p className="text-xs text-muted-foreground mt-1">Pricing хэсгийн багцуудын тохируулга</p>
                     </div>
                     <button
@@ -995,41 +995,41 @@ export default function AdminPage() {
                         <div className="grid grid-cols-2 gap-2">
                           <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Үнэ</label>
-                            <input
-                              value={plan.price}
-                              onChange={(e) =>
+                          <input
+                            value={plan.price}
+                            onChange={(e) =>
                                 setContent({ ...content, plans: updateArrayItem(content.plans, idx, { ...plan, price: e.target.value }) })
-                              }
+                            }
                               className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                               placeholder="450,000"
                               maxLength={20}
-                            />
+                          />
                           </div>
                           <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Нэгж</label>
-                            <input
-                              value={plan.unit || ""}
-                              onChange={(e) =>
+                          <input
+                            value={plan.unit || ""}
+                            onChange={(e) =>
                                 setContent({ ...content, plans: updateArrayItem(content.plans, idx, { ...plan, unit: e.target.value }) })
-                              }
+                            }
                               className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                               placeholder="₮ эсвэл ₮ / сар"
                               maxLength={15}
-                            />
-                          </div>
+                          />
+                        </div>
                         </div>
                         <div className="space-y-2">
                           <label className="text-xs font-medium text-foreground">Тайлбар</label>
-                          <textarea
-                            value={plan.description}
-                            onChange={(e) =>
-                              setContent({
-                                ...content,
+                        <textarea
+                          value={plan.description}
+                          onChange={(e) =>
+                            setContent({
+                              ...content,
                                 plans: updateArrayItem(content.plans, idx, { ...plan, description: e.target.value }),
-                              })
-                            }
+                            })
+                          }
                             className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-y min-h-[60px]"
-                            rows={2}
+                          rows={2}
                             placeholder="Жишээ: Эхлэхэд тохиромжтой"
                             maxLength={100}
                           />
@@ -1129,28 +1129,28 @@ export default function AdminPage() {
                         <h2 className="text-xl font-semibold text-foreground">Процесс / Timeline</h2>
                         <p className="text-xs text-muted-foreground mt-1">3 хоногийн процесс алхмуудын тохируулга</p>
                       </div>
-                      <button
-                        onClick={() => setContent({ ...content, timeline: [...content.timeline, addEmptyStep()] })}
+                    <button
+                      onClick={() => setContent({ ...content, timeline: [...content.timeline, addEmptyStep()] })}
                         className="inline-flex items-center gap-1.5 rounded-lg border border-secondary bg-secondary/10 px-3 py-1.5 text-sm font-medium text-secondary hover:bg-secondary/20 transition-colors"
-                      >
-                        <Plus className="h-4 w-4" />
-                        Алхам нэмэх
-                      </button>
-                    </div>
-                    <div className="grid gap-4 md:grid-cols-3">
-                      {content.timeline.map((step, idx) => (
+                    >
+                      <Plus className="h-4 w-4" />
+                      Алхам нэмэх
+                    </button>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-3">
+                    {content.timeline.map((step, idx) => (
                         <div key={idx} className="group relative rounded-xl border border-border/70 bg-background/50 p-4 space-y-3 hover:border-primary/50 transition-all">
-                          <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between">
                             <span className="text-xs font-semibold text-muted-foreground">Алхам #{idx + 1}</span>
-                            <button
-                              onClick={() => setContent({ ...content, timeline: removeAt(content.timeline, idx) })}
+                          <button
+                            onClick={() => setContent({ ...content, timeline: removeAt(content.timeline, idx) })}
                               className="p-1.5 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors opacity-0 group-hover:opacity-100"
-                              aria-label="remove step"
+                            aria-label="remove step"
                               title="Устгах"
-                            >
+                          >
                               <Trash className="h-3.5 w-3.5" />
-                            </button>
-                          </div>
+                          </button>
+                        </div>
                           <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Өдөр</label>
                             <input
@@ -1165,11 +1165,11 @@ export default function AdminPage() {
                           </div>
                           <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Гарчиг</label>
-                            <input
-                              value={step.title}
-                              onChange={(e) =>
+                        <input
+                          value={step.title}
+                          onChange={(e) =>
                                 setContent({ ...content, timeline: updateArrayItem(content.timeline, idx, { ...step, title: e.target.value }) })
-                              }
+                          }
                               className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                               placeholder="Жишээ: Төлөвлөгөө"
                               maxLength={60}
@@ -1180,14 +1180,14 @@ export default function AdminPage() {
                           </div>
                           <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Тайлбар</label>
-                            <textarea
-                              value={step.description}
-                              onChange={(e) =>
-                                setContent({
-                                  ...content,
+                        <textarea
+                          value={step.description}
+                          onChange={(e) =>
+                            setContent({
+                              ...content,
                                   timeline: updateArrayItem(content.timeline, idx, { ...step, description: e.target.value }),
-                                })
-                              }
+                            })
+                          }
                               className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-y min-h-[80px]"
                               placeholder="Жишээ: Бид таны брэндийн алсын харааг шууд ойлгодог..."
                               rows={3}
@@ -1197,8 +1197,8 @@ export default function AdminPage() {
                               <span>{step.description.length}/300</span>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                      </div>
+                    ))}
                       {content.timeline.length === 0 && (
                         <div className="col-span-full text-center py-8 text-sm text-muted-foreground border border-dashed border-border/50 rounded-lg">
                           Процесс алхам байхгүй байна. "Алхам нэмэх" товчийг дараад нэмнэ үү.
@@ -1225,26 +1225,26 @@ export default function AdminPage() {
                       {content.assurances.map((a, idx) => (
                         <div key={idx} className="group relative rounded-lg border border-border/70 bg-background/50 p-3 hover:border-primary/50 transition-all">
                           <div className="flex items-start gap-2">
-                            <input
-                              value={a}
-                              onChange={(e) =>
-                                setContent({
-                                  ...content,
-                                  assurances: updateArrayItem(content.assurances, idx, e.target.value) as string[],
-                                })
-                              }
+                          <input
+                            value={a}
+                            onChange={(e) =>
+                              setContent({
+                                ...content,
+                                assurances: updateArrayItem(content.assurances, idx, e.target.value) as string[],
+                              })
+                            }
                               className="flex-1 rounded-md border-0 bg-transparent px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50 focus:bg-background transition-all"
                               placeholder="Баталгаа текст..."
                               maxLength={60}
-                            />
-                            <button
-                              onClick={() => setContent({ ...content, assurances: removeAt(content.assurances, idx) })}
+                          />
+                          <button
+                            onClick={() => setContent({ ...content, assurances: removeAt(content.assurances, idx) })}
                               className="p-1.5 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors opacity-0 group-hover:opacity-100"
-                              aria-label="remove assurance"
+                            aria-label="remove assurance"
                               title="Устгах"
-                            >
+                          >
                               <Trash className="h-3.5 w-3.5" />
-                            </button>
+                          </button>
                           </div>
                           <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
                             <span>{a.length}/60</span>
@@ -1302,12 +1302,12 @@ export default function AdminPage() {
                           <div className="flex items-center justify-between">
                             <label className="text-sm font-medium text-foreground">Асуулт</label>
                             <span className="text-xs text-muted-foreground">{faq.question.length}/150</span>
-                          </div>
-                          <input
-                            value={faq.question}
-                            onChange={(e) =>
+                        </div>
+                        <input
+                          value={faq.question}
+                          onChange={(e) =>
                               setContent({ ...content, faqs: updateArrayItem(content.faqs, idx, { ...faq, question: e.target.value }) })
-                            }
+                          }
                             className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                             placeholder="Жишээ: Domain байхгүй бол яах вэ?"
                             maxLength={150}
@@ -1319,11 +1319,11 @@ export default function AdminPage() {
                             <label className="text-sm font-medium text-foreground">Хариулт</label>
                             <span className="text-xs text-muted-foreground">{faq.answer.length}/500</span>
                           </div>
-                          <textarea
-                            value={faq.answer}
-                            onChange={(e) =>
+                        <textarea
+                          value={faq.answer}
+                          onChange={(e) =>
                               setContent({ ...content, faqs: updateArrayItem(content.faqs, idx, { ...faq, answer: e.target.value }) })
-                            }
+                          }
                             className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-y min-h-[100px]"
                             placeholder="Жишээ: Домэйн худалдаж авахад бид туслана. Монголд .mn домэйн авах бол жилд 50,000-80,000₮ орчим болдог..."
                             rows={4}

@@ -51,7 +51,7 @@ export function Footer() {
               <a
                 href="#"
                 className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-accent hover:bg-accent/20 transition-all"
-              >
+          >
                 <i className="fab fa-instagram"></i>
               </a>
               <a
@@ -60,8 +60,8 @@ export function Footer() {
               >
                 <i className="fab fa-telegram"></i>
               </a>
-            </div>
-          </div>
+        </div>
+      </div>
 
           {/* Navigation */}
           <div>
@@ -71,7 +71,7 @@ export function Footer() {
                 <li key={`nav-${index}-${link.href}`}>
                   <Link href={link.href} className="hover:text-primary hover:translate-x-1 transition-all inline-block">
                     {link.label}
-                  </Link>
+            </Link>
                 </li>
               ))}
             </ul>
@@ -84,8 +84,8 @@ export function Footer() {
               {pricingLinks.map((link, index) => (
                 <li key={`pricing-${index}-${link.href}`}>
                   <Link href={link.href} className="hover:text-secondary hover:translate-x-1 transition-all inline-block">
-                    {link.label}
-                  </Link>
+                  {link.label}
+                </Link>
                 </li>
               ))}
             </ul>
@@ -99,7 +99,7 @@ export function Footer() {
                 <li key={`about-${index}-${link.href}`}>
                   <Link href={link.href} className="hover:text-accent hover:translate-x-1 transition-all inline-block">
                     {link.label}
-                  </Link>
+              </Link>
                 </li>
               ))}
             </ul>

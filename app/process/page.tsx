@@ -107,7 +107,7 @@ export default function ProcessPage() {
                   }}
                 >
                   <IconComponent className={`text-5xl ${step.iconColor}`} />
-                </div>
+                  </div>
 
                 {/* Glass Card */}
                 <div 
@@ -134,14 +134,14 @@ export default function ProcessPage() {
 
         {/* CTA Button */}
         <div className="mt-24 text-center relative z-10">
-          <Link
+            <Link
             href="https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"
-            target="_blank"
-            rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
             className="inline-block px-10 py-5 bg-gradient-to-r from-[#10b981] to-blue-600 rounded-full font-bold text-lg text-white hover:scale-105 transition-all shadow-xl shadow-[#10b981]/20 active:scale-95"
-          >
+            >
             Төсөл эхлүүлэх
-          </Link>
+            </Link>
         </div>
       </main>
     </>

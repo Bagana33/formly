@@ -134,8 +134,48 @@ export default function HomePage() {
       </div>
 
       {/* Hero Section */}
-      <section className="pt-36 pb-24 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="pt-36 pb-24 relative z-10 overflow-hidden min-h-screen flex items-center justify-center">
+        {/* Orbit Animation - Left Side */}
+        <div className="orbit-perspective orbit-left hidden xl:block">
+          <div className="orbit-wheel">
+            {Array.from({ length: 12 }).map((_, index) => {
+              const project = allProjects[index % allProjects.length];
+              return (
+                <div key={`orbit-left-${index}`} className={`orbit-card orbit-c-${index + 1}`}>
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover rounded-lg"
+                    sizes="280px"
+                    unoptimized
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        {/* Orbit Animation - Right Side */}
+        <div className="orbit-perspective orbit-right hidden xl:block">
+          <div className="orbit-wheel orbit-wheel-reverse">
+            {Array.from({ length: 12 }).map((_, index) => {
+              const project = allProjects[index % allProjects.length];
+              return (
+                <div key={`orbit-right-${index}`} className={`orbit-card orbit-c-${index + 1}`}>
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover rounded-lg"
+                    sizes="280px"
+                    unoptimized
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="text-4xl md:text-7xl font-serif font-medium tracking-tight text-white mb-8 leading-tight drop-shadow-lg">
             <div>
               <span className="text-gradient-aurora-vibrant font-semibold">Танай сайт</span>
