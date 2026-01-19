@@ -4,7 +4,7 @@ import Image from "next/image"
 import { notFound } from "next/navigation"
 import { Section } from "@/components/section"
 import { Badge } from "@/components/badge"
-import { workProjects, getWorkBySlug } from "@/lib/work-data"
+import { workProjects, getWorkBySlug, getWorkBySlugFromSupabase } from "@/lib/work-data"
 import { MessageCircle, Clock, CheckCircle, XCircle, ArrowRight } from "lucide-react"
 
 interface Props {
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const project = getWorkBySlug(slug)
+  const project = await getWorkBySlugFromSupabase(slug) || getWorkBySlug(slug)
 
   if (!project) {
     return {
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function WorkDetailPage({ params }: Props) {
   const { slug } = await params
-  const project = getWorkBySlug(slug)
+  const project = await getWorkBySlugFromSupabase(slug) || getWorkBySlug(slug)
 
   if (!project) {
     notFound()

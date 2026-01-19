@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Section } from "@/components/section"
-import { workProjects } from "@/lib/work-data"
+import { workProjects, getWorkProjectsFromSupabase, type WorkProject } from "@/lib/work-data"
 import { ArrowRight, MessageCircle, MessageSquare, Lightbulb, Calendar, Building2, Palette, Rocket, Check, ChevronLeft, ChevronRight } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
 
@@ -29,7 +29,7 @@ const getCategoryLabel = (category: string) => {
 }
 
 export default function HomePage() {
-  const allProjects = workProjects
+  const [allProjects, setAllProjects] = useState<WorkProject[]>(workProjects)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
   const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -39,6 +39,15 @@ export default function HomePage() {
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
   const [displayedText, setDisplayedText] = useState("")
   const [isTyping, setIsTyping] = useState(true)
+
+  // Load work projects from Supabase on mount
+  useEffect(() => {
+    getWorkProjectsFromSupabase().then((projects) => {
+      if (projects && projects.length > 0) {
+        setAllProjects(projects)
+      }
+    })
+  }, [])
 
   const scrollProjects = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {

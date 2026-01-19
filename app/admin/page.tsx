@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from "react"
 import { Section } from "@/components/section"
 import { getDefaultContent, type FAQ, type Plan, type ServiceItem, type SiteContent, type TimelineStep } from "@/lib/site-content"
 import type { WorkProject } from "@/lib/work-data"
-import { Plus, Trash, Copy, RotateCcw, Save, Upload, Image as ImageIcon } from "lucide-react"
+import { Plus, Trash, Copy, RotateCcw, Save, Upload, Image as ImageIcon, Download, Cloud } from "lucide-react"
+import { supabase } from "@/lib/supabase"
 
 type TabKey = "hero" | "services" | "work" | "pricing" | "process" | "faq"
 
@@ -12,8 +13,46 @@ export default function AdminPage() {
   const [content, setContent] = useState<SiteContent>(getDefaultContent)
   const [active, setActive] = useState<TabKey>("hero")
   const [copied, setCopied] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [lastSaved, setLastSaved] = useState<Date | null>(null)
 
-  // Load from localStorage
+  // Load from Supabase
+  async function loadFromSupabase() {
+    setLoading(true)
+    try {
+      const { data, error } = await supabase
+        .from('site_content')
+        .select('content')
+        .eq('section', 'main')
+        .single()
+
+      if (error) {
+        if (error.code === 'PGRST116') {
+          // No data found, use defaults
+          console.log('No content found in Supabase, using defaults')
+          setContent(getDefaultContent())
+        } else {
+          console.error('Error loading from Supabase:', error)
+          alert('Supabase-аас унших үед алдаа гарлаа: ' + error.message)
+        }
+      } else if (data?.content) {
+        setContent(data.content as SiteContent)
+        // Also update localStorage
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem("formly-content", JSON.stringify(data.content))
+        }
+        alert('Supabase-аас амжилттай уншлаа!')
+      }
+    } catch (err) {
+      console.error('Error loading from Supabase:', err)
+      alert('Supabase-аас унших үед алдаа гарлаа')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Load from localStorage first
   useEffect(() => {
     if (typeof window === "undefined") return
     const stored = window.localStorage.getItem("formly-content")
@@ -25,6 +64,76 @@ export default function AdminPage() {
       }
     }
   }, [])
+
+  // Save to Supabase
+  async function saveToSupabase() {
+    setSaving(true)
+    try {
+      // Save site content
+      const { error: contentError } = await supabase
+        .from('site_content')
+        .upsert({
+          section: 'main',
+          content: content,
+          updated_at: new Date().toISOString()
+        }, {
+          onConflict: 'section'
+        })
+
+      if (contentError) {
+        console.error('Error saving site content to Supabase:', contentError)
+        alert('Site content-ийг Supabase руу хадгалах үед алдаа гарлаа: ' + contentError.message)
+        return
+      }
+
+      // Save work projects
+      if (content.work && content.work.length > 0) {
+        // Delete all existing work projects first
+        const { error: deleteError } = await supabase
+          .from('work_projects')
+          .delete()
+          .neq('id', '00000000-0000-0000-0000-000000000000') // Delete all
+
+        if (deleteError) {
+          console.error('Error deleting work projects:', deleteError)
+          // Continue anyway, might be first time
+        }
+
+        // Insert new work projects
+        const workProjectsToInsert = content.work.map((project) => ({
+          slug: project.slug,
+          title: project.title,
+          category: project.category,
+          description: project.description,
+          image: project.image,
+          industry: project.industry,
+          goal: project.goal || '',
+          problem: project.problem || '',
+          solution: project.solution || '',
+          pages: project.pages || [],
+          duration: project.duration,
+        }))
+
+        const { error: workError } = await supabase
+          .from('work_projects')
+          .insert(workProjectsToInsert)
+
+        if (workError) {
+          console.error('Error saving work projects to Supabase:', workError)
+          alert('Work projects-ийг Supabase руу хадгалах үед алдаа гарлаа: ' + workError.message)
+          return
+        }
+      }
+
+      setLastSaved(new Date())
+      alert('Supabase руу амжилттай хадгаллаа! (Site content + Work projects)')
+    } catch (err) {
+      console.error('Error saving to Supabase:', err)
+      alert('Supabase руу хадгалах үед алдаа гарлаа')
+    } finally {
+      setSaving(false)
+    }
+  }
 
   // Persist to localStorage
   useEffect(() => {
@@ -117,9 +226,32 @@ export default function AdminPage() {
               <div>
                 <p className="eyebrow">Admin Dashboard</p>
                 <h1 className="text-2xl md:text-3xl font-bold text-foreground">Контент удирдах</h1>
-                <p className="text-sm text-muted-foreground mt-2">LocalStorage-д хадгална · JSON-оор export хийж болно</p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  LocalStorage-д хадгална · Supabase руу хадгалах боломжтой · JSON-оор export хийж болно
+                  {lastSaved && (
+                    <span className="ml-2 text-xs text-secondary">
+                      (Сүүлд хадгалсан: {lastSaved.toLocaleTimeString('mn-MN')})
+                    </span>
+                  )}
+                </p>
               </div>
               <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={loadFromSupabase}
+                  disabled={loading}
+                  className="inline-flex items-center gap-2 rounded-lg border border-primary bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Download className="h-4 w-4" />
+                  {loading ? "Уншиж байна..." : "Supabase-аас унших"}
+                </button>
+                <button
+                  onClick={saveToSupabase}
+                  disabled={saving}
+                  className="inline-flex items-center gap-2 rounded-lg border border-secondary bg-secondary/10 px-4 py-2 text-sm font-medium text-secondary hover:bg-secondary/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Cloud className="h-4 w-4" />
+                  {saving ? "Хадгалж байна..." : "Supabase руу хадгалах"}
+                </button>
                 <button
                   onClick={resetDefaults}
                   className="inline-flex items-center gap-2 rounded-lg border border-border bg-muted/70 px-4 py-2 text-sm font-medium text-foreground hover:bg-muted"

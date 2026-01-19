@@ -200,6 +200,14 @@ CREATE POLICY "Public read access for process_steps" ON process_steps
 CREATE POLICY "Public read access for site_content" ON site_content
   FOR SELECT USING (true);
 
+-- Allow anonymous insert/update for site_content (for admin page)
+-- Note: In production, consider adding authentication or restricting this further
+CREATE POLICY "Public insert for site_content" ON site_content
+  FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Public update for site_content" ON site_content
+  FOR UPDATE USING (true);
+
 CREATE POLICY "Public read access for monthly_service" ON monthly_service
   FOR SELECT USING (true);
 
@@ -220,8 +228,9 @@ CREATE POLICY "Admin full access for services" ON services
 CREATE POLICY "Admin full access for process_steps" ON process_steps
   FOR ALL USING (auth.role() = 'service_role');
 
-CREATE POLICY "Admin full access for site_content" ON site_content
-  FOR ALL USING (auth.role() = 'service_role');
+-- Admin full access for site_content is handled by public policies above
+-- CREATE POLICY "Admin full access for site_content" ON site_content
+--   FOR ALL USING (auth.role() = 'service_role');
 
 CREATE POLICY "Admin full access for monthly_service" ON monthly_service
   FOR ALL USING (auth.role() = 'service_role');

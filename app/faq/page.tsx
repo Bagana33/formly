@@ -109,7 +109,7 @@ export default function FAQPage() {
             <p className="text-lg text-gray-400 max-w-2xl font-light">
               Formly-ийн үйлчилгээ, үнэ, танай бизнесийг хэрхэн өсгөх талаар мэдэх шаардлагатай бүх зүйл.
             </p>
-          </div>
+        </div>
 
           {/* Accordions */}
           <div className="flex flex-col gap-4">
@@ -127,7 +127,7 @@ export default function FAQPage() {
                     className="flex cursor-pointer items-center justify-between gap-4 p-6 select-none w-full text-left"
                   >
                     <h3 className={`text-lg font-bold transition-colors ${isOpen ? "text-[#00f0ff]" : "text-white group-hover:text-[#00f0ff]"}`}>
-                      {faq.question}
+                  {faq.question}
                     </h3>
                     <div
                       className={`text-gray-400 group-hover:text-white transition-all duration-300 flex items-center justify-center bg-white/5 rounded-full p-1 w-8 h-8 ${
@@ -167,10 +167,10 @@ export default function FAQPage() {
                     Хайж байгаа хариултаа олж чадаагүй үү? Манай баг ямар ч тусгай асуултанд тусалхад бэлэн байна.
                   </p>
                 </div>
-                <Link
+            <Link
                   href="https://m.me/961702760355484"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
                   className="w-full group/btn relative flex items-center justify-center gap-2 bg-[#0d59f2] hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-[0_4px_20px_rgba(13,89,242,0.3)] hover:shadow-[0_4px_25px_rgba(13,89,242,0.5)] overflow-hidden"
                 >
                   <span className="relative z-10">Бидтэй чатлах</span>
@@ -194,7 +194,7 @@ export default function FAQPage() {
                   className="text-xs text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-600 hover:decoration-white transition-all"
                 >
                   Дэлгэрэнгүй үзэх
-                </Link>
+            </Link>
               </div>
               {/* Animated Border Gradient */}
               <div

@@ -1,3 +1,5 @@
+import { supabase } from "./supabase"
+
 export interface WorkProject {
   slug: string
   title: string
@@ -96,4 +98,82 @@ export const workProjects: WorkProject[] = [
 
 export function getWorkBySlug(slug: string): WorkProject | undefined {
   return workProjects.find((project) => project.slug === slug)
+}
+
+// Fetch work projects from Supabase
+export async function getWorkProjectsFromSupabase(): Promise<WorkProject[]> {
+  try {
+    const { data, error } = await supabase
+      .from('work_projects')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      console.error('Error fetching work projects from Supabase:', error)
+      // Return default projects if Supabase fails
+      return workProjects
+    }
+
+    if (!data || data.length === 0) {
+      // Return default projects if no data in Supabase
+      return workProjects
+    }
+
+    // Map Supabase data to WorkProject format
+    return data.map((project) => ({
+      slug: project.slug,
+      title: project.title,
+      category: project.category as WorkProject["category"],
+      description: project.description,
+      image: project.image,
+      industry: project.industry,
+      goal: project.goal || '',
+      problem: project.problem || '',
+      solution: project.solution || '',
+      pages: project.pages || [],
+      duration: project.duration,
+    }))
+  } catch (err) {
+    console.error('Error fetching work projects from Supabase:', err)
+    // Return default projects on error
+    return workProjects
+  }
+}
+
+// Get work project by slug from Supabase
+export async function getWorkBySlugFromSupabase(slug: string): Promise<WorkProject | null> {
+  try {
+    const { data, error } = await supabase
+      .from('work_projects')
+      .select('*')
+      .eq('slug', slug)
+      .single()
+
+    if (error) {
+      console.error('Error fetching work project from Supabase:', error)
+      // Fallback to default projects
+      return getWorkBySlug(slug) || null
+    }
+
+    if (!data) {
+      return getWorkBySlug(slug) || null
+    }
+
+    return {
+      slug: data.slug,
+      title: data.title,
+      category: data.category as WorkProject["category"],
+      description: data.description,
+      image: data.image,
+      industry: data.industry,
+      goal: data.goal || '',
+      problem: data.problem || '',
+      solution: data.solution || '',
+      pages: data.pages || [],
+      duration: data.duration,
+    }
+  } catch (err) {
+    console.error('Error fetching work project from Supabase:', err)
+    return getWorkBySlug(slug) || null
+  }
 }

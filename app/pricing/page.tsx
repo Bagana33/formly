@@ -33,7 +33,7 @@ export default function PricingPage() {
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="aurora-bg"></div>
         <div className="aurora-bg-2"></div>
-      </div>
+        </div>
 
       {/* Hero Section */}
       <section className="pt-36 pb-24 relative z-10">
@@ -47,19 +47,19 @@ export default function PricingPage() {
             Үнэ <span className="text-primary font-normal">450,000₮</span>-с эхэлнэ. <span className="text-primary font-normal">2 багц</span>, дарамтгүй сонголт. Starter багц хамгийн их сонгогддог.
           </p>
 
-          {/* Trust Band */}
+      {/* Trust Band */}
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 mb-16">
             <div className="flex items-center gap-2 text-slate-400">
               <Clock className="h-5 w-5 text-primary" />
-              <span className="text-sm font-medium">3 хоногт бэлэн</span>
-            </div>
+            <span className="text-sm font-medium">3 хоногт бэлэн</span>
+          </div>
             <div className="flex items-center gap-2 text-slate-400">
               <Smartphone className="h-5 w-5 text-primary" />
-              <span className="text-sm font-medium">Mobile-first</span>
-            </div>
+            <span className="text-sm font-medium">Mobile-first</span>
+          </div>
             <div className="flex items-center gap-2 text-slate-400">
               <TrendingUp className="h-5 w-5 text-primary" />
-              <span className="text-sm font-medium">Дараа нь өргөтгөнө</span>
+            <span className="text-sm font-medium">Дараа нь өргөтгөнө</span>
             </div>
           </div>
         </div>
@@ -69,18 +69,18 @@ export default function PricingPage() {
       <section className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {plans.map((plan) => (
-              <div
-                key={plan.name}
+          {plans.map((plan) => (
+            <div
+              key={plan.name}
                 className={`glass-card group relative rounded-2xl p-8 flex flex-col border-t border-white/10 h-full ${
                   plan.popular ? "ring-2 ring-primary/30" : ""
-                }`}
-              >
-                {plan.popular && (
+              }`}
+            >
+              {plan.popular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary/20 text-primary font-bold text-xs tracking-widest uppercase border border-primary/30 z-20 whitespace-nowrap">
                     ХАМГИЙН ИХ СОНГОГДДОГ
                   </div>
-                )}
+              )}
                 <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
                   <Sparkles className="w-20 h-20 text-primary drop-shadow-[0_0_10px_rgba(0,255,170,0.5)]" />
                 </div>
@@ -93,7 +93,7 @@ export default function PricingPage() {
                   <div className="mb-6">
                     <span className="text-5xl font-bold text-white">{plan.price}</span>
                     <span className="text-slate-400 ml-2">{plan.unit}</span>
-                  </div>
+              </div>
 
                   {(plan as any).longDescription && (
                     <p className="text-sm text-slate-400 leading-relaxed mb-4 font-light">
@@ -108,38 +108,38 @@ export default function PricingPage() {
                   )}
 
                   <ul className="space-y-3 mb-8 flex-1">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3">
                         <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5 flex-shrink-0" />
                         <span className="text-slate-300 text-sm leading-relaxed">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  </li>
+                ))}
+              </ul>
 
-                  <Link
-                    href="/contact"
+              <Link
+                href="/contact"
                     className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium rounded-lg transition-all mt-auto ${
-                      plan.popular
+                  plan.popular
                         ? "bg-gradient-to-r from-primary to-secondary text-black font-bold shadow-lg shadow-primary/30 hover:scale-105"
                         : "text-white bg-white/10 hover:bg-white/20 border border-white/10"
-                    }`}
-                  >
-                    Захиалах
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+                }`}
+              >
+                Захиалах
+                <ArrowRight className="h-4 w-4" />
+              </Link>
                 </div>
-              </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
           <div className="mt-16 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-slate-400">
-            {assurances.map((item) => (
-              <span key={item} className="flex items-center gap-1.5">
+          {assurances.map((item) => (
+            <span key={item} className="flex items-center gap-1.5">
                 <Check className="h-4 w-4 text-primary" />
-                {item}
-              </span>
-            ))}
-          </div>
+              {item}
+            </span>
+          ))}
+        </div>
         </div>
       </section>
 

@@ -2,9 +2,9 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { workProjects } from "@/lib/work-data"
+import { workProjects, getWorkProjectsFromSupabase, type WorkProject } from "@/lib/work-data"
 import { ArrowRight, ExternalLink, ChevronDown } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const categories = [
   { id: "all", label: "Бүгд" },
@@ -23,11 +23,21 @@ const categoryMap: Record<string, string> = {
 
 export default function WorkPage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
+  const [projects, setProjects] = useState<WorkProject[]>(workProjects)
+
+  // Load work projects from Supabase on mount
+  useEffect(() => {
+    getWorkProjectsFromSupabase().then((loadedProjects) => {
+      if (loadedProjects && loadedProjects.length > 0) {
+        setProjects(loadedProjects)
+      }
+    })
+  }, [])
 
   const filteredProjects =
     selectedCategory === "all"
-      ? workProjects
-      : workProjects.filter((p) => categoryMap[p.category] === selectedCategory)
+      ? projects
+      : projects.filter((p) => categoryMap[p.category] === selectedCategory)
 
   const getCategoryColor = (category: string) => {
     const colorMap: Record<string, string> = {
