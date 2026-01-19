@@ -125,8 +125,13 @@ export default function AdminPage() {
         }
       }
 
+      // Also save to localStorage
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("formly-content", JSON.stringify(content))
+      }
+
       setLastSaved(new Date())
-      alert('Supabase руу амжилттай хадгаллаа! (Site content + Work projects)')
+      alert('Supabase руу амжилттай хадгаллаа! (Site content + Work projects + LocalStorage)')
     } catch (err) {
       console.error('Error saving to Supabase:', err)
       alert('Supabase руу хадгалах үед алдаа гарлаа')
