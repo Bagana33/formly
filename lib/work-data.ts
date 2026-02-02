@@ -104,38 +104,34 @@ export function getWorkBySlug(slug: string): WorkProject | undefined {
 export async function getWorkProjectsFromSupabase(): Promise<WorkProject[]> {
   try {
     const { data, error } = await supabase
-      .from('work_projects')
-      .select('*')
-      .order('created_at', { ascending: false })
+      .from("work_projects")
+      .select("slug, title, category, description, image")
+      .order("created_at", { ascending: false })
 
     if (error) {
-      console.error('Error fetching work projects from Supabase:', error)
-      // No fallback to local defaults: only show Supabase-backed data
+      console.error("Error fetching work projects from Supabase:", error)
       return []
     }
 
     if (!data || data.length === 0) {
-      // No fallback to local defaults: only show Supabase-backed data
       return []
     }
 
-    // Map Supabase data to WorkProject format
     return data.map((project) => ({
       slug: project.slug,
       title: project.title,
       category: project.category as WorkProject["category"],
       description: project.description,
       image: project.image,
-      industry: project.industry,
-      goal: project.goal || '',
-      problem: project.problem || '',
-      solution: project.solution || '',
+      industry: project.industry || "",
+      goal: project.goal || "",
+      problem: project.problem || "",
+      solution: project.solution || "",
       pages: project.pages || [],
-      duration: project.duration,
+      duration: project.duration || "",
     }))
   } catch (err) {
-    console.error('Error fetching work projects from Supabase:', err)
-    // No fallback to local defaults: only show Supabase-backed data
+    console.error("Error fetching work projects from Supabase:", err)
     return []
   }
 }
@@ -144,14 +140,13 @@ export async function getWorkProjectsFromSupabase(): Promise<WorkProject[]> {
 export async function getWorkBySlugFromSupabase(slug: string): Promise<WorkProject | null> {
   try {
     const { data, error } = await supabase
-      .from('work_projects')
-      .select('*')
-      .eq('slug', slug)
+      .from("work_projects")
+      .select("*")
+      .eq("slug", slug)
       .maybeSingle()
 
     if (error) {
-      console.error('Error fetching work project from Supabase:', error)
-      // No fallback to local defaults: only show Supabase-backed data
+      console.error("Error fetching work project from Supabase:", error)
       return null
     }
 
@@ -166,14 +161,14 @@ export async function getWorkBySlugFromSupabase(slug: string): Promise<WorkProje
       description: data.description,
       image: data.image,
       industry: data.industry,
-      goal: data.goal || '',
-      problem: data.problem || '',
-      solution: data.solution || '',
+      goal: data.goal || "",
+      problem: data.problem || "",
+      solution: data.solution || "",
       pages: data.pages || [],
       duration: data.duration,
     }
   } catch (err) {
-    console.error('Error fetching work project from Supabase:', err)
+    console.error("Error fetching work project from Supabase:", err)
     return null
   }
 }

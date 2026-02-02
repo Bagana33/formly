@@ -6,21 +6,24 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import "./globals.css"
 
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Inter, Playfair_Display } from "next/font/google"
 
 // Initialize fonts
 const inter = Inter({ 
   subsets: ['latin'], 
   weight: ["300","400","500","600"],
-  variable: '--font-inter'
+  variable: '--font-inter',
+  display: "swap",
 })
 
 const playfair = Playfair_Display({ 
   subsets: ['latin'], 
   weight: ["400","500","600","700"],
   style: ["normal", "italic"],
-  variable: '--font-playfair'
+  variable: '--font-playfair',
+  display: "swap",
 })
+
 
 export const metadata: Metadata = {
   title: {
@@ -63,7 +66,10 @@ export default function RootLayout({
   return (
     <html lang="mn" className="dark">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>

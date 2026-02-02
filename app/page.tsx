@@ -1,135 +1,13 @@
-"use client"
-
 import Link from "next/link"
-import Image from "next/image"
-import { Section } from "@/components/section"
-import { getWorkProjectsFromSupabase, type WorkProject } from "@/lib/work-data"
-import { ArrowRight, MessageCircle, MessageSquare, Lightbulb, Calendar, Building2, Palette, Rocket, Check, ChevronLeft, ChevronRight } from "lucide-react"
-import { useState, useRef, useEffect } from "react"
+import { getWorkProjectsFromSupabase } from "@/lib/work-data"
+import { WorkCarouselClient } from "@/components/work-carousel-client"
+import { TypewriterText } from "@/components/typewriter-text"
+import { ArrowRight, MessageCircle, MessageSquare, Lightbulb, Calendar, Building2, Palette, Rocket } from "lucide-react"
 
-// Helper functions for category colors and labels
-const getCategoryColor = (category: string) => {
-  const colorMap: Record<string, string> = {
-    "Сургалтын төв": "text-[#17BEBB]",
-    "Эмнэлэг / гоо сайхан": "text-[#673AB7]",
-    "Үйлчилгээ": "text-[#FFA726]",
-    "Зуучлал": "text-[#83E0DE]",
-  }
-  return colorMap[category] || "text-white"
-}
+export const revalidate = 300
 
-const getCategoryLabel = (category: string) => {
-  const labelMap: Record<string, string> = {
-    "Сургалтын төв": "СУРГАЛТЫН ТӨВ",
-    "Эмнэлэг / гоо сайхан": "ЭМНЭЛЭГ / ГОО САЙХАН",
-    "Үйлчилгээ": "ҮЙЛЧИЛГЭЭ",
-    "Зуучлал": "ЗУУЧЛАЛ",
-  }
-  return labelMap[category] || "ТӨСӨЛ"
-}
-
-export default function HomePage() {
-  const [allProjects, setAllProjects] = useState<WorkProject[]>([])
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const [isPaused, setIsPaused] = useState(false)
-  const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null)
-  
-  // Typewriting animation state
-  const texts = ["Тогтвортой", "Хурдан", "Итгэл төрүүлнэ"]
-  const [currentTextIndex, setCurrentTextIndex] = useState(0)
-  const [displayedText, setDisplayedText] = useState("")
-  const [isTyping, setIsTyping] = useState(true)
-
-  // Load work projects from Supabase on mount
-  useEffect(() => {
-    getWorkProjectsFromSupabase().then((projects) => {
-      setAllProjects(projects || [])
-    })
-  }, [])
-
-  const scrollProjects = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current
-      const scrollAmount = 400 // Scroll amount in pixels
-      const scrollDirection = direction === 'left' ? -scrollAmount : scrollAmount
-      container.scrollBy({
-        left: scrollDirection,
-        behavior: 'smooth'
-      })
-    }
-  }
-
-  // Typewriting animation effect
-  useEffect(() => {
-    let typingTimeout: NodeJS.Timeout
-    const currentText = texts[currentTextIndex]
-
-    if (isTyping) {
-      // Typing phase
-      if (displayedText.length < currentText.length) {
-        typingTimeout = setTimeout(() => {
-          setDisplayedText(currentText.slice(0, displayedText.length + 1))
-        }, 50) // Faster typing speed (50ms per character)
-      } else {
-        // Finished typing, wait before deleting
-        typingTimeout = setTimeout(() => {
-          setIsTyping(false)
-        }, 1500) // Wait 1.5 seconds before starting to delete
-      }
-    } else {
-      // Deleting phase
-      if (displayedText.length > 0) {
-        typingTimeout = setTimeout(() => {
-          setDisplayedText(displayedText.slice(0, -1))
-        }, 30) // Faster deleting speed (30ms per character)
-      } else {
-        // Finished deleting, move to next text
-        const nextIndex = (currentTextIndex + 1) % texts.length
-        setCurrentTextIndex(nextIndex)
-        setIsTyping(true)
-      }
-    }
-
-    return () => {
-      if (typingTimeout) clearTimeout(typingTimeout)
-    }
-  }, [displayedText, isTyping, currentTextIndex, texts])
-
-  // Auto-scroll functionality
-  useEffect(() => {
-    if (autoScrollIntervalRef.current) {
-      clearInterval(autoScrollIntervalRef.current)
-    }
-
-    if (!isPaused && scrollContainerRef.current) {
-      autoScrollIntervalRef.current = setInterval(() => {
-        if (scrollContainerRef.current) {
-          const container = scrollContainerRef.current
-          const maxScroll = container.scrollWidth - container.clientWidth
-          
-          // If reached the end, scroll back to the beginning
-          if (container.scrollLeft >= maxScroll - 10) {
-            container.scrollTo({
-              left: 0,
-              behavior: 'smooth'
-            })
-          } else {
-            const scrollAmount = 400
-            container.scrollBy({
-              left: scrollAmount,
-              behavior: 'smooth'
-            })
-          }
-        }
-      }, 3000) // Scroll every 3 seconds
-    }
-
-    return () => {
-      if (autoScrollIntervalRef.current) {
-        clearInterval(autoScrollIntervalRef.current)
-      }
-    }
-  }, [isPaused])
+export default async function HomePage() {
+  const projects = await getWorkProjectsFromSupabase()
 
   return (
     <>
@@ -148,9 +26,8 @@ export default function HomePage() {
               <span className="text-gradient-aurora-vibrant font-semibold">Танай сайт</span>
             </div>
             <div>
-              <span className="italic text-slate-300 font-light">
-                {displayedText}
-                <span className="inline-block w-0.5 h-[1em] bg-slate-300 ml-1 animate-[blink_1s_infinite]"></span>
+              <span className="italic text-slate-300 font-light inline-block min-w-[12ch]">
+                <TypewriterText />
               </span>
             </div>
           </h1>
@@ -218,7 +95,7 @@ export default function HomePage() {
             <span className="inline-block py-1 px-4 rounded-full bg-[#17BEBB]/10 text-[#17BEBB] font-bold text-sm tracking-widest uppercase mb-4 border border-[#17BEBB]/20">
               Process
             </span>
-            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#17BEBB] via-[#83E0DE] to-[#2F3E46]">
+            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-linear-to-r from-[#17BEBB] via-[#83E0DE] to-[#2F3E46]">
               3 Хоногийн Протокол
             </h2>
             <p className="max-w-2xl mx-auto text-lg text-slate-400 font-medium">
@@ -358,7 +235,7 @@ export default function HomePage() {
               href="https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-10 py-5 bg-gradient-to-r from-[#17BEBB] to-[#2F3E46] rounded-full font-bold text-lg text-white hover:scale-105 transition-all shadow-lg shadow-[#17BEBB]/25 active:scale-95"
+              className="inline-block px-10 py-5 bg-linear-to-r from-[#17BEBB] to-[#2F3E46] rounded-full font-bold text-lg text-white hover:scale-105 transition-all shadow-lg shadow-[#17BEBB]/25 active:scale-95"
             >
               Төсөл эхлүүлэх
             </Link>
@@ -366,94 +243,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Curated Portfolio Section */}
-      <section className="py-24 relative z-10 overflow-hidden">
-        {/* Flowing water animation overlay */}
-        <div className="absolute inset-0 flowing-water pointer-events-none opacity-30"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex justify-between items-end mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif text-white">Сонгосон Портфолио</h2>
-            <div className="flex gap-2">
-              <button 
-                onClick={() => scrollProjects('left')}
-                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all active:scale-95"
-                aria-label="Зүүн тийш гүйлгэх"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button 
-                onClick={() => scrollProjects('right')}
-                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all active:scale-95"
-                aria-label="Баруун тийш гүйлгэх"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Scrollable Container */}
-          <div 
-            ref={scrollContainerRef}
-            className="flex gap-6 md:gap-8 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory scroll-smooth"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-            onTouchStart={() => setIsPaused(true)}
-            onTouchEnd={() => {
-              // Resume after a delay when touch ends
-              setTimeout(() => setIsPaused(false), 3000)
-            }}
-          >
-            {allProjects.map((project, index) => {
-              const categoryColor = getCategoryColor(project.category)
-              const categoryLabel = getCategoryLabel(project.category)
-
-              return (
-                <Link
-                  key={project.slug}
-                  href={`/${project.slug}`}
-                  className="group relative flex flex-col gap-4 cursor-pointer min-w-[300px] sm:min-w-[350px] md:min-w-[400px] snap-start shrink-0"
-                >
-                  <div className="relative w-full aspect-[16/10] bg-[#161b26] rounded-2xl overflow-hidden border border-white/10 hover:shadow-[0_0_25px_rgba(0,255,170,0.4)] hover:border-primary/60 transition-all duration-500">
-                    {/* Image */}
-                    <div className="absolute inset-0">
-                      <Image
-                        src={project.image || "/placeholder.svg"}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                    </div>
-                    {/* Overlay Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
-                    {/* Floating Tags */}
-                    <div className="absolute top-4 left-4 flex gap-2">
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-bold ${categoryColor} uppercase tracking-wider backdrop-blur-md bg-black/30 border border-white/10`}
-                      >
-                        {categoryLabel}
-                      </span>
-                      <span className="px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider backdrop-blur-md bg-black/30 border border-white/10">
-                        UX/UI
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-end justify-between px-2">
-                    <div>
-                      <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-white/50 text-sm">{project.description}</p>
-                    </div>
-                    <div className="size-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all">
-                      <ArrowRight className="w-5 h-5 text-white rotate-[-45deg] group-hover:rotate-0 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
-      </section>
+      <WorkCarouselClient projects={projects ?? []} />
 
       {/* Flexible Plans & Client Chatter Section */}
       <section className="py-24 bg-surface/30 border-t border-white/5 relative overflow-hidden z-10">
@@ -563,7 +353,7 @@ export default function HomePage() {
             </div>
 
             {/* Client Chatter - Right Side (5 columns) */}
-            <div className="lg:col-span-5 glass-card rounded-3xl p-8 flex flex-col bg-gradient-to-b from-[#161b26] to-[#0f1219] border-[3px] border-[#161b26]/50">
+            <div className="lg:col-span-5 glass-card rounded-3xl p-8 flex flex-col bg-linear-to-b from-[#161b26] to-[#0f1219] border-[3px] border-[#161b26]/50">
               <div className="flex items-center gap-3 mb-8">
                 <div className="size-10 rounded-full bg-[#17BEBB] flex items-center justify-center text-[#0b1a1f]">
                   <MessageCircle className="w-5 h-5" />

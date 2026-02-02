@@ -3,10 +3,18 @@ import Link from "next/link"
 import Image from "next/image"
 import { Section } from "@/components/section"
 import { Badge } from "@/components/badge"
-import { getWorkBySlugFromSupabase } from "@/lib/work-data"
+import { getWorkBySlugFromSupabase, getWorkProjectsFromSupabase } from "@/lib/work-data"
 import { MessageCircle, Clock, CheckCircle, XCircle, ArrowRight } from "lucide-react"
 
 export const dynamicParams = true
+export const revalidate = 600
+
+export async function generateStaticParams() {
+  const projects = await getWorkProjectsFromSupabase()
+  return projects.map((project) => ({
+    slug: [project.slug],
+  }))
+}
 
 function joinSlug(slugParts: string[] | undefined): string {
   if (!slugParts || slugParts.length === 0) return ""
@@ -120,7 +128,14 @@ export default async function WorkDetailPage({ params }: Props) {
             return (
               <div className="group aspect-video relative rounded-xl overflow-hidden bg-muted">
                 {project ? (
-                  <Image src={safeProject.image || "/placeholder.svg"} alt={safeProject.title} fill className="object-cover" />
+                  <Image
+                    src={safeProject.image || "/placeholder.svg"}
+                    alt={safeProject.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    priority
+                    className="object-cover"
+                  />
                 ) : externalUrl ? (
                   <iframe
                     src={externalUrl}
@@ -131,7 +146,14 @@ export default async function WorkDetailPage({ params }: Props) {
                     sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
                   />
                 ) : (
-                  <Image src="/placeholder.jpg" alt={safeProject.title} fill className="object-cover" />
+                  <Image
+                    src="/placeholder.jpg"
+                    alt={safeProject.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    priority
+                    className="object-cover"
+                  />
                 )}
 
                 {externalUrl && (
@@ -139,7 +161,7 @@ export default async function WorkDetailPage({ params }: Props) {
                     href={externalUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="absolute inset-0 flex items-end justify-start p-6 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute inset-0 flex items-end justify-start p-6 bg-linear-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
                     aria-label="Сайт үзэх"
                   >
                     <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 text-sm font-bold text-white">
