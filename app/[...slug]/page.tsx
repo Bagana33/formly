@@ -3,16 +3,16 @@ import Link from "next/link"
 import Image from "next/image"
 import { Section } from "@/components/section"
 import { Badge } from "@/components/badge"
-import { getWorkBySlugFromSupabase, getWorkProjectsFromSupabase } from "@/lib/work-data"
+import { getWorkBySlugFromSupabase, getWorkProjectSlugsFromSupabase } from "@/lib/work-data"
 import { MessageCircle, Clock, CheckCircle, XCircle, ArrowRight } from "lucide-react"
 
 export const dynamicParams = true
 export const revalidate = 600
 
 export async function generateStaticParams() {
-  const projects = await getWorkProjectsFromSupabase()
-  return projects.map((project) => ({
-    slug: [project.slug],
+  const slugs = await getWorkProjectSlugsFromSupabase(200)
+  return slugs.map((slug) => ({
+    slug: [slug],
   }))
 }
 

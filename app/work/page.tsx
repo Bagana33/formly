@@ -4,7 +4,7 @@ import { WorkPageClient } from "@/components/work-page-client"
 export const revalidate = 300
 
 export default async function WorkPage() {
-  const projects = await getWorkProjectsFromSupabase()
+  const projects = await getWorkProjectsFromSupabase({ limit: 60 })
 
   return <WorkPageClient projects={projects ?? []} />
 }

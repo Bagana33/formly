@@ -7,7 +7,7 @@ import { ArrowRight, MessageCircle, MessageSquare, Lightbulb, Calendar, Building
 export const revalidate = 300
 
 export default async function HomePage() {
-  const projects = await getWorkProjectsFromSupabase()
+  const projects = await getWorkProjectsFromSupabase({ limit: 12 })
 
   return (
     <>

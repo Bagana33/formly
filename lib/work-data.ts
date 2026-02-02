@@ -101,12 +101,26 @@ export function getWorkBySlug(slug: string): WorkProject | undefined {
 }
 
 // Fetch work projects from Supabase
-export async function getWorkProjectsFromSupabase(): Promise<WorkProject[]> {
+type WorkProjectsQueryOptions = {
+  limit?: number
+  fields?: string
+}
+
+export async function getWorkProjectsFromSupabase(
+  options: WorkProjectsQueryOptions = {}
+): Promise<WorkProject[]> {
   try {
-    const { data, error } = await supabase
+    const { limit, fields } = options
+    let query = supabase
       .from("work_projects")
-      .select("slug, title, category, description, image")
+      .select(fields || "slug, title, category, description, image")
       .order("created_at", { ascending: false })
+
+    if (limit && limit > 0) {
+      query = query.limit(limit)
+    }
+
+    const { data, error } = await query
 
     if (error) {
       console.error("Error fetching work projects from Supabase:", error)
@@ -132,6 +146,30 @@ export async function getWorkProjectsFromSupabase(): Promise<WorkProject[]> {
     }))
   } catch (err) {
     console.error("Error fetching work projects from Supabase:", err)
+    return []
+  }
+}
+
+export async function getWorkProjectSlugsFromSupabase(limit = 200): Promise<string[]> {
+  try {
+    const { data, error } = await supabase
+      .from("work_projects")
+      .select("slug")
+      .order("created_at", { ascending: false })
+      .limit(limit)
+
+    if (error) {
+      console.error("Error fetching work project slugs from Supabase:", error)
+      return []
+    }
+
+    if (!data || data.length === 0) {
+      return []
+    }
+
+    return data.map((project) => project.slug)
+  } catch (err) {
+    console.error("Error fetching work project slugs from Supabase:", err)
     return []
   }
 }
