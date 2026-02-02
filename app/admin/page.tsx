@@ -18,7 +18,7 @@ export default function AdminPage() {
   const [lastSaved, setLastSaved] = useState<Date | null>(null)
 
   // Load from Supabase
-  async function loadFromSupabase() {
+  async function loadFromSupabase(): Promise<boolean> {
     setLoading(true)
     try {
       const { data, error } = await supabase
@@ -29,9 +29,47 @@ export default function AdminPage() {
 
       if (error) {
         if (error.code === 'PGRST116') {
-          // No data found, use defaults
+          // No data found, return false to indicate no data loaded
+          console.log('No content found in Supabase')
+          return false
+        } else {
+          console.error('Error loading from Supabase:', error)
+          // Don't show alert on initial load, only on manual load
+          return false
+        }
+      } else if (data?.content) {
+        setContent(data.content as SiteContent)
+        // Also update localStorage
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem("formly-content", JSON.stringify(data.content))
+        }
+        return true
+      }
+      return false
+    } catch (err) {
+      console.error('Error loading from Supabase:', err)
+      // Don't show alert on initial load, only on manual load
+      return false
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Manual load from Supabase (with alerts)
+  async function handleLoadFromSupabase() {
+    setLoading(true)
+    try {
+      const { data, error } = await supabase
+        .from('site_content')
+        .select('content')
+        .eq('section', 'main')
+        .single()
+
+      if (error) {
+        if (error.code === 'PGRST116') {
           console.log('No content found in Supabase, using defaults')
           setContent(getDefaultContent())
+          alert('Supabase-д контент олдсонгүй. Default контентуудыг ашиглана.')
         } else {
           console.error('Error loading from Supabase:', error)
           alert('Supabase-аас унших үед алдаа гарлаа: ' + error.message)
@@ -52,9 +90,14 @@ export default function AdminPage() {
     }
   }
 
-  // Load from localStorage first
+  // Load from Supabase first, then fallback to localStorage
   useEffect(() => {
     if (typeof window === "undefined") return
+    
+    // Try to load from Supabase first
+    loadFromSupabase().then((loaded) => {
+      // If Supabase didn't have data, try localStorage
+      if (!loaded) {
     const stored = window.localStorage.getItem("formly-content")
     if (stored) {
       try {
@@ -63,6 +106,19 @@ export default function AdminPage() {
         // ignore parse errors
       }
     }
+      }
+    }).catch(() => {
+      // If Supabase fails, try localStorage
+      const stored = window.localStorage.getItem("formly-content")
+      if (stored) {
+        try {
+          setContent(JSON.parse(stored))
+        } catch {
+          // ignore parse errors
+        }
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Save to Supabase
@@ -197,6 +253,30 @@ export default function AdminPage() {
     reader.readAsDataURL(file)
   }
 
+  // Extract domain from URL
+  function extractDomainFromUrl(url: string): string {
+    if (!url) return url
+    
+    try {
+      // Remove protocol if present
+      let cleanUrl = url.trim()
+      if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
+        cleanUrl = cleanUrl.replace(/^https?:\/\//, '')
+      }
+      
+      // Remove trailing slash
+      cleanUrl = cleanUrl.replace(/\/$/, '')
+      
+      // Extract domain (everything before the first slash if path exists)
+      const domain = cleanUrl.split('/')[0]
+      
+      return domain
+    } catch {
+      // If parsing fails, return original
+      return url
+    }
+  }
+
   // Helpers
   const updateArrayItem = <T,>(list: T[], index: number, updates: Partial<T>): T[] =>
     list.map((item, i) => (i === index ? { ...item, ...updates } : item))
@@ -242,7 +322,7 @@ export default function AdminPage() {
               </div>
               <div className="flex flex-wrap gap-2">
                 <button
-                  onClick={loadFromSupabase}
+                  onClick={handleLoadFromSupabase}
                   disabled={loading}
                   className="inline-flex items-center gap-2 rounded-lg border border-primary bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -869,14 +949,19 @@ export default function AdminPage() {
                             <label className="text-xs font-medium text-foreground">Slug (URL)</label>
                           <input
                             value={item.slug}
-                            onChange={(e) =>
-                                setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, slug: e.target.value }) })
-                            }
+                            onChange={(e) => {
+                              const inputValue = e.target.value
+                              // If it looks like a URL, extract domain
+                              const extractedSlug = (inputValue.includes('http://') || inputValue.includes('https://') || inputValue.includes('.'))
+                                ? extractDomainFromUrl(inputValue)
+                                : inputValue
+                              setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, slug: extractedSlug }) })
+                            }}
                               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-                              placeholder="Жишээ: mongolyn-emneleg"
-                              maxLength={60}
-                            />
-                            <p className="text-xs text-muted-foreground">URL-д харагдах текст. Англи үсэг, зураас ашиглана.</p>
+                              placeholder="Жишээ: mongolyn-emneleg эсвэл https://example.com"
+                              maxLength={200}
+                          />
+                            <p className="text-xs text-muted-foreground">URL-д харагдах текст. Бүтэн URL оруулах үед зөвхөн domain хэсгийг ашиглана.</p>
                           </div>
                           <div className="space-y-2">
                             <label className="text-xs font-medium text-foreground">Категори</label>

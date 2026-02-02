@@ -110,13 +110,13 @@ export async function getWorkProjectsFromSupabase(): Promise<WorkProject[]> {
 
     if (error) {
       console.error('Error fetching work projects from Supabase:', error)
-      // Return default projects if Supabase fails
-      return workProjects
+      // No fallback to local defaults: only show Supabase-backed data
+      return []
     }
 
     if (!data || data.length === 0) {
-      // Return default projects if no data in Supabase
-      return workProjects
+      // No fallback to local defaults: only show Supabase-backed data
+      return []
     }
 
     // Map Supabase data to WorkProject format
@@ -135,8 +135,8 @@ export async function getWorkProjectsFromSupabase(): Promise<WorkProject[]> {
     }))
   } catch (err) {
     console.error('Error fetching work projects from Supabase:', err)
-    // Return default projects on error
-    return workProjects
+    // No fallback to local defaults: only show Supabase-backed data
+    return []
   }
 }
 
@@ -147,16 +147,16 @@ export async function getWorkBySlugFromSupabase(slug: string): Promise<WorkProje
       .from('work_projects')
       .select('*')
       .eq('slug', slug)
-      .single()
+      .maybeSingle()
 
     if (error) {
       console.error('Error fetching work project from Supabase:', error)
-      // Fallback to default projects
-      return getWorkBySlug(slug) || null
+      // No fallback to local defaults: only show Supabase-backed data
+      return null
     }
 
     if (!data) {
-      return getWorkBySlug(slug) || null
+      return null
     }
 
     return {
@@ -174,6 +174,6 @@ export async function getWorkBySlugFromSupabase(slug: string): Promise<WorkProje
     }
   } catch (err) {
     console.error('Error fetching work project from Supabase:', err)
-    return getWorkBySlug(slug) || null
+    return null
   }
 }

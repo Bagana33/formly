@@ -10,13 +10,39 @@ import { MessageCircle, CheckCircle, Send, ArrowRight } from "lucide-react"
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    name: "",
+    contact: "",
+    business: "",
+    requirements: "",
+  })
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    const recipient = "mindverse0713@gmail.com"
+    const subject = encodeURIComponent(`Formly захиалга — ${formData.name || "Шинэ хүсэлт"}`)
+    const body = encodeURIComponent(
+      [
+        `Нэр: ${formData.name}`,
+        `Холбоо барих: ${formData.contact}`,
+        `Байгууллагын төрөл: ${formData.business}`,
+        "",
+        "Товч шаардлага:",
+        formData.requirements || "-",
+        "",
+        `Илгээсэн хуудас: ${typeof window !== "undefined" ? window.location.href : ""}`,
+      ].join("\n"),
+    )
+
+    // Open user's email client with prefilled content
+    if (typeof window !== "undefined") {
+      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`
+    }
+
+    // Small delay for UX consistency
+    await new Promise((resolve) => setTimeout(resolve, 300))
 
     setIsLoading(false)
     setIsSubmitted(true)
@@ -109,6 +135,8 @@ export default function ContactPage() {
                 id="name"
                 name="name"
                 required
+                value={formData.name}
+                onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
                 className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
                 placeholder="Таны нэр"
               />
@@ -122,6 +150,8 @@ export default function ContactPage() {
                 id="contact"
                 name="contact"
                 required
+                value={formData.contact}
+                onChange={(e) => setFormData((p) => ({ ...p, contact: e.target.value }))}
                 className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
                 placeholder="99001122 эсвэл email@example.com"
               />
@@ -134,6 +164,8 @@ export default function ContactPage() {
                 id="business"
                 name="business"
                 required
+                value={formData.business}
+                onChange={(e) => setFormData((p) => ({ ...p, business: e.target.value }))}
                 className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
               >
                 <option value="">Сонгоно уу</option>
@@ -152,6 +184,8 @@ export default function ContactPage() {
                 id="requirements"
                 name="requirements"
                 rows={4}
+                value={formData.requirements}
+                onChange={(e) => setFormData((p) => ({ ...p, requirements: e.target.value }))}
                 className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all resize-none"
                 placeholder="Ямар төрлийн сайт хэрэгтэй байгаа, онцлог шаардлага гэх мэт..."
               />

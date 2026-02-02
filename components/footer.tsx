@@ -27,8 +27,8 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 rounded border border-primary/50 flex items-center justify-center text-primary font-serif font-bold italic shadow-[0_0_10px_rgba(0,255,170,0.3)]">
-                F
+              <div className="relative w-9 h-9 rounded-lg overflow-hidden border border-primary/50 shadow-[0_0_12px_rgba(23,190,187,0.24)] bg-white/5">
+                <img src="/formly-logo.png" alt="Formly лого" className="w-full h-full object-contain p-1" loading="lazy" />
               </div>
               <span className="text-xl font-serif text-white">Formly</span>
             </div>
@@ -107,8 +107,8 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-600 font-light">
-          <p>Formly - Vibrant Aurora v6</p>
-          <p>© 2023 Formly. Бүх эрх хуулиар хамгаалагдсан.</p>
+          <p>Formly - Brand Refresh 2026</p>
+          <p>© 2026 Formly. Бүх эрх хуулиар хамгаалагдсан.</p>
         </div>
       </div>
     </footer>

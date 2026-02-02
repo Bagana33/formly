@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { workProjects, getWorkProjectsFromSupabase, type WorkProject } from "@/lib/work-data"
+import { getWorkProjectsFromSupabase, type WorkProject } from "@/lib/work-data"
 import { ArrowRight, ExternalLink, ChevronDown } from "lucide-react"
 import { useState, useEffect } from "react"
 
@@ -23,14 +23,12 @@ const categoryMap: Record<string, string> = {
 
 export default function WorkPage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
-  const [projects, setProjects] = useState<WorkProject[]>(workProjects)
+  const [projects, setProjects] = useState<WorkProject[]>([])
 
   // Load work projects from Supabase on mount
   useEffect(() => {
     getWorkProjectsFromSupabase().then((loadedProjects) => {
-      if (loadedProjects && loadedProjects.length > 0) {
-        setProjects(loadedProjects)
-      }
+      setProjects(loadedProjects || [])
     })
   }, [])
 
@@ -112,7 +110,7 @@ export default function WorkPage() {
             return (
             <Link
               key={project.slug}
-              href={`/work/${project.slug}`}
+              href={`/${project.slug}`}
                 className={`group relative flex flex-col gap-4 cursor-pointer ${isLarge ? "" : index % 2 === 1 ? "mt-0 md:mt-16" : ""}`}
             >
                 <div className="relative w-full aspect-[16/10] bg-surface-dark rounded-2xl overflow-hidden border border-white/10 hover:work-primary-glow hover:work-primary-border/60 transition-all duration-500">

@@ -10,10 +10,10 @@ const steps = [
     title: "Бүтэц",
     description: "Сайтын газрын зураг болон гол бүтцийг зөв урсгалд зориулж тодорхойлох. Хэрэглэгчийн замыг хамгийн оновчтойгоор төлөвлөнө.",
     icon: Layers,
-    iconColor: "text-[#10b981]",
+    iconColor: "text-[#17BEBB]",
     iconGlow: "icon-glow-emerald",
-    dayColor: "text-[#10b981]",
-    dotColor: "bg-[#10b981]",
+    dayColor: "text-[#17BEBB]",
+    dotColor: "bg-[#17BEBB]",
     delay: "0s",
   },
   {
@@ -22,10 +22,10 @@ const steps = [
     title: "Харагдах Бүтэц",
     description: "Өндөр чанартай дүрслэл хийж, контентыг саадгүй нэгтгэх. Таны брэндийн үнэ цэнийг илтгэх орчин үеийн дизайн шийдлүүд.",
     icon: Palette,
-    iconColor: "text-blue-400",
+    iconColor: "text-[#673AB7]",
     iconGlow: "icon-glow-azure",
-    dayColor: "text-blue-400",
-    dotColor: "bg-blue-400",
+    dayColor: "text-[#673AB7]",
+    dotColor: "bg-[#673AB7]",
     delay: "0.5s",
   },
   {
@@ -34,10 +34,10 @@ const steps = [
     title: "Нээлт",
     description: "Нарийвчилсан чанарын баталгаажуулалт, дараа нь шууд амьд нээлт. Техникийн бүрэн гүйцэтгэлийг ханган зах зээлд нэвтрүүлнэ.",
     icon: Rocket,
-    iconColor: "text-[#10b981]",
+    iconColor: "text-[#17BEBB]",
     iconGlow: "icon-glow-emerald",
-    dayColor: "text-[#10b981]",
-    dotColor: "bg-[#10b981]",
+    dayColor: "text-[#17BEBB]",
+    dotColor: "bg-[#17BEBB]",
     delay: "1s",
   },
 ]
@@ -50,29 +50,29 @@ export default function ProcessPage() {
         className="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden opacity-80"
         style={{
           background: `
-            radial-gradient(at 0% 0%, hsla(160,84%,15%,1) 0, transparent 50%), 
-            radial-gradient(at 50% 0%, hsla(210,80%,10%,1) 0, transparent 50%), 
-            radial-gradient(at 100% 0%, hsla(160,84%,15%,1) 0, transparent 50%),
-            radial-gradient(at 0% 100%, hsla(210,80%,10%,1) 0, transparent 50%),
-            radial-gradient(at 100% 100%, hsla(160,84%,15%,1) 0, transparent 50%)
+            radial-gradient(at 0% 0%, rgba(23,190,187,0.18) 0, transparent 48%), 
+            radial-gradient(at 50% 0%, rgba(103,58,183,0.18) 0, transparent 48%), 
+            radial-gradient(at 100% 0%, rgba(47,62,70,0.2) 0, transparent 50%),
+            radial-gradient(at 0% 100%, rgba(47,62,70,0.18) 0, transparent 52%),
+            radial-gradient(at 100% 100%, rgba(23,190,187,0.16) 0, transparent 52%)
           `
         }}
       ></div>
 
       {/* Additional Background Elements */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-[#10b981]/10 blur-[120px] rounded-full"></div>
-        <div className="absolute bottom-[10%] right-[-5%] w-[600px] h-[600px] bg-blue-600/10 blur-[140px] rounded-full"></div>
+        <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-[#17BEBB]/10 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-[10%] right-[-5%] w-[600px] h-[600px] bg-[#673AB7]/10 blur-[140px] rounded-full"></div>
       </div>
 
       {/* Main Content */}
       <main className="relative px-6 py-24 md:py-32 overflow-hidden min-h-screen">
         {/* Header Section */}
         <div className="max-w-7xl mx-auto text-center mb-24 relative z-10">
-          <span className="inline-block py-1 px-4 rounded-full bg-[#10b981]/10 text-[#10b981] font-bold text-sm tracking-widest uppercase mb-4 border border-[#10b981]/20">
+          <span className="inline-block py-1 px-4 rounded-full bg-[#17BEBB]/10 text-[#17BEBB] font-bold text-sm tracking-widest uppercase mb-4 border border-[#17BEBB]/20">
             Process
           </span>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#10b981] via-white to-blue-400 dark:from-[#10b981] dark:via-white dark:to-blue-400">
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#17BEBB] via-[#83E0DE] to-[#2F3E46] dark:from-[#17BEBB] dark:via-[#83E0DE] dark:to-[#2F3E46]">
             3 Хоногийн Протокол
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-slate-400 font-medium">
@@ -84,8 +84,8 @@ export default function ProcessPage() {
         <div 
           className="hidden lg:block absolute top-1/2 left-[10%] right-[10%] h-[2px] z-0 -translate-y-1/2 max-w-6xl mx-auto"
           style={{ 
-            background: 'linear-gradient(90deg, transparent, #10b981, #3b82f6, transparent)',
-            boxShadow: '0 0 20px rgba(16,185,129,0.5), 0 0 40px rgba(59,130,246,0.3)'
+            background: 'linear-gradient(90deg, transparent, #17BEBB, #673AB7, transparent)',
+            boxShadow: '0 0 20px rgba(23,190,187,0.45), 0 0 40px rgba(103,58,183,0.24)'
           }}
         ></div>
 
@@ -113,10 +113,10 @@ export default function ProcessPage() {
                 <div 
                   className="glass-card p-8 rounded-[2.5rem] text-center w-full transition-all duration-400"
                   style={{
-                    background: 'rgba(15, 23, 42, 0.3)',
+                    background: 'color-mix(in srgb, var(--surface) 82%, transparent)',
                     backdropFilter: 'blur(12px)',
                     WebkitBackdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    border: '1px solid color-mix(in srgb, var(--primary) 22%, transparent)',
                   }}
                 >
                   <h3 className="text-2xl font-bold mb-4 text-white">{step.title}</h3>
@@ -138,7 +138,7 @@ export default function ProcessPage() {
             href="https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"
               target="_blank"
               rel="noopener noreferrer"
-            className="inline-block px-10 py-5 bg-gradient-to-r from-[#10b981] to-blue-600 rounded-full font-bold text-lg text-white hover:scale-105 transition-all shadow-xl shadow-[#10b981]/20 active:scale-95"
+            className="inline-block px-10 py-5 bg-gradient-to-r from-[#17BEBB] to-[#2F3E46] rounded-full font-bold text-lg text-white hover:scale-105 transition-all shadow-lg shadow-[#17BEBB]/25 active:scale-95"
             >
             Төсөл эхлүүлэх
             </Link>

@@ -3,17 +3,17 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Section } from "@/components/section"
-import { workProjects, getWorkProjectsFromSupabase, type WorkProject } from "@/lib/work-data"
+import { getWorkProjectsFromSupabase, type WorkProject } from "@/lib/work-data"
 import { ArrowRight, MessageCircle, MessageSquare, Lightbulb, Calendar, Building2, Palette, Rocket, Check, ChevronLeft, ChevronRight } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
 
 // Helper functions for category colors and labels
 const getCategoryColor = (category: string) => {
   const colorMap: Record<string, string> = {
-    "Сургалтын төв": "text-[#00f0ff]",
-    "Эмнэлэг / гоо сайхан": "text-[#0aff60]",
-    "Үйлчилгээ": "text-[#ff6b00]",
-    "Зуучлал": "text-[#b026ff]",
+    "Сургалтын төв": "text-[#17BEBB]",
+    "Эмнэлэг / гоо сайхан": "text-[#673AB7]",
+    "Үйлчилгээ": "text-[#FFA726]",
+    "Зуучлал": "text-[#83E0DE]",
   }
   return colorMap[category] || "text-white"
 }
@@ -29,7 +29,7 @@ const getCategoryLabel = (category: string) => {
 }
 
 export default function HomePage() {
-  const [allProjects, setAllProjects] = useState<WorkProject[]>(workProjects)
+  const [allProjects, setAllProjects] = useState<WorkProject[]>([])
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
   const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -43,9 +43,7 @@ export default function HomePage() {
   // Load work projects from Supabase on mount
   useEffect(() => {
     getWorkProjectsFromSupabase().then((projects) => {
-      if (projects && projects.length > 0) {
-        setAllProjects(projects)
-      }
+      setAllProjects(projects || [])
     })
   }, [])
 
@@ -144,46 +142,6 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="pt-36 pb-24 relative z-10 overflow-hidden min-h-screen flex items-center justify-center">
-        {/* Orbit Animation - Left Side */}
-        <div className="orbit-perspective orbit-left hidden xl:block">
-          <div className="orbit-wheel">
-            {Array.from({ length: 12 }).map((_, index) => {
-              const project = allProjects[index % allProjects.length];
-              return (
-                <div key={`orbit-left-${index}`} className={`orbit-card orbit-c-${index + 1}`}>
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover rounded-lg"
-                    sizes="280px"
-                    unoptimized
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        {/* Orbit Animation - Right Side */}
-        <div className="orbit-perspective orbit-right hidden xl:block">
-          <div className="orbit-wheel orbit-wheel-reverse">
-            {Array.from({ length: 12 }).map((_, index) => {
-              const project = allProjects[index % allProjects.length];
-              return (
-                <div key={`orbit-right-${index}`} className={`orbit-card orbit-c-${index + 1}`}>
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover rounded-lg"
-                    sizes="280px"
-                    unoptimized
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="text-4xl md:text-7xl font-serif font-medium tracking-tight text-white mb-8 leading-tight drop-shadow-lg">
             <div>
@@ -197,7 +155,7 @@ export default function HomePage() {
             </div>
           </h1>
           <p className="mt-8 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
-            Хэрэглэгчдэд ээлтэй сайт бүтээхэд <span style={{ color: '#0fa' }}>Formly</span> туслана.
+            Хэрэглэгчдэд ээлтэй сайт бүтээхэд <span style={{ color: '#17BEBB' }}>Formly</span> туслана.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -226,7 +184,7 @@ export default function HomePage() {
             {/* Strategic Audit Card */}
             <div className="glass-card group relative rounded-2xl p-8 flex flex-col items-start text-left overflow-hidden border-t border-white/10">
               <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Lightbulb className="w-36 h-36 text-secondary drop-shadow-[0_0_10px_rgba(0,98,255,0.5)]" />
+                <Lightbulb className="w-36 h-36 text-[#FFA726] drop-shadow-[0_0_10px_rgba(255,167,38,0.35)]" />
               </div>
               <div className="z-10 relative">
                 <div className="flex items-center justify-between w-full mb-2">
@@ -257,10 +215,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header Section */}
           <div className="text-center mb-24">
-            <span className="inline-block py-1 px-4 rounded-full bg-[#10b981]/10 text-[#10b981] font-bold text-sm tracking-widest uppercase mb-4 border border-[#10b981]/20">
+            <span className="inline-block py-1 px-4 rounded-full bg-[#17BEBB]/10 text-[#17BEBB] font-bold text-sm tracking-widest uppercase mb-4 border border-[#17BEBB]/20">
               Process
             </span>
-            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#10b981] via-white to-blue-400">
+            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#17BEBB] via-[#83E0DE] to-[#2F3E46]">
               3 Хоногийн Протокол
             </h2>
             <p className="max-w-2xl mx-auto text-lg text-slate-400 font-medium">
@@ -272,8 +230,8 @@ export default function HomePage() {
           <div 
             className="hidden lg:block absolute top-1/2 left-[10%] right-[10%] h-[2px] z-0 -translate-y-1/2 max-w-6xl mx-auto"
             style={{ 
-              background: 'linear-gradient(90deg, transparent, #10b981, #3b82f6, transparent)',
-              boxShadow: '0 0 20px rgba(16,185,129,0.5), 0 0 40px rgba(59,130,246,0.3)'
+              background: 'linear-gradient(90deg, transparent, #17BEBB, #673AB7, transparent)',
+              boxShadow: '0 0 20px rgba(23,190,187,0.45), 0 0 40px rgba(103,58,183,0.25)'
             }}
           ></div>
 
@@ -292,7 +250,7 @@ export default function HomePage() {
                   WebkitBackdropFilter: 'blur(12px)',
                 }}
               >
-                <Building2 className="text-5xl text-[#10b981]" />
+                <Building2 className="text-5xl text-[#17BEBB]" />
               </div>
 
               {/* Glass Card */}
@@ -309,9 +267,9 @@ export default function HomePage() {
                 <p className="text-slate-400 leading-relaxed mb-6">
                   Сайтын газрын зураг болон гол бүтцийг зөв урсгалд зориулж тодорхойлох. Хэрэглэгчийн замыг хамгийн оновчтойгоор төлөвлөнө.
                 </p>
-                <div className="flex items-center justify-center space-x-2 text-[#10b981] font-bold text-sm">
+                <div className="flex items-center justify-center space-x-2 text-[#17BEBB] font-bold text-sm">
                   <span>ӨДӨР 01</span>
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#10b981]"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#17BEBB]"></div>
                   <span>STRATEGY</span>
                 </div>
               </div>
@@ -330,7 +288,7 @@ export default function HomePage() {
                   WebkitBackdropFilter: 'blur(12px)',
                 }}
               >
-                <Palette className="text-5xl text-blue-400" />
+                <Palette className="text-5xl text-[#673AB7]" />
               </div>
 
               {/* Glass Card */}
@@ -347,9 +305,9 @@ export default function HomePage() {
                 <p className="text-slate-400 leading-relaxed mb-6">
                   Өндөр чанартай дүрслэл хийж, контентыг саадгүй нэгтгэх. Таны брэндийн үнэ цэнийг илтгэх орчин үеийн дизайн шийдлүүд.
                 </p>
-                <div className="flex items-center justify-center space-x-2 text-blue-400 font-bold text-sm">
+                <div className="flex items-center justify-center space-x-2 text-[#673AB7] font-bold text-sm">
                   <span>ӨДӨР 02</span>
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#673AB7]"></div>
                   <span>DESIGN</span>
                 </div>
               </div>
@@ -368,7 +326,7 @@ export default function HomePage() {
                   WebkitBackdropFilter: 'blur(12px)',
                 }}
               >
-                <Rocket className="text-5xl text-[#10b981]" />
+                <Rocket className="text-5xl text-[#17BEBB]" />
               </div>
 
               {/* Glass Card */}
@@ -385,9 +343,9 @@ export default function HomePage() {
                 <p className="text-slate-400 leading-relaxed mb-6">
                   Нарийвчилсан чанарын баталгаажуулалт, дараа нь шууд амьд нээлт. Техникийн бүрэн гүйцэтгэлийг ханган зах зээлд нэвтрүүлнэ.
                 </p>
-                <div className="flex items-center justify-center space-x-2 text-[#10b981] font-bold text-sm">
+                <div className="flex items-center justify-center space-x-2 text-[#17BEBB] font-bold text-sm">
                   <span>ӨДӨР 03</span>
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#10b981]"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#17BEBB]"></div>
                   <span>DEPLOY</span>
                 </div>
               </div>
@@ -400,7 +358,7 @@ export default function HomePage() {
               href="https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-10 py-5 bg-gradient-to-r from-[#10b981] to-blue-600 rounded-full font-bold text-lg text-white hover:scale-105 transition-all shadow-xl shadow-[#10b981]/20 active:scale-95"
+              className="inline-block px-10 py-5 bg-gradient-to-r from-[#17BEBB] to-[#2F3E46] rounded-full font-bold text-lg text-white hover:scale-105 transition-all shadow-lg shadow-[#17BEBB]/25 active:scale-95"
             >
               Төсөл эхлүүлэх
             </Link>
@@ -452,7 +410,7 @@ export default function HomePage() {
               return (
                 <Link
                   key={project.slug}
-                  href={`/work/${project.slug}`}
+                  href={`/${project.slug}`}
                   className="group relative flex flex-col gap-4 cursor-pointer min-w-[300px] sm:min-w-[350px] md:min-w-[400px] snap-start shrink-0"
                 >
                   <div className="relative w-full aspect-[16/10] bg-[#161b26] rounded-2xl overflow-hidden border border-white/10 hover:shadow-[0_0_25px_rgba(0,255,170,0.4)] hover:border-primary/60 transition-all duration-500">
@@ -535,15 +493,15 @@ export default function HomePage() {
                   </div>
                   <ul className="space-y-3 mb-6">
                     <li className="flex items-start gap-3 text-sm text-gray-300">
-                      <span className="material-symbols-outlined text-[#10b981] text-base leading-none mt-0.5 shrink-0">check</span>
+                      <span className="material-symbols-outlined text-[#17BEBB] text-base leading-none mt-0.5 shrink-0">check</span>
                       <span>Бүрэн вэб хуудас (үндсэн бүтэц)</span>
                     </li>
                     <li className="flex items-start gap-3 text-sm text-gray-300">
-                      <span className="material-symbols-outlined text-[#10b981] text-base leading-none mt-0.5 shrink-0">check</span>
+                      <span className="material-symbols-outlined text-[#17BEBB] text-base leading-none mt-0.5 shrink-0">check</span>
                       <span>Суурь SEO тохиргоо</span>
                     </li>
                     <li className="flex items-start gap-3 text-sm text-gray-300">
-                      <span className="material-symbols-outlined text-[#10b981] text-base leading-none mt-0.5 shrink-0">check</span>
+                      <span className="material-symbols-outlined text-[#17BEBB] text-base leading-none mt-0.5 shrink-0">check</span>
                       <span>3 үндсэн засвар, сайжруулалт</span>
                     </li>
                   </ul>
@@ -607,7 +565,7 @@ export default function HomePage() {
             {/* Client Chatter - Right Side (5 columns) */}
             <div className="lg:col-span-5 glass-card rounded-3xl p-8 flex flex-col bg-gradient-to-b from-[#161b26] to-[#0f1219] border-[3px] border-[#161b26]/50">
               <div className="flex items-center gap-3 mb-8">
-                <div className="size-10 rounded-full bg-[#10b981] flex items-center justify-center text-black">
+                <div className="size-10 rounded-full bg-[#17BEBB] flex items-center justify-center text-[#0b1a1f]">
                   <MessageCircle className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl font-bold text-white">Харилцагчдын сэтгэгдэл</h3>
