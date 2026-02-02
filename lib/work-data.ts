@@ -14,6 +14,15 @@ export interface WorkProject {
   duration: string
 }
 
+function normalizeProjectImage(image?: string): string {
+  if (!image) return "/placeholder.jpg"
+  const trimmed = image.trim()
+  if (!trimmed) return "/placeholder.jpg"
+  if (trimmed.startsWith("data:")) return "/placeholder.jpg"
+  if (trimmed.length > 2048) return "/placeholder.jpg"
+  return trimmed
+}
+
 export const workProjects: WorkProject[] = [
   {
     slug: "mongol-english-academy",
@@ -136,7 +145,7 @@ export async function getWorkProjectsFromSupabase(
       title: project.title,
       category: project.category as WorkProject["category"],
       description: project.description,
-      image: project.image,
+      image: normalizeProjectImage(project.image),
       industry: project.industry || "",
       goal: project.goal || "",
       problem: project.problem || "",
@@ -197,7 +206,7 @@ export async function getWorkBySlugFromSupabase(slug: string): Promise<WorkProje
       title: data.title,
       category: data.category as WorkProject["category"],
       description: data.description,
-      image: data.image,
+      image: normalizeProjectImage(data.image),
       industry: data.industry,
       goal: data.goal || "",
       problem: data.problem || "",
