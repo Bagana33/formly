@@ -3,16 +3,15 @@ import Link from "next/link"
 import Image from "next/image"
 import { Section } from "@/components/section"
 import { Badge } from "@/components/badge"
-import { getWorkBySlugFromSupabase, getWorkProjectSlugsFromSupabase } from "@/lib/work-data"
+import { getWorkBySlug, workProjects } from "@/lib/work-data"
 import { MessageCircle, Clock, CheckCircle, XCircle, ArrowRight } from "lucide-react"
 
 export const dynamicParams = true
 export const revalidate = 600
 
 export async function generateStaticParams() {
-  const slugs = await getWorkProjectSlugsFromSupabase(200)
-  return slugs.map((slug) => ({
-    slug: [slug],
+  return workProjects.map((project) => ({
+    slug: [project.slug],
   }))
 }
 
@@ -69,7 +68,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug: slugParts } = await params
   const slugJoined = joinSlug(slugParts)
-  const project = slugJoined ? await getWorkBySlugFromSupabase(slugJoined) : null
+  const project = slugJoined ? getWorkBySlug(slugJoined) : undefined
   const externalUrl = normalizeExternalUrl(slugJoined)
 
   return {
@@ -81,7 +80,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function WorkDetailPage({ params }: Props) {
   const { slug: slugParts } = await params
   const slugJoined = joinSlug(slugParts)
-  const project = slugJoined ? await getWorkBySlugFromSupabase(slugJoined) : null
+  const project = slugJoined ? getWorkBySlug(slugJoined) : undefined
   const externalUrlFromSlug = normalizeExternalUrl(slugJoined)
 
   const safeProject = project ?? {

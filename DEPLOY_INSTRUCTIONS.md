@@ -50,8 +50,7 @@ vercel
 ## 📝 Next Steps
 
 1. **Test your deployment** - Visit your Vercel URL
-2. **Check admin dashboard** - Go to `/admin` on your deployed site
-3. **Add custom domain** (optional) - In Vercel project settings → Domains
+2. **Add custom domain** (optional) - In Vercel project settings → Domains
 
 ## 🔄 Future Updates
 

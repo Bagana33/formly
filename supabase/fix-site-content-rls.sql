@@ -6,7 +6,7 @@ DROP POLICY IF EXISTS "Public insert for site_content" ON site_content;
 DROP POLICY IF EXISTS "Public update for site_content" ON site_content;
 DROP POLICY IF EXISTS "Admin full access for site_content" ON site_content;
 
--- Allow anonymous insert/update for site_content (for admin page)
+-- Allow anonymous insert/update for site_content (for content management)
 -- Note: In production, consider adding authentication or restricting this further
 CREATE POLICY "Public insert for site_content" ON site_content
   FOR INSERT WITH CHECK (true);

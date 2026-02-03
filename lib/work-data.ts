@@ -1,11 +1,10 @@
-import { supabase } from "./supabase"
-
 export interface WorkProject {
   slug: string
   title: string
   category: "Сургалтын төв" | "Эмнэлэг / гоо сайхан" | "Үйлчилгээ" | "Зуучлал"
   description: string
   image: string
+  url?: string
   industry: string
   goal: string
   problem: string
@@ -14,30 +13,14 @@ export interface WorkProject {
   duration: string
 }
 
-function normalizeProjectImage(image?: string, fallback = "/placeholder.jpg"): string {
-  if (!image) return fallback
-  const trimmed = image.trim()
-  if (!trimmed) return fallback
-  if (trimmed.startsWith("data:")) return fallback
-  if (trimmed.length > 2048) return fallback
-  if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
-    try {
-      const host = new URL(trimmed).hostname
-      if (host === "localhost" || host === "127.0.0.1") return fallback
-    } catch {
-      return fallback
-    }
-  }
-  return trimmed
-}
-
 export const workProjects: WorkProject[] = [
   {
     slug: "mongol-english-academy",
-    title: "Mongol English Academy",
+    title: "kmo education",
     category: "Сургалтын төв",
     description: "Англи хэлний сургалтын төвийн вэб сайт",
-    image: "/english-language-school-website-modern.jpg",
+    image: "/kmo-education.png",
+    url: "https://kmoedu.business/",
     industry: "Сургалтын төв",
     goal: "Онлайн бүртгэл нэмэгдүүлэх, сургалтын хөтөлбөрүүдийг танилцуулах",
     problem:
@@ -48,10 +31,11 @@ export const workProjects: WorkProject[] = [
   },
   {
     slug: "shine-medee-clinic",
-    title: "Шинэ Мэдээ Клиник",
+    title: "Derma Lux Клиник",
     category: "Эмнэлэг / гоо сайхан",
     description: "Арьс гоо сайхны эмнэлгийн вэб сайт",
-    image: "/beauty-clinic-spa-website-elegant.jpg",
+    image: "/derma-lux-clinic.png",
+    url: "https://derma-lux-clinic-website.vercel.app/",
     industry: "Эмнэлэг / гоо сайхан",
     goal: "Үйлчилгээний танилцуулга, цаг захиалгын систем",
     problem: "Үйлчлүүлэгчид үйлчилгээний үнэ, төрлийг мэдэхгүй байсан, цаг захиалахад хүндрэлтэй",
@@ -64,7 +48,8 @@ export const workProjects: WorkProject[] = [
     title: "Nomad Tour Mongolia",
     category: "Үйлчилгээ",
     description: "Аялал жуулчлалын компанийн вэб сайт",
-    image: "/mongolia-travel-tour-website-landscape.jpg",
+    image: "/nomad-tour-mongolia.png",
+    url: "https://nomad-way-travel-website.vercel.app/",
     industry: "Үйлчилгээ",
     goal: "Гадаад, дотоод аялагчдад аялалын багцуудыг танилцуулах",
     problem: "Аялалын багцууд зөвхөн PDF файлаар тараагддаг байсан, захиалга авахад хүндрэлтэй",
@@ -77,7 +62,8 @@ export const workProjects: WorkProject[] = [
     title: "HR Connect",
     category: "Зуучлал",
     description: "Хүний нөөцийн зуучлалын компанийн вэб сайт",
-    image: "/hr-recruitment-agency-website-professional.jpg",
+    image: "/hr-connect.png",
+    url: "https://education-three-ruddy.vercel.app/",
     industry: "Зуучлал",
     goal: "Ажил олгогч болон ажил хайгчдыг холбох",
     problem: "Зөвхөн Facebook group-ээр ажлын зар тавьдаг байсан, мэргэжлийн имиж дутмаг",
@@ -115,119 +101,4 @@ export const workProjects: WorkProject[] = [
 
 export function getWorkBySlug(slug: string): WorkProject | undefined {
   return workProjects.find((project) => project.slug === slug)
-}
-
-// Fetch work projects from Supabase
-type WorkProjectsQueryOptions = {
-  limit?: number
-  fields?: string
-}
-
-export async function getWorkProjectsFromSupabase(
-  options: WorkProjectsQueryOptions = {}
-): Promise<WorkProject[]> {
-  try {
-    const { limit, fields } = options
-    let query = supabase
-      .from("work_projects")
-      .select(fields || "slug, title, category, description, image")
-      .order("created_at", { ascending: false })
-
-    if (limit && limit > 0) {
-      query = query.limit(limit)
-    }
-
-    const { data, error } = await query
-
-    if (error) {
-      console.error("Error fetching work projects from Supabase:", error)
-      return []
-    }
-
-    if (!data || data.length === 0) {
-      return []
-    }
-
-    return data.map((project) => {
-      const fallbackImage = getWorkBySlug(project.slug)?.image || "/placeholder.jpg"
-      return ({
-      slug: project.slug,
-      title: project.title,
-      category: project.category as WorkProject["category"],
-      description: project.description,
-      image: normalizeProjectImage(project.image, fallbackImage),
-      industry: project.industry || "",
-      goal: project.goal || "",
-      problem: project.problem || "",
-      solution: project.solution || "",
-      pages: project.pages || [],
-      duration: project.duration || "",
-      })
-    })
-  } catch (err) {
-    console.error("Error fetching work projects from Supabase:", err)
-    return []
-  }
-}
-
-export async function getWorkProjectSlugsFromSupabase(limit = 200): Promise<string[]> {
-  try {
-    const { data, error } = await supabase
-      .from("work_projects")
-      .select("slug")
-      .order("created_at", { ascending: false })
-      .limit(limit)
-
-    if (error) {
-      console.error("Error fetching work project slugs from Supabase:", error)
-      return []
-    }
-
-    if (!data || data.length === 0) {
-      return []
-    }
-
-    return data.map((project) => project.slug)
-  } catch (err) {
-    console.error("Error fetching work project slugs from Supabase:", err)
-    return []
-  }
-}
-
-// Get work project by slug from Supabase
-export async function getWorkBySlugFromSupabase(slug: string): Promise<WorkProject | null> {
-  try {
-    const { data, error } = await supabase
-      .from("work_projects")
-      .select("*")
-      .eq("slug", slug)
-      .maybeSingle()
-
-    if (error) {
-      console.error("Error fetching work project from Supabase:", error)
-      return null
-    }
-
-    if (!data) {
-      return null
-    }
-
-    const fallbackImage = getWorkBySlug(data.slug)?.image || "/placeholder.jpg"
-    return {
-      slug: data.slug,
-      title: data.title,
-      category: data.category as WorkProject["category"],
-      description: data.description,
-      image: normalizeProjectImage(data.image, fallbackImage),
-      industry: data.industry,
-      goal: data.goal || "",
-      problem: data.problem || "",
-      solution: data.solution || "",
-      pages: data.pages || [],
-      duration: data.duration,
-    }
-  } catch (err) {
-    console.error("Error fetching work project from Supabase:", err)
-    return null
-  }
 }

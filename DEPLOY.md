@@ -5,7 +5,7 @@
 1. Go to [GitHub](https://github.com) and sign in
 2. Click the "+" icon in the top right → "New repository"
 3. Repository name: `formly-website` (or your preferred name)
-4. Description: "Formly website with admin dashboard"
+4. Description: "Formly website"
 5. Choose **Public** or **Private**
 6. **DO NOT** initialize with README, .gitignore, or license (we already have these)
 7. Click "Create repository"

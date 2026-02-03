@@ -10,6 +10,7 @@ export function TypewriterText() {
   const [isTyping, setIsTyping] = useState(true)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
+  const reduceMotion = prefersReducedMotion || !isVisible
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -33,7 +34,6 @@ export function TypewriterText() {
   }, [])
 
   useEffect(() => {
-    const reduceMotion = prefersReducedMotion || !isVisible
     if (reduceMotion) {
       setDisplayedText(TEXTS[0])
       return
@@ -65,12 +65,16 @@ export function TypewriterText() {
     return () => {
       if (typingTimeout) clearTimeout(typingTimeout)
     }
-  }, [displayedText, isTyping, currentTextIndex, prefersReducedMotion, isVisible])
+  }, [displayedText, isTyping, currentTextIndex, reduceMotion])
 
   return (
     <>
       {displayedText}
-      <span className="inline-block w-0.5 h-[1em] bg-slate-300 ml-1 animate-[blink_1s_infinite]"></span>
+      <span
+        className={`inline-block w-0.5 h-[1em] bg-slate-300 ml-1 ${
+          reduceMotion ? "" : "animate-[blink_1s_infinite]"
+        }`}
+      ></span>
     </>
   )
 }

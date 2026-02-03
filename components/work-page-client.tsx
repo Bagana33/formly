@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, ExternalLink, ChevronDown } from "lucide-react"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import type { WorkProject } from "@/lib/work-data"
 
 const categories = [
@@ -27,11 +27,22 @@ interface WorkPageClientProps {
 
 export function WorkPageClient({ projects }: WorkPageClientProps) {
   const [selectedCategory, setSelectedCategory] = useState("all")
+  const [visibleCount, setVisibleCount] = useState(8)
 
   const filteredProjects = useMemo(() => {
     if (selectedCategory === "all") return projects
     return projects.filter((p) => categoryMap[p.category] === selectedCategory)
   }, [projects, selectedCategory])
+
+  useEffect(() => {
+    setVisibleCount(8)
+  }, [selectedCategory, projects])
+
+  const visibleProjects = useMemo(() => {
+    return filteredProjects.slice(0, visibleCount)
+  }, [filteredProjects, visibleCount])
+
+  const canLoadMore = filteredProjects.length > visibleCount
 
   const getCategoryColor = (category: string) => {
     const colorMap: Record<string, string> = {
@@ -90,15 +101,20 @@ export function WorkPageClient({ projects }: WorkPageClientProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-7xl">
-          {filteredProjects.map((project, index) => {
+          {visibleProjects.map((project, index) => {
             const isLarge = index === 0
             const categoryColor = getCategoryColor(project.category)
             const categoryLabel = getCategoryLabel(project.category)
 
+            const href = project.url ?? `/${project.slug}`
+            const isExternal = Boolean(project.url)
+
             return (
               <Link
                 key={project.slug}
-                href={`/${project.slug}`}
+                href={href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
                 className={`group relative flex flex-col gap-4 cursor-pointer ${isLarge ? "" : index % 2 === 1 ? "mt-0 md:mt-16" : ""}`}
               >
                 <div className="relative w-full aspect-16/10 bg-surface-dark rounded-2xl overflow-hidden border border-white/10 hover:work-primary-glow hover:work-primary-border/60 transition-all duration-500">
@@ -141,9 +157,15 @@ export function WorkPageClient({ projects }: WorkPageClientProps) {
           })}
         </div>
 
-        {filteredProjects.length >= 6 && (
+        {canLoadMore && (
           <div className="mt-20 flex justify-center">
-            <button className="group flex items-center gap-3 px-8 py-3 rounded-full border border-white/10 hover:work-primary-border/50 bg-white/5 hover:bg-white/10 transition-all">
+            <button
+              type="button"
+              onClick={() =>
+                setVisibleCount((count) => Math.min(count + 6, filteredProjects.length))
+              }
+              className="group flex items-center gap-3 px-8 py-3 rounded-full border border-white/10 hover:work-primary-border/50 bg-white/5 hover:bg-white/10 transition-all"
+            >
               <span className="text-sm font-bold text-white group-hover:work-primary transition-colors">
                 Илүү их төсөл харах
               </span>

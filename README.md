@@ -1,12 +1,11 @@
 # Formly Website
 
-A modern Next.js website for Formly with an admin dashboard for content management.
+A modern Next.js website for Formly.
 
 ## Features
 
 - 🎨 Modern, responsive design
 - 📱 Mobile-friendly interface
-- 🎛️ Admin dashboard for content management
 - 📸 Local image upload functionality
 - 💾 LocalStorage-based content persistence
 - 🌙 Dark/Light theme support
@@ -38,16 +37,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Admin Dashboard
-
-Access the admin dashboard at `/admin` to manage:
-- Hero section content
-- Services
-- Work projects (with local image upload)
-- Pricing plans
-- Process timeline
-- FAQ
-
 ## Deployment
 
 This project is ready to deploy on Vercel:
@@ -60,7 +49,6 @@ This project is ready to deploy on Vercel:
 
 ```
 ├── app/              # Next.js app router pages
-│   ├── admin/       # Admin dashboard
 │   ├── work/        # Work showcase pages
 │   └── ...
 ├── components/       # React components

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { getWorkProjectsFromSupabase } from "@/lib/work-data"
+import { workProjects } from "@/lib/work-data"
 import { WorkCarouselClient } from "@/components/work-carousel-client"
 import { TypewriterText } from "@/components/typewriter-text"
 import { ArrowRight, MessageCircle, MessageSquare, Lightbulb, Calendar, Building2, Palette, Rocket } from "lucide-react"
@@ -7,7 +7,7 @@ import { ArrowRight, MessageCircle, MessageSquare, Lightbulb, Calendar, Building
 export const revalidate = 300
 
 export default async function HomePage() {
-  const projects = await getWorkProjectsFromSupabase({ limit: 12 })
+  const projects = workProjects.slice(0, 12)
 
   return (
     <>

@@ -31,11 +31,13 @@ interface WorkCarouselClientProps {
 }
 
 export function WorkCarouselClient({ projects }: WorkCarouselClientProps) {
+  const sectionRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
   const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
+  const [isInView, setIsInView] = useState(true)
 
   const scrollProjects = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
@@ -70,11 +72,25 @@ export function WorkCarouselClient({ projects }: WorkCarouselClientProps) {
   }, [])
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+    const node = sectionRef.current
+    if (!node || typeof IntersectionObserver === "undefined") return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
     if (autoScrollIntervalRef.current) {
       clearInterval(autoScrollIntervalRef.current)
     }
 
-    const reduceMotion = prefersReducedMotion || !isVisible
+    const reduceMotion = prefersReducedMotion || !isVisible || !isInView
     if (!reduceMotion && !isPaused && scrollContainerRef.current && projects.length > 0) {
       autoScrollIntervalRef.current = setInterval(() => {
         if (scrollContainerRef.current) {
@@ -101,10 +117,10 @@ export function WorkCarouselClient({ projects }: WorkCarouselClientProps) {
         clearInterval(autoScrollIntervalRef.current)
       }
     }
-  }, [isPaused, projects.length, prefersReducedMotion, isVisible])
+  }, [isPaused, projects.length, prefersReducedMotion, isVisible, isInView])
 
   return (
-    <section className="py-24 relative z-10 overflow-hidden">
+    <section ref={sectionRef} className="py-24 relative z-10 overflow-hidden">
       <div className="absolute inset-0 flowing-water pointer-events-none opacity-30"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex justify-between items-end mb-16">
@@ -141,10 +157,15 @@ export function WorkCarouselClient({ projects }: WorkCarouselClientProps) {
             const categoryColor = getCategoryColor(project.category)
             const categoryLabel = getCategoryLabel(project.category)
 
+            const href = project.url ?? `/${project.slug}`
+            const isExternal = Boolean(project.url)
+
             return (
               <Link
                 key={project.slug}
-                href={`/${project.slug}`}
+                href={href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
                 className="group relative flex flex-col gap-4 cursor-pointer min-w-[300px] sm:min-w-[350px] md:min-w-[400px] snap-start shrink-0"
               >
                 <div className="relative w-full aspect-16/10 bg-[#161b26] rounded-2xl overflow-hidden border border-white/10 hover:shadow-[0_0_25px_rgba(0,255,170,0.4)] hover:border-primary/60 transition-all duration-500">
