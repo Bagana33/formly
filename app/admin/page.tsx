@@ -224,7 +224,7 @@ export default function AdminPage() {
   }
 
   // Handle image upload
-  function handleImageUpload(workIndex: number, file: File | null) {
+  async function handleImageUpload(workIndex: number, file: File | null) {
     if (!file) return
 
     // Check if file is an image
@@ -239,18 +239,38 @@ export default function AdminPage() {
       return
     }
 
-    const reader = new FileReader()
-    reader.onloadend = () => {
-      const base64String = reader.result as string
+    try {
+      const fileExt = file.name.split(".").pop() || "jpg"
+      const fileName = `work-${Date.now()}-${Math.random().toString(36).slice(2)}.${fileExt}`
+      const filePath = `work/${fileName}`
+      const bucket = "work-images"
+
+      const { error: uploadError } = await supabase.storage
+        .from(bucket)
+        .upload(filePath, file, { upsert: true })
+
+      if (uploadError) {
+        console.error("Image upload failed:", uploadError)
+        alert("Зураг upload хийх үед алдаа гарлаа. Bucket (work-images) үүссэн эсэхийг шалгана уу.")
+        return
+      }
+
+      const { data } = supabase.storage.from(bucket).getPublicUrl(filePath)
+      const publicUrl = data?.publicUrl
+
+      if (!publicUrl) {
+        alert("Зурагны public URL авахад алдаа гарлаа")
+        return
+      }
+
       setContent({
         ...content,
-        work: updateArrayItem(content.work, workIndex, { image: base64String }),
+        work: updateArrayItem(content.work, workIndex, { image: publicUrl }),
       })
+    } catch (err) {
+      console.error("Image upload failed:", err)
+      alert("Зураг upload хийх үед алдаа гарлаа")
     }
-    reader.onerror = () => {
-      alert("Зураг унших үед алдаа гарлаа")
-    }
-    reader.readAsDataURL(file)
   }
 
   // Extract domain from URL
@@ -305,7 +325,7 @@ export default function AdminPage() {
     <>
       <Section className="pt-16">
         <div className="pattern relative overflow-hidden rounded-3xl border border-border/70 bg-card/90 shadow-xl backdrop-blur">
-          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cta via-secondary to-primary opacity-80" />
+          <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-cta via-secondary to-primary opacity-80" />
           <div className="relative p-6 md:p-8 space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
@@ -1012,7 +1032,7 @@ export default function AdminPage() {
                                 setContent({ ...content, work: updateArrayItem(content.work, idx, { ...item, image: e.target.value }) })
                             }
                               className="flex-1 rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-                              placeholder="Зураг URL эсвэл local файл оруулах"
+                              placeholder="Зураг URL оруулна уу"
                             />
                             <label className="inline-flex items-center gap-2 rounded-lg border border-input bg-background px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted cursor-pointer transition-colors">
                               <Upload className="h-4 w-4" />
@@ -1040,7 +1060,7 @@ export default function AdminPage() {
                               />
                             </div>
                           )}
-                          <p className="text-xs text-muted-foreground">Зураг URL эсвэл "Файл" товчийг дараад local файл оруулна уу (Max 5MB)</p>
+                          <p className="text-xs text-muted-foreground">"Файл" товчоор upload хийхэд Supabase Storage (work-images) bucket руу байршуулж public URL хадгална. (Max 5MB)</p>
                         </div>
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
