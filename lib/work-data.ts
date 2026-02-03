@@ -14,12 +14,20 @@ export interface WorkProject {
   duration: string
 }
 
-function normalizeProjectImage(image?: string): string {
-  if (!image) return "/placeholder.jpg"
+function normalizeProjectImage(image?: string, fallback = "/placeholder.jpg"): string {
+  if (!image) return fallback
   const trimmed = image.trim()
-  if (!trimmed) return "/placeholder.jpg"
-  if (trimmed.startsWith("data:")) return "/placeholder.jpg"
-  if (trimmed.length > 2048) return "/placeholder.jpg"
+  if (!trimmed) return fallback
+  if (trimmed.startsWith("data:")) return fallback
+  if (trimmed.length > 2048) return fallback
+  if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+    try {
+      const host = new URL(trimmed).hostname
+      if (host === "localhost" || host === "127.0.0.1") return fallback
+    } catch {
+      return fallback
+    }
+  }
   return trimmed
 }
 
@@ -140,19 +148,22 @@ export async function getWorkProjectsFromSupabase(
       return []
     }
 
-    return data.map((project) => ({
+    return data.map((project) => {
+      const fallbackImage = getWorkBySlug(project.slug)?.image || "/placeholder.jpg"
+      return ({
       slug: project.slug,
       title: project.title,
       category: project.category as WorkProject["category"],
       description: project.description,
-      image: normalizeProjectImage(project.image),
+      image: normalizeProjectImage(project.image, fallbackImage),
       industry: project.industry || "",
       goal: project.goal || "",
       problem: project.problem || "",
       solution: project.solution || "",
       pages: project.pages || [],
       duration: project.duration || "",
-    }))
+      })
+    })
   } catch (err) {
     console.error("Error fetching work projects from Supabase:", err)
     return []
@@ -201,12 +212,13 @@ export async function getWorkBySlugFromSupabase(slug: string): Promise<WorkProje
       return null
     }
 
+    const fallbackImage = getWorkBySlug(data.slug)?.image || "/placeholder.jpg"
     return {
       slug: data.slug,
       title: data.title,
       category: data.category as WorkProject["category"],
       description: data.description,
-      image: normalizeProjectImage(data.image),
+      image: normalizeProjectImage(data.image, fallbackImage),
       industry: data.industry,
       goal: data.goal || "",
       problem: data.problem || "",
