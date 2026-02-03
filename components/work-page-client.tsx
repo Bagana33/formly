@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, ExternalLink, ChevronDown } from "lucide-react"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import type { WorkProject } from "@/lib/work-data"
 
 const categories = [
@@ -28,10 +28,10 @@ interface WorkPageClientProps {
 export function WorkPageClient({ projects }: WorkPageClientProps) {
   const [selectedCategory, setSelectedCategory] = useState("all")
 
-  const filteredProjects =
-    selectedCategory === "all"
-      ? projects
-      : projects.filter((p) => categoryMap[p.category] === selectedCategory)
+  const filteredProjects = useMemo(() => {
+    if (selectedCategory === "all") return projects
+    return projects.filter((p) => categoryMap[p.category] === selectedCategory)
+  }, [projects, selectedCategory])
 
   const getCategoryColor = (category: string) => {
     const colorMap: Record<string, string> = {

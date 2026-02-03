@@ -34,6 +34,8 @@ export function WorkCarouselClient({ projects }: WorkCarouselClientProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
   const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
 
   const scrollProjects = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
@@ -48,11 +50,32 @@ export function WorkCarouselClient({ projects }: WorkCarouselClientProps) {
   }
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const update = () => setPrefersReducedMotion(media.matches)
+    update()
+    if (media.addEventListener) {
+      media.addEventListener("change", update)
+      return () => media.removeEventListener("change", update)
+    }
+    media.addListener(update)
+    return () => media.removeListener(update)
+  }, [])
+
+  useEffect(() => {
+    if (typeof document === "undefined") return
+    const onVisibility = () => setIsVisible(document.visibilityState === "visible")
+    document.addEventListener("visibilitychange", onVisibility)
+    return () => document.removeEventListener("visibilitychange", onVisibility)
+  }, [])
+
+  useEffect(() => {
     if (autoScrollIntervalRef.current) {
       clearInterval(autoScrollIntervalRef.current)
     }
 
-    if (!isPaused && scrollContainerRef.current && projects.length > 0) {
+    const reduceMotion = prefersReducedMotion || !isVisible
+    if (!reduceMotion && !isPaused && scrollContainerRef.current && projects.length > 0) {
       autoScrollIntervalRef.current = setInterval(() => {
         if (scrollContainerRef.current) {
           const container = scrollContainerRef.current
@@ -78,7 +101,7 @@ export function WorkCarouselClient({ projects }: WorkCarouselClientProps) {
         clearInterval(autoScrollIntervalRef.current)
       }
     }
-  }, [isPaused, projects.length])
+  }, [isPaused, projects.length, prefersReducedMotion, isVisible])
 
   return (
     <section className="py-24 relative z-10 overflow-hidden">
