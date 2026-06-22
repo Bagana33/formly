@@ -1,101 +1,92 @@
 "use client"
 
-import Image from "next/image"
 import Link from "next/link"
+import Image from "next/image"
 import { useState } from "react"
-import { ArrowRight, Menu, X } from "lucide-react"
-
-const orderLink =
-  process.env.NEXT_PUBLIC_GOOGLE_FORMS_LINK ||
-  "https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"
-
-const navigation = [
-  { href: "/#included", label: "Юу багтах вэ" },
-  { href: "/#process", label: "Яаж ажилладаг вэ" },
-  { href: "/work", label: "Хийсэн сайтууд" },
-  { href: "/pricing", label: "Үнэ" },
-  { href: "/faq", label: "Асуулт" },
-]
+import { Menu, X } from "lucide-react"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-white/8 bg-[#0c151a]/88 backdrop-blur-xl">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between gap-4">
-          <Link href="/" className="flex shrink-0 items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
-            <div className="relative h-10 w-10 overflow-hidden rounded-xl border border-primary/40 bg-white/5 shadow-[0_0_18px_rgba(23,190,187,0.2)]">
-              <Image src="/formly-logo.png" alt="Formly лого" fill sizes="40px" className="object-contain p-1" priority />
+    <nav className="fixed top-0 w-full z-50 bg-secondary/70 backdrop-blur-xl border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="relative w-9 h-9 rounded-lg overflow-hidden border border-primary/50 shadow-[0_0_14px_rgba(23,190,187,0.28)] bg-white/5">
+              <Image src="/formly-logo.png" alt="Formly лого" fill sizes="36px" className="object-contain p-1" priority />
             </div>
-            <div>
-              <span className="block text-xl font-semibold tracking-tight text-white">Formly</span>
-              <span className="hidden text-[10px] font-semibold uppercase tracking-[0.16em] text-primary sm:block">Done-for-you websites</span>
-            </div>
+            <span className="text-xl font-serif font-medium tracking-wide text-white">Formly</span>
           </Link>
 
-          <nav className="hidden items-center gap-1 lg:flex">
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded-full px-3.5 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
-              >
-                {item.label}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-10 text-sm font-medium text-slate-300">
+            <Link href="/process" className="hover:text-primary transition-colors">
+              Процесс
+            </Link>
+            <Link href="/work" className="hover:text-primary transition-colors">
+              Ажлууд
+            </Link>
+            <Link href="/pricing" className="hover:text-primary transition-colors">
+              Үнэ
+            </Link>
+            <Link href="/faq" className="hover:text-accent transition-colors">
+              Асуултууд
               </Link>
-            ))}
-          </nav>
+          </div>
 
-          <div className="ml-auto hidden items-center md:flex">
+          <div className="flex items-center gap-6">
             <Link
-              href={orderLink}
+              href={process.env.NEXT_PUBLIC_GOOGLE_FORMS_LINK || "https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground shadow-[0_12px_35px_-18px_rgba(23,190,187,.9)] transition hover:-translate-y-0.5 hover:brightness-110"
+              className="group relative px-6 py-2.5 rounded-full overflow-hidden text-sm font-medium text-white shadow-lg shadow-primary/25 transition-all hover:shadow-primary/45 hover:scale-105"
             >
-              Сайтаа захиалах
-              <ArrowRight className="h-4 w-4" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary to-[#2F3E46] opacity-100 group-hover:brightness-110 transition-all"></div>
+              <span className="relative z-10 font-bold tracking-wide text-white">Захиалах</span>
             </Link>
           </div>
 
+          {/* Mobile Menu Button */}
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center rounded-xl text-slate-300 transition hover:bg-white/5 hover:text-white md:hidden"
-            onClick={() => setMobileMenuOpen((open) => !open)}
+            className="md:hidden p-2 text-slate-300 hover:text-white"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Цэс хаах" : "Цэс нээх"}
-            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
+        {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="border-t border-white/8 pb-5 pt-3 md:hidden">
-            <nav className="flex flex-col gap-1">
-              {navigation.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-xl px-3 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
+          <div className="md:hidden py-4 border-t border-white/5">
+            <nav className="flex flex-col gap-2">
+              <Link href="/process" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Процесс
+              </Link>
+              <Link href="/work" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-secondary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Ажлууд
+              </Link>
+              <Link href="/pricing" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Үнэ
+              </Link>
+              <Link href="/faq" className="px-2 py-2 text-sm font-medium text-slate-300 hover:text-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Асуултууд
                 </Link>
-              ))}
               <Link
-                href={orderLink}
+                href={process.env.NEXT_PUBLIC_GOOGLE_FORMS_LINK || "https://docs.google.com/forms/d/e/1FAIpQLSfSY_U2Qzfw_HhNcW0HtBqZCq8Un5lr8Fp9Mw7aHB2-uKL4pA/viewform?usp=dialog"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 text-sm font-bold text-primary-foreground"
+                className="mt-2 inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-[#0b1a1f] bg-primary rounded-full"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Сайтаа захиалах
-                <ArrowRight className="h-4 w-4" />
+                Захиалах
               </Link>
             </nav>
           </div>
         )}
       </div>
-    </header>
+    </nav>
   )
 }
